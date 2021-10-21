@@ -1,0 +1,94 @@
+PÁGINAS:
+
+>>>>>>>>>>>>> HEADER
+    listarCategoriasModel (BD INTERNO)
+        Categorias1Nivel 
+        Categorias2Niveis
+
+    listarCategoriasMenu (BD INTERNO)
+        Categorias1Nivel
+        Categorias2Niveis
+
+    listarProdutosBusca
+    	localhost:8080/chave-busca
+
+>>>>>>>>>>>>> HOME
+    listarDestaques //click para página do produto
+        CategoriaDestaques 
+
+    listarEventos (BD INTERNO) //click para página de seleção de produtos
+        CategoriaEventos
+
+    listar1Carrousel
+        CategoriaTopFacas
+
+    listar1Carrousel
+        CategoriaTopArmas
+
+    listar1Carrousel
+        CategoriaMaisVendidos
+
+>>>>>>>>>>>>> CADASTRO-CLIENTE
+    postCadastro
+
+
+>>>>>>>>>>>>> LOGIN-CLIENTE
+    PostLogin - JWT(JSON Web Token) - bearer Toeken
+
+    PostLoginSteam
+
+
+>>>>>>>>>>>>> DASHBOARD-CLIENTE
+    cartoesCredito
+        getCartaoCredito
+        updateCartaoCredito
+	deleteCartaoCredito
+    
+    dadosConta
+        getDadosCliente
+        updateDadosCliente
+    
+    alterarSenha  
+        updateSenhaCliente
+
+    historicoCompras
+        listarPedidos
+            localhost:8080/pedidos
+        
+        getPedido
+            localhost:8080/pedido/id
+
+
+>>>>>>>>>>>>> FAVORITOS
+    listarProdutosFavoritos
+        localhost:8080/favoritos/lista
+
+>>>>>>>>>>>>> CATEGORIA
+    listarProdutos //Listar todos os produtos da categoria e ir filtrando conforme seleção nos filtros
+        localhost:8080/categoria
+
+
+>>>>>>>>>>>>> PRODUTO
+    getProduto (BD INTERNO)
+        localhost:8080/produto/id
+
+    postAdicionarCarrinho
+
+    listar1Carrousel
+        CategoriaItensSemelhantes
+
+
+>>>>>>>>>>>>> CARRINHO
+    listarProdutosCarrinho
+        localhost:8080/favoritos/lista
+    
+    postCupomDesconto
+
+>>>>>>>>>>>>> PAGAMENTO
+    postFinalizarPedido
+
+>>>>>>>>>>>>> SUCESSO DE COMPRA
+    getPedido //Aqui é dinâmico, encaminha para a página de sucesso de acordo com a forma de pagamento
+
+>>>>>>>>>>>>> CONTATO
+    N/D
