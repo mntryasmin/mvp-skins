@@ -99,7 +99,6 @@ public class PedidoService {
 
         if (opt.isPresent()) {
             Pedido update = opt.get();
-            update.setId(pedido.getId());
 
             if (pedido.getNf() != null) {
                 update.setNf(pedido.getNf());
