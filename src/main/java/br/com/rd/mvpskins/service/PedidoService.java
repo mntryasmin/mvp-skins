@@ -5,9 +5,8 @@ import br.com.rd.mvpskins.model.entity.Pedido;
 import br.com.rd.mvpskins.repository.contract.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,13 +21,11 @@ public class PedidoService {
         Pedido b = new Pedido();
 
         b.setId(dto.getId());
-        b.setNf(dto.getNf());
-        b.setQuantidade(dto.getQuantidade());
-        b.setIcms(dto.getIcms());
-        b.setPis(dto.getPis());
-        b.setCofins(dto.getCofins());
-        b.setIpi(dto.getIpi());
-        b.setDesconto(dto.getDesconto());
+        b.setCodigo_empresa(dto.getCodigo_empresa());
+        b.setCodigo_cliente(dto.getCodigo_cliente());
+        b.setCodigo_forma_pagamento(dto.getCodigo_forma_pagamento());
+        b.setData_emissao(dto.getData_emissao());
+        b.setDesconto_produto(dto.getDesconto_produto());
         b.setValor_bruto(dto.getValor_bruto());
         b.setValor_liquido(dto.getValor_liquido());
 
@@ -40,13 +37,11 @@ public class PedidoService {
         PedidoDTO dto = new PedidoDTO();
 
         dto.setId(b.getId());
-        dto.setNf(b.getNf());
-        dto.setQuantidade(b.getQuantidade());
-        dto.setIcms(b.getIcms());
-        dto.setPis(b.getPis());
-        dto.setCofins(b.getCofins());
-        dto.setIpi(b.getIpi());
-        dto.setDesconto(b.getDesconto());
+        dto.setCodigo_empresa(b.getCodigo_empresa());
+        dto.setCodigo_cliente(b.getCodigo_cliente());
+        dto.setCodigo_forma_pagamento(b.getCodigo_forma_pagamento());
+        dto.setData_emissao(b.getData_emissao());
+        dto.setDesconto_produto(b.getDesconto_produto());
         dto.setValor_bruto(b.getValor_bruto());
         dto.setValor_liquido(b.getValor_liquido());
 
@@ -67,8 +62,9 @@ public class PedidoService {
 
     //  ---------------------> CRIAR
     public PedidoDTO criar (PedidoDTO pedidoDTO) {
-        Pedido pedido;
-        pedido = pedidoRepository.save(dtoToBusiness(pedidoDTO));
+        Pedido pedido = dtoToBusiness(pedidoDTO);
+        pedido.setData_emissao(new Date());
+        pedido = pedidoRepository.save(pedido);
 
         return businessToDTO(pedido);
     }
@@ -99,34 +95,25 @@ public class PedidoService {
 
         if (opt.isPresent()) {
             Pedido update = opt.get();
-            update.setId(pedido.getId());
 
-            if (pedido.getNf() != null) {
-                update.setNf(pedido.getNf());
+            if (pedido.getCodigo_empresa() != null) {
+                update.setCodigo_empresa(pedido.getCodigo_empresa());
             }
 
-            if (pedido.getQuantidade() != null) {
-                update.setQuantidade(pedido.getQuantidade());
+            if (pedido.getCodigo_cliente() != null) {
+                update.setCodigo_cliente(pedido.getCodigo_cliente());
             }
 
-            if (pedido.getIcms() != null) {
-                update.setIcms(pedido.getIcms());
+            if (pedido.getCodigo_forma_pagamento() != null) {
+                update.setCodigo_forma_pagamento(pedido.getCodigo_forma_pagamento());
             }
 
-            if (pedido.getPis() != null) {
-                update.setPis(pedido.getPis());
+            if (pedido.getData_emissao() != null) {
+                update.setData_emissao(pedido.getData_emissao());
             }
 
-            if (pedido.getCofins() != null) {
-                update.setCofins(pedido.getCofins());
-            }
-
-            if (pedido.getIpi() != null) {
-                update.setIpi(pedido.getIpi());
-            }
-
-            if (pedido.getDesconto() != null) {
-                update.setDesconto(pedido.getDesconto());
+            if (pedido.getDesconto_produto() != null) {
+                update.setDesconto_produto(pedido.getDesconto_produto());
             }
 
             if (pedido.getValor_bruto() != null) {
