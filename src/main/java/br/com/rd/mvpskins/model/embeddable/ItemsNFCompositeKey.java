@@ -10,9 +10,9 @@ import java.io.Serializable;
 @Data
 public class ItemsNFCompositeKey implements Serializable {
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "codigo_produto")
     private Long idProduct;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "codigo_nf")
     private Long idNF;
 }
