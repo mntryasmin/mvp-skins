@@ -50,10 +50,10 @@ public class FormPaymentService {
 
     //  ---------------------> CRIAR
     public FormPaymentDTO create (FormPaymentDTO formPaymentDTO) {
-        FormPayment pedido = dtoToBusiness(formPaymentDTO);
-        pedido = formPaymentRepository.save(pedido);
+        FormPayment formPayment = dtoToBusiness(formPaymentDTO);
+        formPayment = formPaymentRepository.save(formPayment);
 
-        return businessToDTO(pedido);
+        return businessToDTO(formPayment);
     }
 
 
