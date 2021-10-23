@@ -32,11 +32,9 @@ public class RequestService {
         //        ===> BUSINESS
         if (dto.getFormPaymentDTO() != null) {
             FormPayment f = new FormPayment();
-            if (dto.getFormPaymentDTO().getId() != null){
-                f.setId(dto.getFormPaymentDTO().getId());
-            }else {
-                f.setDescription(dto.getFormPaymentDTO().getDescription());
-            }
+            f.setId(dto.getFormPaymentDTO().getId());
+            f.setDescription(dto.getFormPaymentDTO().getDescription());
+
             b.setFormPayment(f);
         }
 
@@ -57,13 +55,11 @@ public class RequestService {
 
 //        ===> DTO
         if (b.getFormPayment() != null) {
-            FormPayment f = new FormPayment();
-            if (b.getFormPayment().getId() != null){
-                f.setId(b.getFormPayment().getId());
-            }else {
-                f.setDescription(b.getFormPayment().getDescription());
-            }
-            b.setFormPayment(f);
+            FormPaymentDTO f = new FormPaymentDTO();
+            f.setId(b.getFormPayment().getId());
+            f.setDescription(b.getFormPayment().getDescription());
+
+            dto.setFormPaymentDTO(f);
         }
 
         dto.setId(b.getId());
