@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Entity(name = "tb_pedido")
-public class Pedido {
+@Entity(name = "TB_PEDIDO")
+public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,27 +16,27 @@ public class Pedido {
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn
     @Column(nullable = false)
-    private Integer codigo_empresa;
+    private Long idCompany;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn
     @Column(nullable = false)
-    private Integer codigo_cliente;
+    private Long idClient;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn
     @Column(nullable = false)
-    private Integer codigo_forma_pagamento;
+    private Long idFormPayment;
 
     @Column
-    private Date data_emissao;
+    private Date issueDate;
 
     @Column(nullable = false)
-    private Double desconto_produto;
+    private Double discountProduct;
 
     @Column(nullable = false)
-    private Double valor_bruto;
+    private Double grossAddedValue;
 
     @Column(nullable = false)
-    private Double valor_liquido;
+    private Double netValue;
 }
