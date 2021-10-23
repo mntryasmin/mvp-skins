@@ -1,7 +1,10 @@
 package br.com.rd.mvpskins.service;
 
+import br.com.rd.mvpskins.model.dto.FormPaymentDTO;
 import br.com.rd.mvpskins.model.dto.RequestDTO;
+import br.com.rd.mvpskins.model.entity.FormPayment;
 import br.com.rd.mvpskins.model.entity.Request;
+import br.com.rd.mvpskins.repository.contract.FormPaymentRepository;
 import br.com.rd.mvpskins.repository.contract.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,14 +19,30 @@ public class RequestService {
     @Autowired
     RequestRepository requestRepository;
 
+    @Autowired
+    FormPaymentService formPaymentService;
+
+    @Autowired
+    FormPaymentRepository formPaymentRepository;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private Request dtoToBusiness (RequestDTO dto) {
         Request b = new Request();
 
+        //        ===> BUSINESS
+        if (dto.getFormPaymentDTO() != null) {
+            FormPayment f = new FormPayment();
+            if (dto.getFormPaymentDTO().getId() != null){
+                f.setId(dto.getFormPaymentDTO().getId());
+            }else {
+                f.setDescription(dto.getFormPaymentDTO().getDescription());
+            }
+            b.setFormPayment(f);
+        }
+
         b.setId(dto.getId());
         b.setIdCompany(dto.getIdCompany());
         b.setIdClient(dto.getIdClient());
-        b.setIdFormPayment(dto.getIdFormPayment());
         b.setIssueDate(dto.getIssueDate());
         b.setDiscountProduct(dto.getDiscountProduct());
         b.setGrossAddedValue(dto.getGrossAddedValue());
@@ -36,10 +55,20 @@ public class RequestService {
     private RequestDTO businessToDTO (Request b) {
         RequestDTO dto = new RequestDTO();
 
+//        ===> DTO
+        if (b.getFormPayment() != null) {
+            FormPayment f = new FormPayment();
+            if (b.getFormPayment().getId() != null){
+                f.setId(b.getFormPayment().getId());
+            }else {
+                f.setDescription(b.getFormPayment().getDescription());
+            }
+            b.setFormPayment(f);
+        }
+
         dto.setId(b.getId());
         dto.setIdCompany(b.getIdCompany());
         dto.setIdClient(b.getIdClient());
-        dto.setIdFormPayment(b.getIdFormPayment());
         dto.setIssueDate(b.getIssueDate());
         dto.setDiscountProduct(b.getDiscountProduct());
         dto.setGrossAddedValue(b.getGrossAddedValue());
@@ -62,11 +91,25 @@ public class RequestService {
 
     //  ---------------------> CRIAR
     public RequestDTO create (RequestDTO requestDTO) {
-        Request pedido = dtoToBusiness(requestDTO);
-        pedido.setIssueDate(new Date());
-        pedido = requestRepository.save(pedido);
+        Request request = this.dtoToBusiness(requestDTO);
 
-        return businessToDTO(pedido);
+        if (requestDTO.getFormPaymentDTO() != null) {
+            Long id = request.getFormPayment().getId();
+            FormPayment f;
+
+            if (id != null) {
+                f = this.formPaymentRepository.getById(id);
+            } else {
+                f = this.formPaymentRepository.save(request.getFormPayment());
+            }
+
+            request.setFormPayment(f);
+        }
+
+        request.setIssueDate(new Date());
+        request = requestRepository.save(request);
+
+        return businessToDTO(request);
     }
 
 
@@ -104,8 +147,8 @@ public class RequestService {
                 update.setIdClient(request.getIdClient());
             }
 
-            if (request.getIdFormPayment() != null) {
-                update.setIdFormPayment(request.getIdFormPayment());
+            if (request.getFormPayment() != null) {
+                update.setFormPayment(request.getFormPayment());
             }
 
             if (request.getIssueDate() != null) {

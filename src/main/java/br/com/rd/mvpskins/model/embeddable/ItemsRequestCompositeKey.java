@@ -8,9 +8,9 @@ import java.io.Serializable;
 @Data
 public class ItemsRequestCompositeKey implements Serializable {
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "codigo_produto")
     private Long idProduct;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "codigo_pedido")
     private Long idRequest;
 }

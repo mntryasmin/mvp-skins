@@ -14,7 +14,7 @@ public class ItemsNF {
     @Column(nullable = false)
     private ItemsNFCompositeKey id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "quantidade")
     private Integer quantity;
 
     @Column(nullable = false)
@@ -29,12 +29,12 @@ public class ItemsNF {
     @Column(nullable = false)
     private Double ipi;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "desconto")
     private Double discount;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "valor_bruto")
     private Double grossAddedValue;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "valor_liquido")
     private Double netValue;
 }
