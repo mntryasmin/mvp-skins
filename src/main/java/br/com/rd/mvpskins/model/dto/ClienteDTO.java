@@ -1,9 +1,7 @@
-package br.com.rd.ProjetoIntegrador.DTO;
+package br.com.rd.mvpskins.model.dto;
 
-import br.com.rd.ProjetoIntegrador.Entity.Genero;
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.util.Date;
 @Data
 
@@ -14,7 +12,7 @@ public class ClienteDTO {
     private Date dataNascimento;
     private String tradeLink;
     private String senhaCliente;
-    private GeneroDTO genero;
     private String numeroTelefone;
+    private GeneroDTO genero;
 
 }

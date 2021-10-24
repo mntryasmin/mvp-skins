@@ -1,11 +1,11 @@
-package br.com.rd.ProjetoIntegrador.Service;
+package br.com.rd.mvpskins.service;
 
-import br.com.rd.ProjetoIntegrador.DTO.ClienteDTO;
-import br.com.rd.ProjetoIntegrador.DTO.GeneroDTO;
-import br.com.rd.ProjetoIntegrador.Entity.Cliente;
-import br.com.rd.ProjetoIntegrador.Entity.Genero;
-import br.com.rd.ProjetoIntegrador.Repository.ClienteRepository;
-import br.com.rd.ProjetoIntegrador.Repository.GeneroRepository;
+import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.dto.GeneroDTO;
+import br.com.rd.mvpskins.model.entity.Cliente;
+import br.com.rd.mvpskins.model.entity.Genero;
+import br.com.rd.mvpskins.repository.contract.ClienteRepository;
+import br.com.rd.mvpskins.repository.contract.GeneroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +89,16 @@ public class ClienteService {
         return null;
     }
 
+    public Cliente searchClienteByEmail(String email){
+        List<Cliente> lista = clienteRepository.findAll();
+        for(Cliente c : lista){
+            if(c.getEmailCliente().equals(email)){
+                return c;
+            }
+        }
+        return null;
+    }
+
     public ClienteDTO updateCliente (ClienteDTO dto, Long codigoCliente) {
         Optional<Cliente> opt = clienteRepository.findById(codigoCliente);
         Cliente cliente = dtoToBusiness(dto);
@@ -116,7 +126,11 @@ public class ClienteService {
                 update.setNumeroTelefone(cliente.getNumeroTelefone());
             }
             if (cliente.getGenero() != null) {
-                update.setGenero(cliente.getGenero());
+                Long idGenero = cliente.getGenero().getCodigoGenero();
+                if(idGenero !=null) {
+                    Genero g = generoRepository.getById(idGenero);
+                    update.setGenero(g);
+                }
             }
 
             clienteRepository.save(update);
