@@ -1,15 +1,14 @@
-package br.com.rd.ProjetoIntegrador.Service;
+package br.com.rd.mvpskins.service;
 
-import br.com.rd.ProjetoIntegrador.DTO.ClienteDTO;
-import br.com.rd.ProjetoIntegrador.DTO.GeneroDTO;
-import br.com.rd.ProjetoIntegrador.Entity.Cliente;
-import br.com.rd.ProjetoIntegrador.Entity.Genero;
-import br.com.rd.ProjetoIntegrador.Repository.ClienteRepository;
-import br.com.rd.ProjetoIntegrador.Repository.GeneroRepository;
+import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.dto.GeneroDTO;
+import br.com.rd.mvpskins.model.entity.Cliente;
+import br.com.rd.mvpskins.model.entity.Genero;
+import br.com.rd.mvpskins.repository.contract.ClienteRepository;
+import br.com.rd.mvpskins.repository.contract.GeneroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Generated;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

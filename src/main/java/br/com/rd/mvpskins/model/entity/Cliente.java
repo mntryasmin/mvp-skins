@@ -1,4 +1,4 @@
-package br.com.rd.ProjetoIntegrador.Entity;
+package br.com.rd.mvpskins.model.entity;
 
 
 import lombok.Data;
