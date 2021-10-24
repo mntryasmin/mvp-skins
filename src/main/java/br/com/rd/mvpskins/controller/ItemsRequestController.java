@@ -23,13 +23,13 @@ public class ItemsRequestController {
     }
 
     //  ---------------------> BUSCAR
-    //TODOS OS ITENS PEDIDOS
+    //TODOS OS ITENS DE PEDIDOS
     @GetMapping
     public List<ItemsRequestDTO> searchAll() {
         return itemsRequestService.searchAll();
     }
 
-    //UM ITEM PEDIDO POR ID
+    //UM ITEM DE PEDIDO POR ID
     @GetMapping("/{idProduct}/{idRequest}")
     public ItemsRequestDTO searchID(@PathVariable("idProduct") Long idProduct, @PathVariable("idRequest") Long idRequest) {
         return itemsRequestService.searchID(idProduct, idRequest);

@@ -1,7 +1,9 @@
 package br.com.rd.mvpskins.model.embeddable;
 
 import lombok.Data;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable

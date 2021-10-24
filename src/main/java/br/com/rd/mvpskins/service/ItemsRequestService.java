@@ -23,7 +23,7 @@ public class ItemsRequestService {
 
     //  ---------------------> CONVERTER PARA BUSINESS
     private ItemsRequest dtoToBusiness (ItemsRequestDTO dto) {
-//        Request request = requestRepository.getById(dto.getId().getIdProduct());
+//        Request request = nfRepository.getById(dto.getId().getIdProduct());
 
         ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
         id.setIdProduct(dto.getId().getIdProduct());
@@ -41,7 +41,7 @@ public class ItemsRequestService {
 
     //  ---------------------> CONVERTER PARA DTO
     private ItemsRequestDTO businessToDTO (ItemsRequest b) {
-//        Request request = requestRepository.getById(b.getId().getIdProduct());
+//        Request request = nfRepository.getById(b.getId().getIdProduct());
 
         ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
         id.setIdProduct(b.getId().getIdProduct());
@@ -70,11 +70,6 @@ public class ItemsRequestService {
 
     //  ---------------------> CRIAR
     public ItemsRequestDTO create (ItemsRequestDTO itemsRequestDTO) {
-
-//        Request request = requestRepository.getById(itemsRequestDTO.getId().getIdRequest().getId());
-
-//        if (request != null) {
-
             ItemsRequest itemsRequest = dtoToBusiness(itemsRequestDTO);
 
             ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
@@ -85,28 +80,24 @@ public class ItemsRequestService {
             itemsRequest = itemsRequestRepository.save(itemsRequest);
 
             return businessToDTO(itemsRequest);
-//        }
-
-//        return null;
     }
 
 
     //  ---------------------> BUSCAR
-    //TODOS OS PEDIDOS
+    //TODOS OS ITENS DE PEDIDOS
     public List<ItemsRequestDTO> searchAll() {
         List<ItemsRequest> list = itemsRequestRepository.findAll();
 
         return listToDTO(list);
     }
 
-    //UM PEDIDO POR ID
+    //UM ITEM DE PEDIDO POR ID
     public ItemsRequestDTO searchID(Long idProduct, Long idRequest) {
 
         if (requestRepository.existsById(idRequest)) {
             ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
             id.setIdProduct(idProduct);
             id.setIdRequest(idRequest);
-//            id.setIdRequest(requestRepository.getById(idRequest));
 
             if (itemsRequestRepository.existsById(id)) {
                 return businessToDTO(itemsRequestRepository.getById(id));
@@ -123,7 +114,6 @@ public class ItemsRequestService {
             ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
             id.setIdProduct(idProduct);
             id.setIdRequest(idRequest);
-//            id.setIdRequest(requestRepository.getById(idRequest));
             dto.setId(id);
 
             ItemsRequest itemsRequest = dtoToBusiness(dto);
@@ -161,7 +151,7 @@ public class ItemsRequestService {
         ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
         id.setIdProduct(idProduct);
         id.setIdRequest(idRequest);
-//        id.setIdRequest(requestRepository.getById(idRequest));
+//        id.setIdRequest(nfRepository.getById(idRequest));
 
         if (itemsRequestRepository.existsById(id)) {
             itemsRequestRepository.deleteById(id);

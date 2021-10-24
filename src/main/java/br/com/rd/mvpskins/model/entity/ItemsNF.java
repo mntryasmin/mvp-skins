@@ -2,6 +2,7 @@ package br.com.rd.mvpskins.model.entity;
 
 import br.com.rd.mvpskins.model.embeddable.ItemsNFCompositeKey;
 import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

@@ -8,6 +8,7 @@ import br.com.rd.mvpskins.repository.contract.FormPaymentRepository;
 import br.com.rd.mvpskins.repository.contract.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,11 +30,9 @@ public class RequestService {
     private Request dtoToBusiness (RequestDTO dto) {
         Request b = new Request();
 
-        //        ===> BUSINESS
+        //        ===> FORMPAYMENT
         if (dto.getFormPaymentDTO() != null) {
-            FormPayment f = new FormPayment();
-            f.setId(dto.getFormPaymentDTO().getId());
-            f.setDescription(dto.getFormPaymentDTO().getDescription());
+            FormPayment f = formPaymentRepository.getById(dto.getFormPaymentDTO().getId());
 
             b.setFormPayment(f);
         }
@@ -53,11 +52,9 @@ public class RequestService {
     private RequestDTO businessToDTO (Request b) {
         RequestDTO dto = new RequestDTO();
 
-//        ===> DTO
+        //        ===> FORMPAYMENT
         if (b.getFormPayment() != null) {
-            FormPaymentDTO f = new FormPaymentDTO();
-            f.setId(b.getFormPayment().getId());
-            f.setDescription(b.getFormPayment().getDescription());
+            FormPaymentDTO f = formPaymentService.searchID(b.getFormPayment().getId());
 
             dto.setFormPaymentDTO(f);
         }
@@ -147,10 +144,6 @@ public class RequestService {
                 update.setFormPayment(request.getFormPayment());
             }
 
-            if (request.getIssueDate() != null) {
-                update.setIssueDate(request.getIssueDate());
-            }
-
             if (request.getDiscountProduct() != null) {
                 update.setDiscountProduct(request.getDiscountProduct());
             }
@@ -163,6 +156,7 @@ public class RequestService {
                 update.setNetValue(request.getNetValue());
             }
 
+            update.setIssueDate(new Date());
             requestRepository.save(update);
             return businessToDTO(update);
         }
