@@ -58,14 +58,14 @@ public class TypeNFService {
 
 
     //  ---------------------> BUSCAR
-    //TODOS OS PEDIDOS
+    //TODOS OS TIPOS DE NF
     public List<TypeNFDTO> searchAll() {
         List<TypeNF> list = typeNFRepository.findAll();
 
         return listToDTO(list);
     }
 
-    //UM PEDIDO POR ID
+    //UM TIPO DE NF POR ID
     public TypeNFDTO searchID(Long id) {
         if (typeNFRepository.existsById(id)) {
             return businessToDTO(typeNFRepository.getById(id));

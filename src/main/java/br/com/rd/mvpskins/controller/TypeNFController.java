@@ -23,13 +23,13 @@ public class TypeNFController {
     }
 
     //  ---------------------> BUSCAR
-    //TODOS OS PEDIDOS
+    //TODOS OS TIPOS DE NF
     @GetMapping
     public List<TypeNFDTO> searchAll() {
         return typeNFService.searchAll();
     }
 
-    //UM PEDIDO POR ID
+    //UM TIPO DE NF POR ID
     @GetMapping("/{id}")
     public TypeNFDTO searchID(@PathVariable("id") Long id) {
         return typeNFService.searchID(id);

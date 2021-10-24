@@ -23,13 +23,13 @@ public class FormPaymentController {
     }
 
     //  ---------------------> BUSCAR
-    //TODOS OS PEDIDOS
+    //TODAS AS FORMAS DE PAGAMENTO
     @GetMapping
     public List<FormPaymentDTO> searchAll() {
         return formPaymentService.searchAll();
     }
 
-    //UM PEDIDO POR ID
+    //UMA FORMA DE PAGAMENTO POR ID
     @GetMapping("/{id}")
     public FormPaymentDTO searchID(@PathVariable("id") Long id) {
         return formPaymentService.searchID(id);
