@@ -58,14 +58,14 @@ public class FormPaymentService {
 
 
     //  ---------------------> BUSCAR
-    //TODOS OS PEDIDOS
+    //TODOS AS FORMAS DE PAGAMENTO
     public List<FormPaymentDTO> searchAll() {
         List<FormPayment> list = formPaymentRepository.findAll();
 
         return listToDTO(list);
     }
 
-    //UM PEDIDO POR ID
+    //UMA FORMA DE PAGAMENTO POR ID
     public FormPaymentDTO searchID(Long id) {
         if (formPaymentRepository.existsById(id)) {
             return businessToDTO(formPaymentRepository.getById(id));

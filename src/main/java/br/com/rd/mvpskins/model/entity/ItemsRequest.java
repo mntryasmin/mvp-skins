@@ -3,7 +3,9 @@ package br.com.rd.mvpskins.model.entity;
 import br.com.rd.mvpskins.model.embeddable.ItemsRequestCompositeKey;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
 @Data
 @Entity(name = "TB_ITENS_PEDIDO")

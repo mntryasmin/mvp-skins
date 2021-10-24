@@ -1,6 +1,7 @@
 package br.com.rd.mvpskins.model.dto;
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 @Data
