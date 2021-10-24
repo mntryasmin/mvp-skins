@@ -7,5 +7,5 @@ import java.io.Serializable;
 @Data
 public class ItemsRequestCompositeKeyDTO implements Serializable {
     private Long idProduct;
-    private Long idRequest;
+    private RequestDTO request;
 }

@@ -51,11 +51,11 @@ PÁGINAS:
     alterarSenha  
         updateSenhaCliente
 
-    historicoCompras
+    historicoCompras  ---- OK
         listarPedidos
             localhost:8080/pedidos
         
-        getPedido
+        getPedido ---- OK
             localhost:8080/pedido/id
 
 
@@ -85,7 +85,7 @@ PÁGINAS:
     postCupomDesconto
 
 >>>>>>>>>>>>> PAGAMENTO
-    postFinalizarPedido
+    postFinalizarPedido ---- OK
 
 >>>>>>>>>>>>> SUCESSO DE COMPRA
     getPedido //Aqui é dinâmico, encaminha para a página de sucesso de acordo com a forma de pagamento

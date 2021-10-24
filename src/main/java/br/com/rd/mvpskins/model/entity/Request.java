@@ -14,19 +14,17 @@ public class Request {
     @Column (name = "codigo_pedido")
     private Long id;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn
-    @Column(nullable = false, name = "codigo_empresa")
-    private Long idCompany;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_empresa")
+    private Empresa company;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn
-    @Column(nullable = false, name = "codigo_cliente")
-    private Long idClient;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_cliente")
+    private Cliente client;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigo_forma_pagamento")
-    private FormPayment FormPayment;
+    private FormPayment formPayment;
 
     @Column (name = "data_emissao")
     private Date issueDate;

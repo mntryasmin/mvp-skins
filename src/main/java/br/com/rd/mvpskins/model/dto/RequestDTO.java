@@ -6,9 +6,9 @@ import java.util.Date;
 @Data
 public class RequestDTO {
     private Long id;
-    private Long idCompany;
-    private Long idClient;
-    private FormPaymentDTO FormPaymentDTO;
+    private EmpresaDTO company;
+    private ClienteDTO client;
+    private FormPaymentDTO formPayment;
     private Date issueDate;
     private Double discountProduct;
     private Double grossAddedValue;

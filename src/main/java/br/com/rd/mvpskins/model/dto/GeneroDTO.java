@@ -1,4 +1,4 @@
-package br.com.rd.ProjetoIntegrador.DTO;
+package br.com.rd.mvpskins.model.dto;
 
 import lombok.Data;
 

@@ -7,13 +7,12 @@ import java.util.Date;
 @Data
 public class NFDTO {
     private Long id;
-
-    private RequestDTO requestDTO;
-    private TypeNFDTO typeNFDTO;
-    private Long idCompanyDTO;
-    private Long idProviderDTO;
-    private Long idClientDTO;
-    private FormPaymentDTO formPaymentDTO;
+    private RequestDTO request;
+    private TypeNFDTO typeNF;
+    private EmpresaDTO company;
+    private Long idProvider;
+    private ClienteDTO client;
+    private FormPaymentDTO formPayment;
     private String accessKey;
     private String noteNumber;
     private Double icms;

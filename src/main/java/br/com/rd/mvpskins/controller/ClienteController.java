@@ -1,8 +1,8 @@
-package br.com.rd.ProjetoIntegrador.Controller;
+package br.com.rd.mvpskins.controller;
 
-import br.com.rd.ProjetoIntegrador.DTO.ClienteDTO;
-import br.com.rd.ProjetoIntegrador.Entity.Cliente;
-import br.com.rd.ProjetoIntegrador.Service.ClienteService;
+
+import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
