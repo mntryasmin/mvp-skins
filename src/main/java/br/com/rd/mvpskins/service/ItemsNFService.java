@@ -5,6 +5,7 @@ import br.com.rd.mvpskins.model.dto.ItemsNFDTO;
 import br.com.rd.mvpskins.model.embeddable.ItemsNFCompositeKey;
 import br.com.rd.mvpskins.model.entity.ItemsNF;
 import br.com.rd.mvpskins.repository.contract.ItemsNFRepository;
+import br.com.rd.mvpskins.repository.contract.NFRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,17 @@ public class ItemsNFService {
     @Autowired
     ItemsNFRepository itemsNFRepository;
 
+    @Autowired
+    NFService nfService;
+
+    @Autowired
+    NFRepository nfRepository;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private ItemsNF dtoToBusiness (ItemsNFDTO dto) {
         ItemsNFCompositeKey id = new ItemsNFCompositeKey();
         id.setIdProduct(dto.getId().getIdProduct());
-        id.setIdNF(dto.getId().getIdNF());
+        id.setNf(nfRepository.getById(dto.getId().getNf().getId()));
 
         ItemsNF b = new ItemsNF();
         b.setId(id);
@@ -42,7 +49,7 @@ public class ItemsNFService {
     private ItemsNFDTO businessToDTO (ItemsNF b) {
         ItemsNFCompositeKeyDTO id = new ItemsNFCompositeKeyDTO();
         id.setIdProduct(b.getId().getIdProduct());
-        id.setIdNF(b.getId().getIdNF());
+        id.setNf(nfService.searchID(b.getId().getNf().getId()));
 
         ItemsNFDTO dto = new ItemsNFDTO();
         dto.setId(id);
@@ -89,11 +96,11 @@ public class ItemsNFService {
     }
 
     //UM ITEM NF POR ID
-    public ItemsNFDTO searchID(Long codigoProduto, Long codigoNota) {
+    public ItemsNFDTO searchID(Long idProduct, Long idNF) {
 
         ItemsNFCompositeKey id = new ItemsNFCompositeKey();
-        id.setIdProduct(codigoProduto);
-        id.setIdNF(codigoNota);
+        id.setIdProduct(idProduct);
+        id.setNf(nfRepository.getById(idNF));
 
         if (itemsNFRepository.existsById(id)) {
             return businessToDTO(itemsNFRepository.getById(id));
@@ -103,11 +110,11 @@ public class ItemsNFService {
     }
 
     //  ---------------------> ATUALIZAR
-    public ItemsNFDTO update(ItemsNFDTO dto, Long codigoProduto, Long codigoNota) {
+    public ItemsNFDTO update(ItemsNFDTO dto, Long idProduct, Long idNF) {
 
             ItemsNFCompositeKeyDTO id = new ItemsNFCompositeKeyDTO();
-            id.setIdProduct(codigoProduto);
-            id.setIdNF(codigoNota);
+            id.setIdProduct(idProduct);
+            id.setNf(nfService.searchID(idNF));
             dto.setId(id);
 
             ItemsNF itemsNF = dtoToBusiness(dto);
@@ -141,10 +148,10 @@ public class ItemsNFService {
     }
 
     //  ---------------------> DELETAR
-    public void delete(Long codigoProduto, Long codigoNota) {
+    public void delete(Long idProduct, Long idNF) {
         ItemsNFCompositeKey id = new ItemsNFCompositeKey();
-        id.setIdProduct(codigoProduto);
-        id.setIdNF(codigoNota);
+        id.setIdProduct(idProduct);
+        id.setNf(nfRepository.getById(idNF));
 
         if (itemsNFRepository.existsById(id)) {
             itemsNFRepository.deleteById(id);

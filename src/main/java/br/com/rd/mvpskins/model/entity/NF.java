@@ -22,20 +22,18 @@ public class NF {
     @JoinColumn(name = "codigo_tipo_nf")
     private TypeNF typeNF;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "codigo_empresa")
-    @Column(nullable = false, name = "codigo_empresa")
-    private Long idCompany;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_empresa")
+    private Empresa company;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "codigo_fornecedor")
     @Column(nullable = false, name = "codigo_fornecedor")
     private Long idProvider;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "codigo_client")
-    @Column(nullable = false, name = "codigo_client")
-    private Long idClient;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_client")
+    private Cliente client;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigo_forma_pagamento")

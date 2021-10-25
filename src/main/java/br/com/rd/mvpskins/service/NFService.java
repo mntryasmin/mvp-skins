@@ -1,17 +1,8 @@
 package br.com.rd.mvpskins.service;
 
-import br.com.rd.mvpskins.model.dto.FormPaymentDTO;
-import br.com.rd.mvpskins.model.dto.NFDTO;
-import br.com.rd.mvpskins.model.dto.RequestDTO;
-import br.com.rd.mvpskins.model.dto.TypeNFDTO;
-import br.com.rd.mvpskins.model.entity.FormPayment;
-import br.com.rd.mvpskins.model.entity.NF;
-import br.com.rd.mvpskins.model.entity.Request;
-import br.com.rd.mvpskins.model.entity.TypeNF;
-import br.com.rd.mvpskins.repository.contract.FormPaymentRepository;
-import br.com.rd.mvpskins.repository.contract.NFRepository;
-import br.com.rd.mvpskins.repository.contract.RequestRepository;
-import br.com.rd.mvpskins.repository.contract.TypeNFRepository;
+import br.com.rd.mvpskins.model.dto.*;
+import br.com.rd.mvpskins.model.entity.*;
+import br.com.rd.mvpskins.repository.contract.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,34 +35,58 @@ public class NFService {
     @Autowired
     TypeNFRepository typeNFRepository;
 
+    @Autowired
+    EmpresaRepository companyRepository;
+
+    @Autowired
+    EmpresaService companyService;
+
+    @Autowired
+    ClienteRepository clientRepository;
+
+    @Autowired
+    ClienteService clientService;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private NF dtoToBusiness (NFDTO dto) {
         NF b = new NF();
 
         //        ===> REQUEST
-        if (dto.getRequestDTO() != null) {
-            Request r = requestRepository.getById(dto.getRequestDTO().getId());
+        if (dto.getRequest() != null) {
+            Request r = requestRepository.getById(dto.getRequest().getId());
             b.setRequest(r);
         }
 
         //        ===> TYPENF
-        if (dto.getTypeNFDTO() != null) {
-            TypeNF t = typeNFRepository.getById(dto.getTypeNFDTO().getId());
+        if (dto.getTypeNF() != null) {
+            TypeNF t = typeNFRepository.getById(dto.getTypeNF().getId());
 
             b.setTypeNF(t);
         }
 
         //        ===> FORMPAYMENT
-        if (dto.getFormPaymentDTO() != null) {
-            FormPayment f = formPaymentRepository.getById(dto.getFormPaymentDTO().getId());
+        if (dto.getFormPayment() != null) {
+            FormPayment f = formPaymentRepository.getById(dto.getFormPayment().getId());
 
             b.setFormPayment(f);
         }
 
+        //        ===> COMPANY
+        if (dto.getCompany() != null) {
+            Empresa c = companyRepository.getById(dto.getCompany().getId());
+
+            b.setCompany(c);
+        }
+
+        //        ===> CLIENT
+        if (dto.getClient() != null) {
+            Cliente c = clientRepository.getById(dto.getClient().getCodigoCliente());
+
+            b.setClient(c);
+        }
+
         b.setId(dto.getId());
-        b.setIdCompany(dto.getIdCompanyDTO());
-        b.setIdProvider(dto.getIdProviderDTO());
-        b.setIdClient(dto.getIdClientDTO());
+        b.setIdProvider(dto.getIdProvider());
         b.setAccessKey(dto.getAccessKey());
         b.setNoteNumber(dto.getNoteNumber());
         b.setIcms(dto.getIcms());
@@ -95,27 +110,39 @@ public class NFService {
         if (b.getRequest() != null) {
             RequestDTO r = requestService.searchID(b.getRequest().getId());
 
-            dto.setRequestDTO(r);
+            dto.setRequest(r);
         }
 
         //        ===> TYPENF
         if (b.getTypeNF() != null) {
             TypeNFDTO t = typeNFService.searchID(b.getTypeNF().getId());
 
-            dto.setTypeNFDTO(t);
+            dto.setTypeNF(t);
         }
 
         //        ===> FORMPAYMENT
         if (b.getFormPayment() != null) {
             FormPaymentDTO f = formPaymentService.searchID(b.getFormPayment().getId());
 
-            dto.setFormPaymentDTO(f);
+            dto.setFormPayment(f);
+        }
+
+        //        ===> COMPANY
+        if (b.getCompany() != null) {
+            EmpresaDTO c = companyService.searchID(b.getCompany().getIdEmpresa());
+
+            dto.setCompany(c);
+        }
+
+        //        ===> CLIENT
+        if (b.getClient() != null) {
+            ClienteDTO c = clientService.searchClienteById(b.getClient().getCodigoCliente());
+
+            dto.setClient(c);
         }
 
         dto.setId(b.getId());
-        dto.setIdCompanyDTO(b.getIdCompany());
-        dto.setIdProviderDTO(b.getIdProvider());
-        dto.setIdClientDTO(b.getIdClient());
+        dto.setIdProvider(b.getIdProvider());
         dto.setAccessKey(b.getAccessKey());
         dto.setNoteNumber(b.getNoteNumber());
         dto.setIcms(b.getIcms());
@@ -148,7 +175,7 @@ public class NFService {
         NF nf = this.dtoToBusiness(nfDTO);
 
         //        ===> REQUEST
-        if (nfDTO.getRequestDTO() != null) {
+        if (nfDTO.getRequest() != null) {
             Long idRequest = nf.getRequest().getId();
             Request r;
 
@@ -162,7 +189,7 @@ public class NFService {
         }
 
         //        ===> TYPENF
-        if (nfDTO.getTypeNFDTO() != null) {
+        if (nfDTO.getTypeNF() != null) {
             Long idTypeNF = nf.getTypeNF().getId();
             TypeNF t;
 
@@ -176,7 +203,7 @@ public class NFService {
         }
 
         //        ===> FORMPAYMENT
-        if (nfDTO.getFormPaymentDTO() != null) {
+        if (nfDTO.getFormPayment() != null) {
             Long idFormPayment = nf.getFormPayment().getId();
             FormPayment f;
 
@@ -230,16 +257,16 @@ public class NFService {
                 update.setTypeNF(nf.getTypeNF());
             }
 
-            if (nf.getIdCompany() != null) {
-                update.setIdCompany(nf.getIdCompany());
+            if (nf.getCompany() != null) {
+                update.setCompany(nf.getCompany());
             }
 
             if (nf.getIdProvider() != null) {
                 update.setIdProvider(nf.getIdProvider());
             }
 
-            if (nf.getIdClient() != null) {
-                update.setIdClient(nf.getIdClient());
+            if (nf.getClient() != null) {
+                update.setClient(nf.getClient());
             }
 
             if (nf.getFormPayment() != null) {

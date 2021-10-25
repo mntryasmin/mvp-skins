@@ -17,6 +17,14 @@ public class EmpresaService {
         return boToDto(e);
     }
 
+    public EmpresaDTO searchID(Long id) {
+        if (empresaRepository.existsById(id)) {
+            return boToDto(empresaRepository.getById(id));
+        }
+
+        return null;
+    }
+
     private EmpresaDTO boToDto(Empresa e){
         EmpresaDTO dto = new EmpresaDTO();
         dto.setTelefone(e.getTelefone());

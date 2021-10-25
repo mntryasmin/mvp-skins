@@ -1,9 +1,15 @@
 package br.com.rd.mvpskins.service;
 
+import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.dto.EmpresaDTO;
 import br.com.rd.mvpskins.model.dto.FormPaymentDTO;
 import br.com.rd.mvpskins.model.dto.RequestDTO;
+import br.com.rd.mvpskins.model.entity.Cliente;
+import br.com.rd.mvpskins.model.entity.Empresa;
 import br.com.rd.mvpskins.model.entity.FormPayment;
 import br.com.rd.mvpskins.model.entity.Request;
+import br.com.rd.mvpskins.repository.contract.ClienteRepository;
+import br.com.rd.mvpskins.repository.contract.EmpresaRepository;
 import br.com.rd.mvpskins.repository.contract.FormPaymentRepository;
 import br.com.rd.mvpskins.repository.contract.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +32,44 @@ public class RequestService {
     @Autowired
     FormPaymentRepository formPaymentRepository;
 
+    @Autowired
+    EmpresaService companyService;
+
+    @Autowired
+    EmpresaRepository companyRepository;
+
+    @Autowired
+    ClienteService clientService;
+
+    @Autowired
+    ClienteRepository clientRepository;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private Request dtoToBusiness (RequestDTO dto) {
         Request b = new Request();
 
         //        ===> FORMPAYMENT
-        if (dto.getFormPaymentDTO() != null) {
-            FormPayment f = formPaymentRepository.getById(dto.getFormPaymentDTO().getId());
+        if (dto.getFormPayment() != null) {
+            FormPayment f = formPaymentRepository.getById(dto.getFormPayment().getId());
 
             b.setFormPayment(f);
         }
 
+        //        ===> COMPANY
+        if (dto.getCompany() != null) {
+            Empresa c = companyRepository.getById(dto.getCompany().getId());
+
+            b.setCompany(c);
+        }
+
+        //        ===> CLIENT
+        if (dto.getClient() != null) {
+            Cliente c = clientRepository.getById(dto.getClient().getCodigoCliente());
+
+            b.setClient(c);
+        }
+
         b.setId(dto.getId());
-        b.setIdCompany(dto.getIdCompany());
-        b.setIdClient(dto.getIdClient());
         b.setIssueDate(dto.getIssueDate());
         b.setDiscountProduct(dto.getDiscountProduct());
         b.setGrossAddedValue(dto.getGrossAddedValue());
@@ -56,12 +86,24 @@ public class RequestService {
         if (b.getFormPayment() != null) {
             FormPaymentDTO f = formPaymentService.searchID(b.getFormPayment().getId());
 
-            dto.setFormPaymentDTO(f);
+            dto.setFormPayment(f);
+        }
+
+        //        ===> COMPANY
+        if (b.getCompany() != null) {
+            EmpresaDTO c = companyService.searchID(b.getCompany().getIdEmpresa());
+
+            dto.setCompany(c);
+        }
+
+        //        ===> CLIENT
+        if (b.getClient() != null) {
+            ClienteDTO c = clientService.searchClienteById(b.getClient().getCodigoCliente());
+
+            dto.setClient(c);
         }
 
         dto.setId(b.getId());
-        dto.setIdCompany(b.getIdCompany());
-        dto.setIdClient(b.getIdClient());
         dto.setIssueDate(b.getIssueDate());
         dto.setDiscountProduct(b.getDiscountProduct());
         dto.setGrossAddedValue(b.getGrossAddedValue());
@@ -86,7 +128,7 @@ public class RequestService {
     public RequestDTO create (RequestDTO requestDTO) {
         Request request = this.dtoToBusiness(requestDTO);
 
-        if (requestDTO.getFormPaymentDTO() != null) {
+        if (requestDTO.getFormPayment() != null) {
             Long id = request.getFormPayment().getId();
             FormPayment f;
 
@@ -132,12 +174,12 @@ public class RequestService {
         if (opt.isPresent()) {
             Request update = opt.get();
 
-            if (request.getIdCompany() != null) {
-                update.setIdCompany(request.getIdCompany());
+            if (request.getCompany() != null) {
+                update.setCompany(request.getCompany());
             }
 
-            if (request.getIdClient() != null) {
-                update.setIdClient(request.getIdClient());
+            if (request.getClient() != null) {
+                update.setClient(request.getClient());
             }
 
             if (request.getFormPayment() != null) {

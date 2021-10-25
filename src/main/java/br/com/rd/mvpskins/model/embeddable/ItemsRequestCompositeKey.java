@@ -1,9 +1,9 @@
 package br.com.rd.mvpskins.model.embeddable;
 
+import br.com.rd.mvpskins.model.entity.Request;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Embeddable
@@ -13,6 +13,7 @@ public class ItemsRequestCompositeKey implements Serializable {
     @Column(nullable = false, name = "codigo_produto")
     private Long idProduct;
 
-    @Column(nullable = false, name = "codigo_pedido")
-    private Long idRequest;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_pedido")
+    private Request request;
 }

@@ -1,8 +1,11 @@
 package br.com.rd.mvpskins.service;
 
+import br.com.rd.mvpskins.model.dto.ItemsRequestCompositeKeyDTO;
 import br.com.rd.mvpskins.model.dto.ItemsRequestDTO;
+import br.com.rd.mvpskins.model.dto.RequestDTO;
 import br.com.rd.mvpskins.model.embeddable.ItemsRequestCompositeKey;
 import br.com.rd.mvpskins.model.entity.ItemsRequest;
+import br.com.rd.mvpskins.model.entity.Request;
 import br.com.rd.mvpskins.repository.contract.ItemsRequestRepository;
 import br.com.rd.mvpskins.repository.contract.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +22,22 @@ public class ItemsRequestService {
     ItemsRequestRepository itemsRequestRepository;
 
     @Autowired
+    RequestService requestService;
+
+    @Autowired
     RequestRepository requestRepository;
 
     //  ---------------------> CONVERTER PARA BUSINESS
     private ItemsRequest dtoToBusiness (ItemsRequestDTO dto) {
-//        Request request = nfRepository.getById(dto.getId().getIdProduct());
 
+        //        ===> REQUEST
         ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
-        id.setIdProduct(dto.getId().getIdProduct());
-        id.setIdRequest(dto.getId().getIdProduct());
+        if (dto.getId().getRequest() != null) {
+            Request r = requestRepository.getById(dto.getId().getRequest().getId());
+
+            id.setIdProduct(dto.getId().getIdProduct());
+            id.setRequest(r);
+        }
 
         ItemsRequest b = new ItemsRequest();
         b.setId(id);
@@ -43,9 +53,14 @@ public class ItemsRequestService {
     private ItemsRequestDTO businessToDTO (ItemsRequest b) {
 //        Request request = nfRepository.getById(b.getId().getIdProduct());
 
-        ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
-        id.setIdProduct(b.getId().getIdProduct());
-        id.setIdRequest(b.getId().getIdProduct());
+        //        ===> REQUEST
+        ItemsRequestCompositeKeyDTO id = new ItemsRequestCompositeKeyDTO();
+        if (b.getId().getRequest() != null) {
+            RequestDTO r = requestService.searchID(b.getId().getRequest().getId());
+
+            id.setIdProduct(b.getId().getIdProduct());
+            id.setRequest(r);
+        }
 
         ItemsRequestDTO dto = new ItemsRequestDTO();
         dto.setId(id);
@@ -70,13 +85,8 @@ public class ItemsRequestService {
 
     //  ---------------------> CRIAR
     public ItemsRequestDTO create (ItemsRequestDTO itemsRequestDTO) {
+
             ItemsRequest itemsRequest = dtoToBusiness(itemsRequestDTO);
-
-            ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
-            id.setIdProduct(itemsRequest.getId().getIdProduct());
-            id.setIdRequest(itemsRequestDTO.getId().getIdRequest());
-
-            itemsRequest.setId(id);
             itemsRequest = itemsRequestRepository.save(itemsRequest);
 
             return businessToDTO(itemsRequest);
@@ -97,7 +107,7 @@ public class ItemsRequestService {
         if (requestRepository.existsById(idRequest)) {
             ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
             id.setIdProduct(idProduct);
-            id.setIdRequest(idRequest);
+            id.setRequest(requestRepository.getById(idRequest));
 
             if (itemsRequestRepository.existsById(id)) {
                 return businessToDTO(itemsRequestRepository.getById(id));
@@ -111,9 +121,9 @@ public class ItemsRequestService {
     public ItemsRequestDTO update(ItemsRequestDTO dto, Long idProduct, Long idRequest) {
 
         if (requestRepository.existsById(idRequest)) {
-            ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
+            ItemsRequestCompositeKeyDTO id = new ItemsRequestCompositeKeyDTO();
             id.setIdProduct(idProduct);
-            id.setIdRequest(idRequest);
+            id.setRequest(requestService.searchID(idRequest));
             dto.setId(id);
 
             ItemsRequest itemsRequest = dtoToBusiness(dto);
@@ -150,8 +160,7 @@ public class ItemsRequestService {
     public void delete(Long idProduct, Long idRequest) {
         ItemsRequestCompositeKey id = new ItemsRequestCompositeKey();
         id.setIdProduct(idProduct);
-        id.setIdRequest(idRequest);
-//        id.setIdRequest(nfRepository.getById(idRequest));
+        id.setRequest(requestRepository.getById(idRequest));
 
         if (itemsRequestRepository.existsById(id)) {
             itemsRequestRepository.deleteById(id);
