@@ -36,7 +36,7 @@ public class PrecoService {
             Produto p = produtoRepository.getById(idP);
             key.setProduto(p);
 
-            CategoriaPreco c = categoriaPrecoRepository.getById(idP);
+            CategoriaPreco c = categoriaPrecoRepository.getById(idC);
             key.setCategoriaPreco(c);
 
             Optional<Preco> op = precoRepository.findById(key);
