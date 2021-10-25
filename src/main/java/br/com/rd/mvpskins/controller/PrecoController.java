@@ -20,7 +20,7 @@ public class PrecoController {
         return precoService.getList();
     }
 
-    @GetMapping("/{idP}/{idC}")
+    @GetMapping("/{idC}/{idP}")         
     @ResponseBody
     public PrecoDTO getPrecoById(@PathVariable("idP")Long idP, @PathVariable("idC")Long idC){
         return precoService.getPrecoById(idP, idC);
