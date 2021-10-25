@@ -88,6 +88,16 @@ public class ClienteService {
         return null;
     }
 
+    public Cliente searchClienteByEmail(String email){
+        List<Cliente> lista = clienteRepository.findAll();
+        for(Cliente c : lista){
+            if(c.getEmailCliente().equals(email)){
+                return c;
+            }
+        }
+        return null;
+    }
+
     public ClienteDTO updateCliente (ClienteDTO dto, Long codigoCliente) {
         Optional<Cliente> opt = clienteRepository.findById(codigoCliente);
         Cliente cliente = dtoToBusiness(dto);
@@ -115,7 +125,11 @@ public class ClienteService {
                 update.setNumeroTelefone(cliente.getNumeroTelefone());
             }
             if (cliente.getGenero() != null) {
-                update.setGenero(cliente.getGenero());
+                Long idGenero = cliente.getGenero().getCodigoGenero();
+                if(idGenero !=null) {
+                    Genero g = generoRepository.getById(idGenero);
+                    update.setGenero(g);
+                }
             }
 
             clienteRepository.save(update);

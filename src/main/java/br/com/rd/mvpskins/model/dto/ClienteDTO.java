@@ -12,7 +12,7 @@ public class ClienteDTO {
     private Date dataNascimento;
     private String tradeLink;
     private String senhaCliente;
-    private GeneroDTO genero;
     private String numeroTelefone;
+    private GeneroDTO genero;
 
 }

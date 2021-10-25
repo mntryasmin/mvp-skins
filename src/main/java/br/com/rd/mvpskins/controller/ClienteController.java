@@ -1,7 +1,7 @@
 package br.com.rd.mvpskins.controller;
 
-
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.entity.Cliente;
 import br.com.rd.mvpskins.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +40,11 @@ public class ClienteController {
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void deleteCliente(@PathVariable("idCliente")Long codigoCliente){
         clienteService.deleteCliente(codigoCliente);
+    }
+
+    @GetMapping("/{email}")
+    public Cliente searchEmail(@PathVariable("email") String email){
+        return clienteService.searchClienteByEmail(email);
     }
 
 }
