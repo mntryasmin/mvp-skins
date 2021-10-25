@@ -7,6 +7,7 @@ import br.com.rd.mvpskins.model.entity.Genero;
 import br.com.rd.mvpskins.repository.contract.ClienteRepository;
 import br.com.rd.mvpskins.repository.contract.GeneroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ public class ClienteService {
     ClienteRepository clienteRepository;
     @Autowired
     GeneroRepository generoRepository;
+    @Autowired
+    PasswordEncoder encoder;
+
 
     private Cliente dtoToBusiness (ClienteDTO dto){
         Cliente c = new Cliente();
@@ -68,6 +72,7 @@ public class ClienteService {
     }
     public ClienteDTO createCliente (ClienteDTO clienteDTO){
         Cliente cliente = dtoToBusiness(clienteDTO);
+        cliente.setSenhaCliente(encoder.encode(cliente.getSenhaCliente()));
         if(generoRepository.existsById(cliente.getGenero().getCodigoGenero())){
             Genero genero = generoRepository.getById(cliente.getGenero().getCodigoGenero());
             cliente.setGenero(genero);
@@ -110,7 +115,7 @@ public class ClienteService {
                 update.setEmailCliente(cliente.getEmailCliente());
             }
             if (cliente.getSenhaCliente() != null) {
-                update.setSenhaCliente(cliente.getSenhaCliente());
+                update.setSenhaCliente(encoder.encode(cliente.getSenhaCliente()));
             }
             if (cliente.getDataNascimento() != null) {
                 update.setDataNascimento(cliente.getDataNascimento());

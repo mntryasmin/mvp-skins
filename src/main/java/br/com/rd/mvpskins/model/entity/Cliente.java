@@ -14,7 +14,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CODIGO_CLIENTE")
     private Long codigoCliente;
-    @Column(name = "EMAIL",nullable = false)
+    @Column(name = "EMAIL",nullable = false, unique = true)
     private String emailCliente;
     @Column(name = "NOME",nullable = false)
     private String nomeCliente;
