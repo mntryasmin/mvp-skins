@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -42,9 +43,14 @@ public class ClienteController {
         clienteService.deleteCliente(codigoCliente);
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public Cliente searchEmail(@PathVariable("email") String email){
         return clienteService.searchClienteByEmail(email);
     }
 
+    @GetMapping("/auto")
+    public String auto(HttpServletRequest request){
+        String auto = request.getHeader("Authorization");
+        return auto;
+    }
 }
