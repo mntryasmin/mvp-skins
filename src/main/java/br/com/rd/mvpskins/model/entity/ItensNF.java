@@ -1,6 +1,6 @@
 package br.com.rd.mvpskins.model.entity;
 
-import br.com.rd.mvpskins.model.embeddable.ItemsNFCompositeKey;
+import br.com.rd.mvpskins.model.embeddable.ItensNFCompositeKey;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -9,14 +9,14 @@ import javax.persistence.Entity;
 
 @Data
 @Entity(name = "TB_ITENS_NF")
-public class ItemsNF {
+public class ItensNF {
 
     @EmbeddedId
     @Column(nullable = false)
-    private ItemsNFCompositeKey id;
+    private ItensNFCompositeKey id;
 
-    @Column(nullable = false, name = "quantidade")
-    private Integer quantity;
+    @Column(nullable = false, name = "QUANTIDADE")
+    private Integer quantidade;
 
     @Column(nullable = false)
     private Double icms;
@@ -30,12 +30,12 @@ public class ItemsNF {
     @Column(nullable = false)
     private Double ipi;
 
-    @Column(nullable = false, name = "desconto")
-    private Double discount;
+    @Column(nullable = false, name = "DESCONTO")
+    private Double desconto;
 
-    @Column(nullable = false, name = "valor_bruto")
-    private Double grossAddedValue;
+    @Column(nullable = false, name = "VALOR_BRUTO")
+    private Double valorBruto;
 
-    @Column(nullable = false, name = "valor_liquido")
-    private Double netValue;
+    @Column(nullable = false, name = "VALOR_LIQUIDO")
+    private Double valorLiquido;
 }

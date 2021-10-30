@@ -6,13 +6,13 @@ import javax.persistence.*;
 
 @Data
 @Entity(name = "TB_FORMA_PAGAMENTO")
-public class FormPayment {
+public class FormaPagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_forma_pagamento")
+    @Column(name = "CODIGO_FORMA_PAGAMENTO")
     private Long id;
 
-    @Column(nullable = false, name = "descricao")
-    private String description;
+    @Column(nullable = false, name = "DESCRICAO")
+    private String descricao;
 }

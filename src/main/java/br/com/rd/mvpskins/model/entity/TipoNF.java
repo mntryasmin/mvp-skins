@@ -6,13 +6,13 @@ import javax.persistence.*;
 
 @Data
 @Entity(name = "TB_TIPO_NF")
-public class TypeNF {
+public class TipoNF {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo_tipo_nf")
+    @Column(name = "CODIGO_TIPO_NF")
     private Long id;
 
-    @Column(nullable = false, name = "descricao")
-    private String description;
+    @Column(nullable = false, name = "DESCRICAO")
+    private String descricao;
 }
