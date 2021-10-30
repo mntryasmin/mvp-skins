@@ -50,7 +50,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
 // Não cheque essas requisições
-            .authorizeRequests().antMatchers("/login", "/cliente","/cliente/{id}","/cliente/auto","/empresa", "/form-payment", "/form-payment/{id}", "/items-request", "items-request/3/3", "/nf", "/nf{id}", "/request", "/request/{id}", "/type-nf", "/type-nf/{id}", "/produtos", "/produtos/{id}", "/categoria", "/categoria/{id}", "/subcategoria", "/subcategoria/{idC}/{id}", "/raridade", "/raridade/{id}", "/colecao", "/colecao/{id}", "/exterior", "/exterior/{id}", "/preco", "/preco/{idC}/{idP}").permitAll().
+            .authorizeRequests().antMatchers("/login",
+                                                        "/cliente",
+                                                        "/cliente/{id}",
+                                                        "/cliente/auto",
+                                                        "/empresa",
+                                                        "/form-payment",
+                                                        "/form-payment/{id}",
+                                                        "/items-request",
+                                                        "items-request/3/3",
+                                                        "/nf", "/nf{id}",
+                                                        "/request",
+                                                        "/request/{id}",
+                                                        "/type-nf",
+                                                        "/type-nf/{id}",
+                                                        "/produtos",
+                                                        "/produtos/{id}",
+                                                        "/categoria",
+                                                        "/categoria/{id}",
+                                                        "/subcategoria",
+                                                        "/subcategoria/{idC}/{id}",
+                                                        "/raridade",
+                                                        "/raridade/{id}",
+                                                        "/colecao",
+                                                        "/colecao/{id}",
+                                                        "/exterior",
+                                                        "/exterior/{id}",
+                                                        "/preco",
+                                                        "/preco/{idC}/{idP}",
+                                                        "/esqueci-minha-senha",
+                                                        "/estoque/em-estoque",
+                                                        "/estoque/fora-de-estoque").permitAll().
 // Qualquer outra requisição deve ser checada
         anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
