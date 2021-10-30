@@ -11,12 +11,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 
 @RestController
@@ -37,19 +36,43 @@ public class JwtAuthenticationController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        if(userDetails!=null){
+        try{
+            final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
             String senha = authenticationRequest.getPassword();
-            authenticate(senha, userDetails);
-            final String token = jwtTokenUtil.generateToken(userDetails);
-            return ResponseEntity.ok(new JwtResponse(token));
+            try{
+                authenticate(senha, userDetails);
+                final String token = jwtTokenUtil.generateToken(userDetails);
+                return ResponseEntity.ok(new JwtResponse(token));
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+
+
+        } catch(UsernameNotFoundException u){
+            u.printStackTrace();
         }
         return null;
     }
 
     private void authenticate(String senha, UserDetails user) throws Exception {
         if(!passwordEncoder.matches(senha, user.getPassword())){
-            throw new Exception("INVALID_CREDENTIALS");
+            throw new Exception("Senha inválida");
         }
     }
+
+    @PostMapping("/esqueci-minha-senha")
+    public String esqueciSenha(@RequestBody String email){
+        return userDetailsService.esqueciSenha(email);
+    }
+
+    @GetMapping("/logout/{token}")
+    public void logout(@PathVariable("token") String token){
+        userDetailsService.logout(token);
+    }
+
+    @GetMapping("/data/{token}")
+    public Date dataToken(@PathVariable("token") String token ){
+        return  userDetailsService.verDataToken(token);
+    }
+
 }

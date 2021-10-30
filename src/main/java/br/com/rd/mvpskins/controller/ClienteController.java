@@ -1,5 +1,6 @@
 package br.com.rd.mvpskins.controller;
 
+import br.com.rd.mvpskins.config.JwtTokenUtil;
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
 import br.com.rd.mvpskins.model.entity.Cliente;
 import br.com.rd.mvpskins.service.ClienteService;
@@ -15,6 +16,7 @@ import java.util.List;
 public class ClienteController {
     @Autowired
     ClienteService clienteService;
+
     @PostMapping
     @ResponseBody
     public ClienteDTO createCliente (@RequestBody ClienteDTO cliente){
@@ -52,5 +54,10 @@ public class ClienteController {
     public String auto(HttpServletRequest request){
         String auto = request.getHeader("Authorization");
         return auto;
+    }
+
+    @PostMapping("/mudar-senha")
+    public String mudarSenha(@RequestParam("token")String token, @RequestBody String senha){
+        return clienteService.mudarSenha(token, senha);
     }
 }

@@ -1,5 +1,6 @@
 package br.com.rd.mvpskins.service;
 
+import br.com.rd.mvpskins.config.JwtTokenUtil;
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
 import br.com.rd.mvpskins.model.dto.GeneroDTO;
 import br.com.rd.mvpskins.model.entity.Cliente;
@@ -22,6 +23,8 @@ public class ClienteService {
     GeneroRepository generoRepository;
     @Autowired
     PasswordEncoder encoder;
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
 
 
     private Cliente dtoToBusiness (ClienteDTO dto){
@@ -147,6 +150,14 @@ public class ClienteService {
                 clienteRepository.deleteById(id);
             }
 
+        }
+
+        public String mudarSenha(String token, String senha){
+            String email = jwtTokenUtil.getUsernameFromToken(token);
+            Cliente cliente = searchClienteByEmail(email);
+            cliente.setSenhaCliente(encoder.encode(senha));
+            clienteRepository.save(cliente);
+            return "deu bom";
         }
     }
 
