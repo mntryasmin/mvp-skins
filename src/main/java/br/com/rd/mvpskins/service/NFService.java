@@ -18,152 +18,152 @@ public class NFService {
     NFRepository nfRepository;
 
     @Autowired
-    FormPaymentService formPaymentService;
+    FormaPagamentoService formaPagamentoService;
 
     @Autowired
-    FormPaymentRepository formPaymentRepository;
+    FormaPagamentoRepository formaPagamentoRepository;
 
     @Autowired
-    RequestService requestService;
+    PedidoService pedidoService;
 
     @Autowired
-    RequestRepository requestRepository;
+    PedidoRepository pedidoRepository;
 
     @Autowired
-    TypeNFService typeNFService;
+    TipoNFService tipoNFService;
 
     @Autowired
-    TypeNFRepository typeNFRepository;
+    TipoNFRepository tipoNFRepository;
 
     @Autowired
-    EmpresaRepository companyRepository;
+    EmpresaRepository empresaRepository;
 
     @Autowired
-    EmpresaService companyService;
+    EmpresaService empresaService;
 
     @Autowired
-    ClienteRepository clientRepository;
+    ClienteRepository clienteRepository;
 
     @Autowired
-    ClienteService clientService;
+    ClienteService clienteService;
 
     //  ---------------------> CONVERTER PARA BUSINESS
-    private NF dtoToBusiness (NFDTO dto) {
+    private NF businessToDTO(NFDTO dto) {
         NF b = new NF();
 
         //        ===> REQUEST
-        if (dto.getRequest() != null) {
-            Request r = requestRepository.getById(dto.getRequest().getId());
-            b.setRequest(r);
+        if (dto.getPedido() != null) {
+            Pedido r = pedidoRepository.getById(dto.getPedido().getId());
+            b.setPedido(r);
         }
 
         //        ===> TYPENF
-        if (dto.getTypeNF() != null) {
-            TypeNF t = typeNFRepository.getById(dto.getTypeNF().getId());
+        if (dto.getTipoNF() != null) {
+            TipoNF t = tipoNFRepository.getById(dto.getTipoNF().getId());
 
-            b.setTypeNF(t);
+            b.setTipoNF(t);
         }
 
         //        ===> FORMPAYMENT
-        if (dto.getFormPayment() != null) {
-            FormPayment f = formPaymentRepository.getById(dto.getFormPayment().getId());
+        if (dto.getFormaPagamento() != null) {
+            FormaPagamento f = formaPagamentoRepository.getById(dto.getFormaPagamento().getId());
 
-            b.setFormPayment(f);
+            b.setFormaPagamento(f);
         }
 
         //        ===> COMPANY
-        if (dto.getCompany() != null) {
-            Empresa c = companyRepository.getById(dto.getCompany().getId());
+        if (dto.getEmpresa() != null) {
+            Empresa c = empresaRepository.getById(dto.getEmpresa().getId());
 
-            b.setCompany(c);
+            b.setEmpresa(c);
         }
 
         //        ===> CLIENT
-        if (dto.getClient() != null) {
-            Cliente c = clientRepository.getById(dto.getClient().getCodigoCliente());
+        if (dto.getCliente() != null) {
+            Cliente c = clienteRepository.getById(dto.getCliente().getCodigoCliente());
 
-            b.setClient(c);
+            b.setCliente(c);
         }
 
         b.setId(dto.getId());
-        b.setIdProvider(dto.getIdProvider());
-        b.setAccessKey(dto.getAccessKey());
-        b.setNoteNumber(dto.getNoteNumber());
+        b.setIdFornecedor(dto.getIdFornecedor());
+        b.setChaveAcesso(dto.getChaveAcesso());
+        b.setNumeroNF(dto.getNumeroNF());
         b.setIcms(dto.getIcms());
         b.setIpi(dto.getIpi());
         b.setPis(dto.getPis());
         b.setCofins(dto.getCofins());
         b.setFlagNF(dto.getFlagNF());
-        b.setIssueDate(dto.getIssueDate());
-        b.setDiscountProduct(dto.getDiscountProduct());
-        b.setGrossAddedValue(dto.getGrossAddedValue());
-        b.setNetValue(dto.getNetValue());
+        b.setDataRegistro(dto.getDataRegistro());
+        b.setDescontoProduto(dto.getDescontoProduto());
+        b.setValorBruto(dto.getValorBruto());
+        b.setValorLiquido(dto.getValorLiquido());
 
         return b;
     }
 
     //  ---------------------> CONVERTER PARA DTO
-    private NFDTO businessToDTO (NF b) {
+    private NFDTO dtoToBusiness(NF b) {
         NFDTO dto = new NFDTO();
 
         //        ===> REQUEST
-        if (b.getRequest() != null) {
-            RequestDTO r = requestService.searchID(b.getRequest().getId());
+        if (b.getPedido() != null) {
+            PedidoDTO r = pedidoService.searchID(b.getPedido().getId());
 
-            dto.setRequest(r);
+            dto.setPedido(r);
         }
 
         //        ===> TYPENF
-        if (b.getTypeNF() != null) {
-            TypeNFDTO t = typeNFService.searchID(b.getTypeNF().getId());
+        if (b.getTipoNF() != null) {
+            TipoNFDTO t = tipoNFService.searchID(b.getTipoNF().getId());
 
-            dto.setTypeNF(t);
+            dto.setTipoNF(t);
         }
 
         //        ===> FORMPAYMENT
-        if (b.getFormPayment() != null) {
-            FormPaymentDTO f = formPaymentService.searchID(b.getFormPayment().getId());
+        if (b.getFormaPagamento() != null) {
+            FormaPagamentoDTO f = formaPagamentoService.searchID(b.getFormaPagamento().getId());
 
-            dto.setFormPayment(f);
+            dto.setFormaPagamento(f);
         }
 
         //        ===> COMPANY
-        if (b.getCompany() != null) {
-            EmpresaDTO c = companyService.searchID(b.getCompany().getIdEmpresa());
+        if (b.getEmpresa() != null) {
+            EmpresaDTO c = empresaService.searchID(b.getEmpresa().getIdEmpresa());
 
-            dto.setCompany(c);
+            dto.setEmpresa(c);
         }
 
         //        ===> CLIENT
-        if (b.getClient() != null) {
-            ClienteDTO c = clientService.searchClienteById(b.getClient().getCodigoCliente());
+        if (b.getCliente() != null) {
+            ClienteDTO c = clienteService.searchClienteById(b.getCliente().getCodigoCliente());
 
-            dto.setClient(c);
+            dto.setCliente(c);
         }
 
         dto.setId(b.getId());
-        dto.setIdProvider(b.getIdProvider());
-        dto.setAccessKey(b.getAccessKey());
-        dto.setNoteNumber(b.getNoteNumber());
+        dto.setIdFornecedor(b.getIdFornecedor());
+        dto.setChaveAcesso(b.getChaveAcesso());
+        dto.setNumeroNF(b.getNumeroNF());
         dto.setIcms(b.getIcms());
         dto.setIpi(b.getIpi());
         dto.setPis(b.getPis());
         dto.setCofins(b.getCofins());
         dto.setFlagNF(b.getFlagNF());
-        dto.setIssueDate(b.getIssueDate());
-        dto.setDiscountProduct(b.getDiscountProduct());
-        dto.setGrossAddedValue(b.getGrossAddedValue());
-        dto.setNetValue(b.getNetValue());
+        dto.setDataRegistro(b.getDataRegistro());
+        dto.setDescontoProduto(b.getDescontoProduto());
+        dto.setValorBruto(b.getValorBruto());
+        dto.setValorLiquido(b.getValorLiquido());
 
         return dto;
     }
 
     //  ---------------------> CONVERTER LISTA BUSINESS PARA LISTA DTO
-    private List<NFDTO> listToDTO (List<NF> listB) {
+    private List<NFDTO> listToDTO(List<NF> listB) {
         List<NFDTO> listDTO = new ArrayList<>();
 
         for (NF b : listB) {
-            listDTO.add(this.businessToDTO(b));
+            listDTO.add(this.dtoToBusiness(b));
         }
 
         return listDTO;
@@ -171,55 +171,55 @@ public class NFService {
 
 
     //  ---------------------> CRIAR
-    public NFDTO create (NFDTO nfDTO) {
-        NF nf = this.dtoToBusiness(nfDTO);
+    public NFDTO create(NFDTO nfDTO) {
+        NF nf = this.businessToDTO(nfDTO);
 
         //        ===> REQUEST
-        if (nfDTO.getRequest() != null) {
-            Long idRequest = nf.getRequest().getId();
-            Request r;
+        if (nfDTO.getPedido() != null) {
+            Long idRequest = nf.getPedido().getId();
+            Pedido r;
 
             if (idRequest != null) {
-                r = this.requestRepository.getById(idRequest);
+                r = this.pedidoRepository.getById(idRequest);
             } else {
-                r = this.requestRepository.save(nf.getRequest());
+                r = this.pedidoRepository.save(nf.getPedido());
             }
 
-            nf.setRequest(r);
+            nf.setPedido(r);
         }
 
         //        ===> TYPENF
-        if (nfDTO.getTypeNF() != null) {
-            Long idTypeNF = nf.getTypeNF().getId();
-            TypeNF t;
+        if (nfDTO.getTipoNF() != null) {
+            Long idTypeNF = nf.getTipoNF().getId();
+            TipoNF t;
 
             if (idTypeNF != null) {
-                t = this.typeNFRepository.getById(idTypeNF);
+                t = this.tipoNFRepository.getById(idTypeNF);
             } else {
-                t = this.typeNFRepository.save(nf.getTypeNF());
+                t = this.tipoNFRepository.save(nf.getTipoNF());
             }
 
-            nf.setTypeNF(t);
+            nf.setTipoNF(t);
         }
 
         //        ===> FORMPAYMENT
-        if (nfDTO.getFormPayment() != null) {
-            Long idFormPayment = nf.getFormPayment().getId();
-            FormPayment f;
+        if (nfDTO.getFormaPagamento() != null) {
+            Long idFormPayment = nf.getFormaPagamento().getId();
+            FormaPagamento f;
 
             if (idFormPayment != null) {
-                f = this.formPaymentRepository.getById(idFormPayment);
+                f = this.formaPagamentoRepository.getById(idFormPayment);
             } else {
-                f = this.formPaymentRepository.save(nf.getFormPayment());
+                f = this.formaPagamentoRepository.save(nf.getFormaPagamento());
             }
 
-            nf.setFormPayment(f);
+            nf.setFormaPagamento(f);
         }
 
-        nf.setIssueDate(new Date());
+        nf.setDataRegistro(new Date());
         nf = nfRepository.save(nf);
 
-        return businessToDTO(nf);
+        return dtoToBusiness(nf);
     }
 
 
@@ -234,7 +234,7 @@ public class NFService {
     //UMA NF POR ID
     public NFDTO searchID(Long id) {
         if (nfRepository.existsById(id)) {
-            return businessToDTO(nfRepository.getById(id));
+            return dtoToBusiness(nfRepository.getById(id));
         }
 
         return null;
@@ -244,41 +244,41 @@ public class NFService {
     public NFDTO update(NFDTO dto, Long id) {
 
         Optional<NF> opt = nfRepository.findById(id);
-        NF nf = dtoToBusiness(dto);
+        NF nf = businessToDTO(dto);
 
         if (opt.isPresent()) {
             NF update = opt.get();
 
-            if (nf.getRequest() != null) {
-                update.setRequest(nf.getRequest());
+            if (nf.getPedido() != null) {
+                update.setPedido(nf.getPedido());
             }
 
-            if (nf.getTypeNF() != null) {
-                update.setTypeNF(nf.getTypeNF());
+            if (nf.getTipoNF() != null) {
+                update.setTipoNF(nf.getTipoNF());
             }
 
-            if (nf.getCompany() != null) {
-                update.setCompany(nf.getCompany());
+            if (nf.getEmpresa() != null) {
+                update.setEmpresa(nf.getEmpresa());
             }
 
-            if (nf.getIdProvider() != null) {
-                update.setIdProvider(nf.getIdProvider());
+            if (nf.getIdFornecedor() != null) {
+                update.setIdFornecedor(nf.getIdFornecedor());
             }
 
-            if (nf.getClient() != null) {
-                update.setClient(nf.getClient());
+            if (nf.getCliente() != null) {
+                update.setCliente(nf.getCliente());
             }
 
-            if (nf.getFormPayment() != null) {
-                update.setFormPayment(nf.getFormPayment());
+            if (nf.getFormaPagamento() != null) {
+                update.setFormaPagamento(nf.getFormaPagamento());
             }
 
-            if (nf.getAccessKey() != null) {
-                update.setAccessKey(nf.getAccessKey());
+            if (nf.getChaveAcesso() != null) {
+                update.setChaveAcesso(nf.getChaveAcesso());
             }
 
-            if (nf.getNoteNumber() != null) {
-                update.setNoteNumber(nf.getNoteNumber());
+            if (nf.getNumeroNF() != null) {
+                update.setNumeroNF(nf.getNumeroNF());
             }
 
             if (nf.getIcms() != null) {
@@ -301,21 +301,21 @@ public class NFService {
                 update.setFlagNF(nf.getFlagNF());
             }
 
-            if (nf.getDiscountProduct() != null) {
-                update.setDiscountProduct(nf.getDiscountProduct());
+            if (nf.getDescontoProduto() != null) {
+                update.setDescontoProduto(nf.getDescontoProduto());
             }
 
-            if (nf.getGrossAddedValue() != null) {
-                update.setGrossAddedValue(nf.getGrossAddedValue());
+            if (nf.getValorBruto() != null) {
+                update.setValorBruto(nf.getValorBruto());
             }
 
-            if (nf.getNetValue() != null) {
-                update.setNetValue(nf.getNetValue());
+            if (nf.getValorLiquido() != null) {
+                update.setValorLiquido(nf.getValorLiquido());
             }
 
-            update.setIssueDate(new Date());
+            update.setDataRegistro(new Date());
             nfRepository.save(update);
-            return businessToDTO(update);
+            return dtoToBusiness(update);
         }
 
         return null;

@@ -16,34 +16,34 @@ public class NF {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigo_pedido")
-    private Request request;
+    private Pedido pedido;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigo_tipo_nf")
-    private TypeNF typeNF;
+    private TipoNF tipoNF;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigo_empresa")
-    private Empresa company;
+    private Empresa empresa;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "codigo_fornecedor")
-    @Column(nullable = false, name = "codigo_fornecedor")
-    private Long idProvider;
+    @Column(nullable = false, name = "CODIGO_FORNECEDOR")
+    private Long idFornecedor;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "codigo_client")
-    private Cliente client;
+    @JoinColumn(name = "CODIGO_CLIENTE")
+    private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "codigo_forma_pagamento")
-    private FormPayment formPayment;
+    @JoinColumn(name = "CODIGO_FORMA_PAGAMENTO")
+    private FormaPagamento formaPagamento;
 
-    @Column(nullable = false, name = "chave_de_acesso")
-    private String accessKey;
+    @Column(nullable = false, name = "CHAVE_DE_ACESSO")
+    private String chaveAcesso;
 
-    @Column(nullable = false, name = "numero_nota")
-    private String noteNumber;
+    @Column(nullable = false, name = "NUMERO_NOTA")
+    private String numeroNF;
 
     @Column(nullable = false)
     private Double icms;
@@ -57,18 +57,18 @@ public class NF {
     @Column(nullable = false)
     private Double cofins;
 
-    @Column(nullable = false, name = "flag_nota_paulista")
+    @Column(nullable = false, name = "FLAG_NOTA_PAULISTA")
     private Boolean flagNF;
 
-    @Column (name = "data_emissao")
-    private Date issueDate;
+    @Column (name = "DATA_EMISSAO")
+    private Date dataRegistro;
 
-    @Column(nullable = false, name = "desconto_produto")
-    private Double discountProduct;
+    @Column(nullable = false, name = "DESCONTO_PRODUTO")
+    private Double descontoProduto;
 
-    @Column(nullable = false, name = "valor_total_bruto")
-    private Double grossAddedValue;
+    @Column(nullable = false, name = "VALOR_TOTAL_BRUTO")
+    private Double valorBruto;
 
-    @Column(nullable = false, name = "valor_total_liquido")
-    private Double netValue;
+    @Column(nullable = false, name = "VALOR_TOTAL_LIQUIDO")
+    private Double valorLiquido;
 }

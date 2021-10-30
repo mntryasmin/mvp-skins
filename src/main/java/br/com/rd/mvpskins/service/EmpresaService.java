@@ -27,6 +27,7 @@ public class EmpresaService {
 
     private EmpresaDTO boToDto(Empresa e){
         EmpresaDTO dto = new EmpresaDTO();
+        dto.setId(e.getIdEmpresa());
         dto.setTelefone(e.getTelefone());
         dto.setCnpj(e.getCnpj());
         dto.setEndereco(e.getEndereco());
