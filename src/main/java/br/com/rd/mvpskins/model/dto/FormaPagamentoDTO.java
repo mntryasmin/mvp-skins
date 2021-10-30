@@ -3,7 +3,7 @@ package br.com.rd.mvpskins.model.dto;
 import lombok.Data;
 
 @Data
-public class TypeNFDTO {
+public class FormaPagamentoDTO {
     private Long id;
-    private String description;
+    private String descricao;
 }
