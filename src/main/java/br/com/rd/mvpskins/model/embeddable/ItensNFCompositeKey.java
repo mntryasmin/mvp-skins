@@ -1,6 +1,7 @@
 package br.com.rd.mvpskins.model.embeddable;
 
 import br.com.rd.mvpskins.model.entity.NF;
+import br.com.rd.mvpskins.model.entity.Produto;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,8 +11,9 @@ import java.io.Serializable;
 @Data
 public class ItensNFCompositeKey implements Serializable {
 
-    @Column(nullable = false, name = "codigo_produto")
-    private Long idProduto;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_produto")
+    private Produto produto;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigo_nf")

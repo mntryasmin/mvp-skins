@@ -10,7 +10,7 @@ public class NFDTO {
     private PedidoDTO pedido;
     private TipoNFDTO tipoNF;
     private EmpresaDTO empresa;
-    private Long idFornecedor;
+    private FornecedorDTO fornecedor;
     private ClienteDTO cliente;
     private FormaPagamentoDTO formaPagamento;
     private String chaveAcesso;

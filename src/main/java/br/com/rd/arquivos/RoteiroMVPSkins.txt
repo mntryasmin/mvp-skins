@@ -1,16 +1,23 @@
 PÁGINAS:
 
 >>>>>>>>>>>>> HEADER
+    listarProdutosBusca
+    	localhost:8080/chave-busca
+
     listarCategoriasModel (BD INTERNO)
         Categorias1Nivel 
         Categorias2Niveis
 
     listarCategoriasMenu (BD INTERNO)
-        Categorias1Nivel
         Categorias2Niveis
 
-    listarProdutosBusca
-    	localhost:8080/chave-busca
+    PostLogin - JWT(JSON Web Token) - bearer Toeken
+
+    PostLoginSteam
+
+    PostCadastro
+
+
 
 >>>>>>>>>>>>> HOME
     listarDestaques //click para página do produto
@@ -20,52 +27,49 @@ PÁGINAS:
         CategoriaEventos
 
     listar1Carrousel
+        CategoriaMaisVendidos
+
+    listar1Carrousel
         CategoriaTopFacas
 
     listar1Carrousel
         CategoriaTopArmas
 
-    listar1Carrousel
-        CategoriaMaisVendidos
-
->>>>>>>>>>>>> CADASTRO-CLIENTE
-    postCadastro
-
-
->>>>>>>>>>>>> LOGIN-CLIENTE
-    PostLogin - JWT(JSON Web Token) - bearer Toeken
-
-    PostLoginSteam
 
 
 >>>>>>>>>>>>> DASHBOARD-CLIENTE
     cartoesCredito
         getCartaoCredito
         updateCartaoCredito
-	deleteCartaoCredito
+	    deleteCartaoCredito
     
     dadosConta
         getDadosCliente
         updateDadosCliente
+        deleteDadosCliente
     
     alterarSenha  
         updateSenhaCliente
 
     historicoCompras  ---- OK
-        listarPedidos
+        listarPedidosPorCliente ---- OK
             localhost:8080/pedidos
         
-        getPedido ---- OK
+        getPedidoPorIDPedido
             localhost:8080/pedido/id
+
 
 
 >>>>>>>>>>>>> FAVORITOS
     listarProdutosFavoritos
         localhost:8080/favoritos/lista
 
+
+
 >>>>>>>>>>>>> CATEGORIA
     listarProdutos //Listar todos os produtos da categoria e ir filtrando conforme seleção nos filtros
         localhost:8080/categoria
+
 
 
 >>>>>>>>>>>>> PRODUTO
@@ -78,17 +82,24 @@ PÁGINAS:
         CategoriaItensSemelhantes
 
 
+
 >>>>>>>>>>>>> CARRINHO
     listarProdutosCarrinho
         localhost:8080/favoritos/lista
     
     postCupomDesconto
 
+
+
 >>>>>>>>>>>>> PAGAMENTO
-    postFinalizarPedido ---- OK
+    postFinalizarPedido
+
+
 
 >>>>>>>>>>>>> SUCESSO DE COMPRA
     getPedido //Aqui é dinâmico, encaminha para a página de sucesso de acordo com a forma de pagamento
+
+
 
 >>>>>>>>>>>>> CONTATO
     N/D

@@ -3,11 +3,14 @@ package br.com.rd.mvpskins.service;
 import br.com.rd.mvpskins.model.dto.ItensPedidoCompositeKeyDTO;
 import br.com.rd.mvpskins.model.dto.ItensPedidoDTO;
 import br.com.rd.mvpskins.model.dto.PedidoDTO;
+import br.com.rd.mvpskins.model.dto.ProdutoDTO;
 import br.com.rd.mvpskins.model.embeddable.ItensPedidoCompositeKey;
 import br.com.rd.mvpskins.model.entity.ItensPedido;
 import br.com.rd.mvpskins.model.entity.Pedido;
+import br.com.rd.mvpskins.model.entity.Produto;
 import br.com.rd.mvpskins.repository.contract.ItensPedidoRepository;
 import br.com.rd.mvpskins.repository.contract.PedidoRepository;
+import br.com.rd.mvpskins.repository.contract.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +30,22 @@ public class ItensPedidoService {
     @Autowired
     PedidoRepository pedidoRepository;
 
+    @Autowired
+    ProdutoService produtoService;
+
+    @Autowired
+    ProdutoRepository produtoRepository;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private ItensPedido dtoToBusiness (ItensPedidoDTO dto) {
 
         //        ===> REQUEST
         ItensPedidoCompositeKey id = new ItensPedidoCompositeKey();
         if (dto.getId().getPedido() != null) {
+            Produto p = produtoRepository.getById(dto.getId().getProduto().getId());
             Pedido r = pedidoRepository.getById(dto.getId().getPedido().getId());
 
-            id.setIdProduto(dto.getId().getIdProduto());
+            id.setProduto(p);
             id.setPedido(r);
         }
 
@@ -56,9 +66,10 @@ public class ItensPedidoService {
         //        ===> REQUEST
         ItensPedidoCompositeKeyDTO id = new ItensPedidoCompositeKeyDTO();
         if (b.getId().getPedido() != null) {
+            ProdutoDTO p = produtoService.getProductById(b.getId().getPedido().getId());
             PedidoDTO r = pedidoService.searchID(b.getId().getPedido().getId());
 
-            id.setIdProduto(b.getId().getIdProduto());
+            id.setProduto(p);
             id.setPedido(r);
         }
 
@@ -102,12 +113,12 @@ public class ItensPedidoService {
     }
 
     //UM ITEM DE PEDIDO POR ID
-    public ItensPedidoDTO searchID(Long idProduct, Long idRequest) {
+    public ItensPedidoDTO searchID(Long idProduto, Long idPedido) {
 
-        if (pedidoRepository.existsById(idRequest)) {
+        if (pedidoRepository.existsById(idPedido) && produtoRepository.existsById(idProduto)) {
             ItensPedidoCompositeKey id = new ItensPedidoCompositeKey();
-            id.setIdProduto(idProduct);
-            id.setPedido(pedidoRepository.getById(idRequest));
+            id.setProduto(produtoRepository.getById(idProduto));
+            id.setPedido(pedidoRepository.getById(idPedido));
 
             if (itensPedidoRepository.existsById(id)) {
                 return businessToDTO(itensPedidoRepository.getById(id));
@@ -118,12 +129,12 @@ public class ItensPedidoService {
     }
 
     //  ---------------------> ATUALIZAR
-    public ItensPedidoDTO update(ItensPedidoDTO dto, Long idProduct, Long idRequest) {
+    public ItensPedidoDTO update(ItensPedidoDTO dto, Long idProduto, Long idPedido) {
 
-        if (pedidoRepository.existsById(idRequest)) {
+        if (pedidoRepository.existsById(idPedido)) {
             ItensPedidoCompositeKeyDTO id = new ItensPedidoCompositeKeyDTO();
-            id.setIdProduto(idProduct);
-            id.setPedido(pedidoService.searchID(idRequest));
+            id.setProduto(produtoService.getProductById(idProduto));
+            id.setPedido(pedidoService.searchID(idPedido));
             dto.setId(id);
 
             ItensPedido itensPedido = dtoToBusiness(dto);
@@ -157,10 +168,10 @@ public class ItensPedidoService {
     }
 
     //  ---------------------> DELETAR
-    public void delete(Long idProduct, Long idRequest) {
+    public void delete(Long idProduto, Long idPedido) {
         ItensPedidoCompositeKey id = new ItensPedidoCompositeKey();
-        id.setIdProduto(idProduct);
-        id.setPedido(pedidoRepository.getById(idRequest));
+        id.setProduto(produtoRepository.getById(idProduto));
+        id.setPedido(pedidoRepository.getById(idPedido));
 
         if (itensPedidoRepository.existsById(id)) {
             itensPedidoRepository.deleteById(id);

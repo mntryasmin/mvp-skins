@@ -6,6 +6,6 @@ import java.io.Serializable;
 
 @Data
 public class ItensPedidoCompositeKeyDTO implements Serializable {
-    private Long idProduto;
+    private ProdutoDTO produto;
     private PedidoDTO pedido;
 }

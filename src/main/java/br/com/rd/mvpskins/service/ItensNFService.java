@@ -6,6 +6,7 @@ import br.com.rd.mvpskins.model.embeddable.ItensNFCompositeKey;
 import br.com.rd.mvpskins.model.entity.ItensNF;
 import br.com.rd.mvpskins.repository.contract.ItensNFRepository;
 import br.com.rd.mvpskins.repository.contract.NFRepository;
+import br.com.rd.mvpskins.repository.contract.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,16 @@ public class ItensNFService {
     @Autowired
     NFRepository nfRepository;
 
+    @Autowired
+    ProdutoService produtoService;
+
+    @Autowired
+    ProdutoRepository produtoRepository;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private ItensNF businessToDTO(ItensNFDTO dto) {
         ItensNFCompositeKey id = new ItensNFCompositeKey();
-        id.setIdProduto(dto.getId().getIdProduto());
+        id.setProduto(produtoRepository.getById(dto.getId().getProduto().getId()));
         id.setNf(nfRepository.getById(dto.getId().getNf().getId()));
 
         ItensNF b = new ItensNF();
@@ -48,8 +55,8 @@ public class ItensNFService {
     //  ---------------------> CONVERTER PARA DTO
     private ItensNFDTO dtoToBusiness(ItensNF b) {
         ItensNFCompositeKeyDTO id = new ItensNFCompositeKeyDTO();
-        id.setIdProduto(b.getId().getIdProduto());
-        id.setNf(nfRepository.getById(b.getId().getNf().getId()));
+        id.setProduto(produtoService.getProductById(b.getId().getProduto().getId()));
+        id.setNf(nfService.searchID(b.getId().getNf().getId()));
 
         ItensNFDTO dto = new ItensNFDTO();
         dto.setId(id);
@@ -96,10 +103,10 @@ public class ItensNFService {
     }
 
     //UM ITEM NF POR ID
-    public ItensNFDTO searchID(Long idProduct, Long idNF) {
+    public ItensNFDTO searchID(Long idProduto, Long idNF) {
 
         ItensNFCompositeKey id = new ItensNFCompositeKey();
-        id.setIdProduto(idProduct);
+        id.setProduto(produtoRepository.getById(idProduto));
         id.setNf(nfRepository.getById(idNF));
 
         if (itensNFRepository.existsById(id)) {
@@ -110,11 +117,11 @@ public class ItensNFService {
     }
 
     //  ---------------------> ATUALIZAR
-    public ItensNFDTO update(ItensNFDTO dto, Long idProduct, Long idNF) {
+    public ItensNFDTO update(ItensNFDTO dto, Long idProduto, Long idNF) {
 
             ItensNFCompositeKeyDTO id = new ItensNFCompositeKeyDTO();
-            id.setIdProduto(idProduct);
-            id.setNf(nfRepository.getById(idNF));
+            id.setProduto(produtoService.getProductById(idProduto));
+            id.setNf(nfService.searchID(idNF));
             dto.setId(id);
 
             ItensNF itemsNF = businessToDTO(dto);
@@ -148,9 +155,9 @@ public class ItensNFService {
     }
 
     //  ---------------------> DELETAR
-    public void delete(Long idProduct, Long idNF) {
+    public void delete(Long idProduto, Long idNF) {
         ItensNFCompositeKey id = new ItensNFCompositeKey();
-        id.setIdProduto(idProduct);
+        id.setProduto(produtoRepository.getById(idProduto));
         id.setNf(nfRepository.getById(idNF));
 
         if (itensNFRepository.existsById(id)) {
