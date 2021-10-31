@@ -29,6 +29,12 @@ public class PedidoController {
         return pedidoService.searchAll();
     }
 
+    //TODOS OS PEDIDOS DE UM CLIENTE
+    @GetMapping("/pedidos/{id}")
+    public List<PedidoDTO> searchPedidoCliente(@PathVariable("id") Long id) {
+        return pedidoService.searchPedidoCliente(id);
+    }
+
     //UM PEDIDO POR ID
     @GetMapping("/{id}")
     public PedidoDTO searchID(@PathVariable("id") Long id) {

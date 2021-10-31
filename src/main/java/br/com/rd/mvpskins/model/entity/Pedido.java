@@ -14,18 +14,6 @@ public class Pedido {
     @Column (name = "CODIGO_PEDIDO")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CODIGO_EMPRESA")
-    private Empresa empresa;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CODIGO_CLIENTE")
-    private Cliente cliente;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CODIGO_FORMA_PAGAMENTO")
-    private FormaPagamento formaPagamento;
-
     @Column (name = "DATA_EMISSAO")
     private Date dataRegistro;
 
