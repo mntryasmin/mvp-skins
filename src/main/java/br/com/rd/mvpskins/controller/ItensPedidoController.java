@@ -30,22 +30,22 @@ public class ItensPedidoController {
     }
 
     //UM ITEM DE PEDIDO POR ID
-    @GetMapping("/{idProduct}/{idRequest}")
-    public ItensPedidoDTO searchID(@PathVariable("idProduct") Long idProduct, @PathVariable("idRequest") Long idRequest) {
-        return itensPedidoService.searchID(idProduct, idRequest);
+    @GetMapping("/{idProduto}/{idPedido}")
+    public ItensPedidoDTO searchID(@PathVariable("idProduto") Long idProduto, @PathVariable("idPedido") Long idPedido) {
+        return itensPedidoService.searchID(idProduto, idPedido);
     }
 
     //  ---------------------> ATUALIZAR
-    @PutMapping("/{idProduct}/{idRequest}")
+    @PutMapping("/{idProduto}/{idRequest}")
     @ResponseBody
-    public ItensPedidoDTO update(@RequestBody ItensPedidoDTO itensPedidoDTO, @PathVariable("idProduct") Long idProduct, @PathVariable("idRequest") Long idRequest) {
-        return itensPedidoService.update(itensPedidoDTO, idProduct, idRequest);
+    public ItensPedidoDTO update(@RequestBody ItensPedidoDTO itensPedidoDTO, @PathVariable("idProduto") Long idProduto, @PathVariable("idPedido") Long idPedido) {
+        return itensPedidoService.update(itensPedidoDTO, idProduto, idPedido);
     }
 
     //  ---------------------> DELETAR
-    @DeleteMapping("/{idProduct}/{idRequest}")
+    @DeleteMapping("/{idProduto}/{idPedido}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void delete(@PathVariable("idProduct") Long idProduct, @PathVariable("idRequest") Long idRequest) {
-        itensPedidoService.delete(idProduct, idRequest);
+    public void delete(@PathVariable("idProduto") Long idProduto, @PathVariable("idPedido") Long idPedido) {
+        itensPedidoService.delete(idProduto, idPedido);
     }
 }

@@ -26,10 +26,9 @@ public class NF {
     @JoinColumn(name = "codigo_empresa")
     private Empresa empresa;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "codigo_fornecedor")
-    @Column(nullable = false, name = "CODIGO_FORNECEDOR")
-    private Long idFornecedor;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_fornecedor")
+    private Fornecedor fornecedor;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODIGO_CLIENTE")
@@ -63,8 +62,8 @@ public class NF {
     @Column (name = "DATA_EMISSAO")
     private Date dataRegistro;
 
-    @Column(nullable = false, name = "DESCONTO_PRODUTO")
-    private Double descontoProduto;
+    @Column(nullable = false, name = "DESCONTO_COMPRA")
+    private Double descontoCompra;
 
     @Column(nullable = false, name = "VALOR_TOTAL_BRUTO")
     private Double valorBruto;
