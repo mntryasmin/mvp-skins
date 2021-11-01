@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +25,9 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Cliente cliente = clienteService.searchClienteByEmail(email);
@@ -34,6 +38,12 @@ public class JwtUserDetailsService implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException("Usuário não encontrado: " + email);
         }
+    }
+
+
+    public Boolean authenticate(String senha, UserDetails user) throws Exception {
+
+        return passwordEncoder.matches(senha, user.getPassword());
     }
 
     public String esqueciSenha(String email){
