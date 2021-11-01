@@ -39,6 +39,54 @@ public class ProdutoService {
         return null;
     }
 
+    public List<ProdutoDTO> getListBySearch(String search){
+        List<Produto> list = produtoRepository.getListBySearch(search);
+
+        return this.listToDTO(list);
+    }
+
+    public List<ProdutoDTO> getListByCategory(Long idCategory){
+        List<Produto> list = produtoRepository.getListByCategory(idCategory);
+
+        return this.listToDTO(list);
+    }
+
+    public List<ProdutoDTO> getListBySubcategory(Long idCategory, Long idSubcategory){
+        List<Produto> list = produtoRepository.getListBySubcategory(idCategory, idSubcategory);
+
+        return this.listToDTO(list);
+    }
+
+    public List<ProdutoDTO> getListByColection(Long idColection){
+        List<Produto> list = produtoRepository.getListByColection(idColection);
+
+        return this.listToDTO(list);
+    }
+
+    public List<ProdutoDTO> getListByRarity(Long idRarity){
+        List<Produto> list = produtoRepository.getListByRarity(idRarity);
+
+        return this.listToDTO(list);
+    }
+
+    public List<ProdutoDTO> getListByExterior(Long idExterior){
+        List<Produto> list = produtoRepository.getListByExterior(idExterior);
+
+        return this.listToDTO(list);
+    }
+
+    public List<ProdutoDTO> getListByMaxValue(Double value){
+        List<Produto> list = produtoRepository.getListByMaxValue(value);
+
+        return this.listToDTO(list);
+    }
+
+    public List<ProdutoDTO> getListByMinValue(Double value){
+        List<Produto> list = produtoRepository.getListByMinValue(value);
+
+        return this.listToDTO(list);
+    }
+
     public ProdutoDTO businessToDto(Produto p){
         ProdutoDTO dto = new ProdutoDTO();
         CategoriaDTO categoryDTO = new CategoriaDTO();

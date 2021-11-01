@@ -20,6 +20,7 @@ import java.util.Date;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/authenticate")
 public class JwtAuthenticationController {
 
     @Autowired
@@ -31,38 +32,31 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         try{
             final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
             String senha = authenticationRequest.getPassword();
-            try{
-                authenticate(senha, userDetails);
+
+            if(userDetailsService.authenticate(senha, userDetails)) {
                 final String token = jwtTokenUtil.generateToken(userDetails);
                 return ResponseEntity.ok(new JwtResponse(token));
-            } catch(Exception e){
-                e.printStackTrace();
             }
-
-
-        } catch(UsernameNotFoundException u){
+        } catch(UsernameNotFoundException u) {
             u.printStackTrace();
         }
         return null;
     }
 
-    private void authenticate(String senha, UserDetails user) throws Exception {
-        if(!passwordEncoder.matches(senha, user.getPassword())){
-            throw new Exception("Senha inválida");
-        }
-    }
-
     @PostMapping("/esqueci-minha-senha")
     public String esqueciSenha(@RequestBody String email){
-        return userDetailsService.esqueciSenha(email);
+        try{
+            return userDetailsService.esqueciSenha(email);
+        } catch(UsernameNotFoundException u){
+            u.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping("/logout/{token}")

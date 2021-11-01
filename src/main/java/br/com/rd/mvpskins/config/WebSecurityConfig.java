@@ -50,8 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
 // Não cheque essas requisições
-            .authorizeRequests().antMatchers("/login",
-                                                        "/cliente",
+            .authorizeRequests().antMatchers("/cliente",
                                                         "/cliente/{id}",
                                                         "/cliente/auto",
                                                         "/empresa",
@@ -78,9 +77,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/exterior/{id}",
                                                         "/preco",
                                                         "/preco/{idC}/{idP}",
-                                                        "/esqueci-minha-senha",
+                                                        "/authenticate/login",
+                                                        "/authenticate/esqueci-minha-senha",
                                                         "/estoque/em-estoque",
-                                                        "/estoque/fora-de-estoque").permitAll().
+                                                        "/estoque/fora-de-estoque",
+                                                        "/produtos/search/{s}",
+                                                        "/produtos/category/{id}",
+                                                        "/produtos/subcategory/{idC}/{idS}",
+                                                        "/produtos/colection/{id}",
+                                                        "/produtos/rarity/{id}",
+                                                        "/produtos/exterior/{id}",
+                                                        "/produtos/maxValue/{v}",
+                                                        "/produtos/minValue/{v}").permitAll().
 // Qualquer outra requisição deve ser checada
         anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
