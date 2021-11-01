@@ -80,7 +80,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/preco/{idC}/{idP}",
                                                         "/esqueci-minha-senha",
                                                         "/estoque/em-estoque",
-                                                        "/estoque/fora-de-estoque").permitAll().
+                                                        "/estoque/fora-de-estoque",
+                                                        "/produtos/search/{s}",
+                                                        "/produtos/category/{id}",
+                                                        "/produtos/subcategory/{idC}/{idS}",
+                                                        "/produtos/colection/{id}",
+                                                        "/produtos/rarity/{id}",
+                                                        "/produtos/exterior/{id}",
+                                                        "/produtos/maxValue/{v}",
+                                                        "/produtos/minValue/{v}").permitAll().
 // Qualquer outra requisição deve ser checada
         anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
