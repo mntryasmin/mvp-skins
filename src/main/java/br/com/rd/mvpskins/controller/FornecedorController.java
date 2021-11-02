@@ -44,7 +44,6 @@ public class FornecedorController {
 
     //  ---------------------> DELETAR
     @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void delete(@PathVariable("id") Long id) {
         fornecedorService.delete(id);
     }

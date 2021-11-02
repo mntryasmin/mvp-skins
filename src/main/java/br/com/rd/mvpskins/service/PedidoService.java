@@ -74,9 +74,9 @@ public class PedidoService {
         return listToDTO(list);
     }
 
-    //TODOS OS PEDIDOS DE UM CLIENTE
-    public List<PedidoDTO> searchPedidoCliente (Long id) {
-        List<Pedido> list = pedidoRepository.searchPedidoCliente(id);
+    //TODAS OS PRODUTOS COMPRADOS POR UM CLIENTE
+    public List<PedidoDTO> searchProdutosCliente (Long idCliente) {
+        List<Pedido> list = pedidoRepository.searchProdutosCliente(idCliente);
 
         return listToDTO(list);
     }
