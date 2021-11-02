@@ -6,7 +6,7 @@ PÁGINAS:
 
     listarCategoriasModel (BD INTERNO)
         Categorias1Nivel 
-        Categorias2Niveis
+        Categorias2NiveisX
 
     listarCategoriasMenu (BD INTERNO)
         Categorias2Niveis
@@ -26,13 +26,13 @@ PÁGINAS:
     listarEventos (BD INTERNO) //click para página de seleção de produtos
         CategoriaEventos
 
-    listar1Carrousel
+    listar1Carrousel // todas as categorias
         CategoriaMaisVendidos
 
-    listar1Carrousel
+    listar1Carrousel // + vendidas
         CategoriaTopFacas
 
-    listar1Carrousel
+    listar1Carrousel // + vendidas
         CategoriaTopArmas
 
 
@@ -52,10 +52,10 @@ PÁGINAS:
         updateSenhaCliente
 
     historicoCompras  ---- OK
-        listarPedidosPorCliente ---- OK
-            localhost:8080/pedidos
+        listarProcutoCliente ---- OK
+            localhost:8080/pedidos/idCliente
         
-        getPedidoPorIDPedido
+        getProdutosPorPedido
             localhost:8080/pedido/id
 
 

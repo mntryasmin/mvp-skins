@@ -93,9 +93,9 @@ public class NFService {
 
         //        ===> FORNECEDOR
         if (dto.getFornecedor() != null) {
-            Fornecedor f = fornecedorRepository.getById(dto.getFornecedor().getId());
+            Fornecedor fo = fornecedorRepository.getById(dto.getFornecedor().getId());
 
-            b.setFornecedor(f);
+            b.setFornecedor(fo);
         }
 
         b.setId(dto.getId());
@@ -155,7 +155,7 @@ public class NFService {
 
         //        ===> FORNECEDOR
         if (b.getFornecedor() != null) {
-            FornecedorDTO f = fornecedorService.searchID(dto.getFornecedor().getId());
+            FornecedorDTO f = fornecedorService.searchID(b.getFornecedor().getId());
 
             dto.setFornecedor(f);
         }
@@ -237,13 +237,15 @@ public class NFService {
         //        ===> FORNECEDOR
         if(nfDTO.getFornecedor() != null) {
             Long idFornecedor = nf.getFornecedor().getId();
-            Fornecedor f;
+            Fornecedor fo;
 
             if (idFornecedor != null) {
-                f = this.fornecedorRepository.getById(idFornecedor);
+                fo = this.fornecedorRepository.getById(idFornecedor);
             } else {
-                f = this.fornecedorRepository.save(nf.getFornecedor());
+                fo = this.fornecedorRepository.save(nf.getFornecedor());
             }
+
+            nf.setFornecedor(fo);
         }
 
         nf.setDataRegistro(new Date());
@@ -257,6 +259,13 @@ public class NFService {
     //TODAS AS NF'S
     public List<NFDTO> searchAll() {
         List<NF> list = nfRepository.findAll();
+
+        return listToDTO(list);
+    }
+
+    //TODAS AS NF'S POR CLIENTE
+    public List<NFDTO> findByClienteCodigoCliente(Long id) {
+        List<NF> list = nfRepository.findByClienteCodigoCliente(id);
 
         return listToDTO(list);
     }
