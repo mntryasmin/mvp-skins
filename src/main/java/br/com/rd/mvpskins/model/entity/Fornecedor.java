@@ -10,10 +10,10 @@ public class Fornecedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CODIGO_FORNECEDOR")
+    @Column(nullable = false, name = "CODIGO_FORNECEDOR")
     private Long id;
 
-    @Column(name = "CNPJ")
+    @Column(nullable = false, name = "CNPJ")
     private String cnpj;
 
     @Column(nullable = false, name = "DESCRICAO")
