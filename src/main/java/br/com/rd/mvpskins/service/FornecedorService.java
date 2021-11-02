@@ -1,6 +1,7 @@
 package br.com.rd.mvpskins.service;
 
 import br.com.rd.mvpskins.model.dto.FornecedorDTO;
+import br.com.rd.mvpskins.model.embeddable.ItensNFCompositeKey;
 import br.com.rd.mvpskins.model.entity.Fornecedor;
 import br.com.rd.mvpskins.repository.contract.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,14 +61,14 @@ public class FornecedorService {
 
 
     //  ---------------------> BUSCAR
-    //TODOS OS TIPOS DE NF
+    //TODOS OS FORNECEDORES
     public List<FornecedorDTO> searchAll() {
         List<Fornecedor> list = fornecedorRepository.findAll();
 
         return listToDTO(list);
     }
 
-    //UM TIPO DE NF POR ID
+    //UM FORNECEDOR POR ID
     public FornecedorDTO searchID(Long id) {
         if (fornecedorRepository.existsById(id)) {
             return businessToDTO(fornecedorRepository.getById(id));

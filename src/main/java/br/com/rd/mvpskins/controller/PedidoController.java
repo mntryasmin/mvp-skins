@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pedido")
+@RequestMapping("/pedidos")
 public class PedidoController {
 
     @Autowired
@@ -29,10 +29,10 @@ public class PedidoController {
         return pedidoService.searchAll();
     }
 
-    //TODOS OS PEDIDOS DE UM CLIENTE
-    @GetMapping("/pedidos/{id}")
-    public List<PedidoDTO> searchPedidoCliente(@PathVariable("id") Long id) {
-        return pedidoService.searchPedidoCliente(id);
+    //TODAS AS NF'S DE UM CLIENTE
+    @GetMapping("/historico/{idCliente}")
+    public List<PedidoDTO> searchProdutosCliente(@PathVariable("idCliente") Long idCliente) {
+        return pedidoService.searchProdutosCliente(idCliente);
     }
 
     //UM PEDIDO POR ID

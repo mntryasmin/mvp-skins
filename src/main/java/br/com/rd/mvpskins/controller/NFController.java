@@ -1,6 +1,7 @@
 package br.com.rd.mvpskins.controller;
 
 import br.com.rd.mvpskins.model.dto.NFDTO;
+import br.com.rd.mvpskins.model.dto.ProdutoDTO;
 import br.com.rd.mvpskins.service.NFService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,16 @@ public class NFController {
     public List<NFDTO> searchAll() {
         return nfService.searchAll();
     }
+
+    //TODAS NF'S DE UM CLIENTE
+    @GetMapping("/historico/{idCliente}")
+    public List<NFDTO> findByClienteCodigoCliente(@PathVariable ("idCliente") Long idCliente) {
+        return nfService.findByClienteCodigoCliente(idCliente);
+    }
+
+    //TODOS OS PRODUTOS DENTRO DE UMA NF
+//    @GetMapping("/historico/nf/{idNF}")
+//    public List<ProdutoDTO> findByPedidoProduto
 
     //UMA NF POR ID
     @GetMapping("/{id}")
