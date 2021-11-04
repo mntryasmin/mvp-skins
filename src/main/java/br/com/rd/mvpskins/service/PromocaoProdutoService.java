@@ -18,24 +18,35 @@ import java.util.Optional;
 public class PromocaoProdutoService {
     @Autowired
     PromocaoProdutoRepository promocaoProdutoRepository;
-
+    @Autowired
+    PromocaoProdutoService promocaoProdutoService;
+    @Autowired
+    Promocao promocaoRepository;
+    @Autowired
+    PromocaoService promocaoService;
 
     private PromocaoProduto dtoToBusiness(PromocaoProdutoDTO dto) {
-       PromocaoProdutoCompositeKey id = new PromocaoProdutoCompositeKey();
-       id.setPromocaoProduto(dto.getId().);
+        PromocaoProdutoCompositeKey id = new PromocaoProdutoCompositeKey();
+        id.setPromocao(dto.getId().getPromocaoDTO());
+        id.setPromocao(dto.getId().getPromocaoDTO());
+        id.setDataInicio(dto.getId().getDataInicio());
 
-       PromocaoProduto p = new PromocaoProduto();
+        PromocaoProduto p = new PromocaoProduto();
         p.setCodigoProduto(dto.getCodigoProduto());
         p.setDataFim(dto.getDataFim());
         p.setPorcentagemDesconto(dto.getPorcentagemDesconto());
         p.setValorDesconto(dto.getValorDesconto());
+
 
         return p;
     }
 
 
     private PromocaoProdutoDTO businessToDto(PromocaoProduto p) {
-
+    PromocaoProdutoCompositeKeyDTO id = new PromocaoProdutoCompositeKeyDTO();
+    id.setPromocaoProdutoDTO(p.getId().getPromocaoProduto());
+    id.setPromocaoDTO(p.getId().getPromocao());
+    id.setDataInicio(p.getId().getDataInicio());
 
         PromocaoProdutoDTO dto = new PromocaoProdutoDTO();
 
