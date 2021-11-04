@@ -1,7 +1,9 @@
 package br.com.rd.mvpskins.service;
 
+import br.com.rd.mvpskins.model.dto.ClienteDTO;
 import br.com.rd.mvpskins.model.dto.PedidoDTO;
 import br.com.rd.mvpskins.model.entity.*;
+import br.com.rd.mvpskins.repository.contract.ClienteRepository;
 import br.com.rd.mvpskins.repository.contract.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,22 @@ public class PedidoService {
     @Autowired
     PedidoRepository pedidoRepository;
 
+    @Autowired
+    ClienteRepository clienteRepository;
+
+    @Autowired
+    ClienteService clienteService;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private Pedido dtoToBusiness (PedidoDTO dto) {
         Pedido b = new Pedido();
+
+        //        ===> CLIENTE
+        if (dto.getCliente() != null) {
+            Cliente c = clienteRepository.getById(dto.getCliente().getCodigoCliente());
+
+            b.setCliente(c);
+        }
 
         b.setId(dto.getId());
         b.setDataRegistro(dto.getDataRegistro());
@@ -33,6 +48,13 @@ public class PedidoService {
     //  ---------------------> CONVERTER PARA DTO
     private PedidoDTO businessToDTO (Pedido b) {
         PedidoDTO dto = new PedidoDTO();
+
+        //        ===> CLIENTE
+        if (b.getCliente() != null) {
+            ClienteDTO c = clienteService.searchClienteById(b.getCliente().getCodigoCliente());
+
+            dto.setCliente(c);
+        }
 
         dto.setId(b.getId());
         dto.setDataRegistro(b.getDataRegistro());
@@ -59,6 +81,20 @@ public class PedidoService {
     public PedidoDTO create (PedidoDTO pedidoDTO) {
         Pedido pedido = this.dtoToBusiness(pedidoDTO);
 
+        //        ===> CLIENTE
+        if(pedidoDTO.getCliente() != null) {
+            Long idCliente = pedido.getCliente().getCodigoCliente();
+            Cliente cl;
+
+            if (idCliente != null) {
+                cl = this.clienteRepository.getById(idCliente);
+            } else {
+                cl = this.clienteRepository.save(pedido.getCliente());
+            }
+
+            pedido.setCliente(cl);
+        }
+
         pedido.setDataRegistro(new Date());
         pedido = pedidoRepository.save(pedido);
 
@@ -75,8 +111,8 @@ public class PedidoService {
     }
 
     //TODAS OS PRODUTOS COMPRADOS POR UM CLIENTE
-    public List<PedidoDTO> searchProdutosCliente (Long idCliente) {
-        List<Pedido> list = pedidoRepository.searchProdutosCliente(idCliente);
+    public List<PedidoDTO> searchPedidosCliente (Long idCliente) {
+        List<Pedido> list = pedidoRepository.searchPedidosCliente(idCliente);
 
         return listToDTO(list);
     }
@@ -98,6 +134,10 @@ public class PedidoService {
 
         if (opt.isPresent()) {
             Pedido update = opt.get();
+
+            if (pedido.getCliente() != null) {
+                update.setCliente(pedido.getCliente());
+            }
 
             if (pedido.getDescontoProduto() != null) {
                 update.setDescontoProduto(pedido.getDescontoProduto());

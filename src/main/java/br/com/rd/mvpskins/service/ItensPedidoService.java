@@ -128,6 +128,34 @@ public class ItensPedidoService {
         return null;
     }
 
+    //PRODUTOS DE UM PEDIDO
+    public List<ItensPedidoDTO> searchProdutosPedido (Long idPedido) {
+        List<ItensPedido> list = itensPedidoRepository.searchProdutosPedido(idPedido);
+
+        return listToDTO(list);
+    }
+
+    //TOP 12 PRODUTOS MAIS VENDIDOS
+    public List<ItensPedidoDTO> searchProdutosMaisVendidos() {
+        List<ItensPedido> list = itensPedidoRepository.searchProdutosMaisVendidos();
+
+        return listToDTO(list);
+    }
+
+    //TOP 12 FACAS MAIS VENDIDAS
+    public List<ItensPedidoDTO> searchFacasMaisVendidas() {
+        List<ItensPedido> list = itensPedidoRepository.searchFacasMaisVendidas();
+
+        return listToDTO(list);
+    }
+
+    //TOP 12 ARMAS MAIS VENDIDAS
+    public List<ItensPedidoDTO> searchArmasMaisVendidas() {
+        List<ItensPedido> list = itensPedidoRepository.searchArmasMaisVendidas();
+
+        return listToDTO(list);
+    }
+
     //  ---------------------> ATUALIZAR
     public ItensPedidoDTO update(ItensPedidoDTO dto, Long idProduto, Long idPedido) {
 
