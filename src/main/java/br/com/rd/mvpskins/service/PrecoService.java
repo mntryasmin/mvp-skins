@@ -63,8 +63,8 @@ public class PrecoService {
         produto.setDescricao(dto.getChaveComposta().getProduto().getDescricao());
 
         Categoria category = new Categoria();
-        category.setCodigoCategoria(dto.getChaveComposta().getProduto().getCategoria().getCODIGO_CATEGORIA());
-        category.setDescricao(dto.getChaveComposta().getProduto().getCategoria().getDESCRICAO());
+        category.setCodigoCategoria(dto.getChaveComposta().getProduto().getCategoria().getCodigoCategoria());
+        category.setDescricao(dto.getChaveComposta().getProduto().getCategoria().getDescricao());
         produto.setCategoria(category);
 
         Subcategoria subcategory = new Subcategoria();
@@ -117,8 +117,8 @@ public class PrecoService {
         produto.setDescricao(p.getChaveComposta().getProduto().getDescricao());
 
         CategoriaDTO category = new CategoriaDTO();
-        category.setCODIGO_CATEGORIA(p.getChaveComposta().getProduto().getCategoria().getCodigoCategoria());
-        category.setDESCRICAO(p.getChaveComposta().getProduto().getCategoria().getDescricao());
+        category.setCodigoCategoria(p.getChaveComposta().getProduto().getCategoria().getCodigoCategoria());
+        category.setDescricao(p.getChaveComposta().getProduto().getCategoria().getDescricao());
         produto.setCategoria(category);
 
         SubcategoriaDTO subcategory = new SubcategoriaDTO();

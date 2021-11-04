@@ -33,15 +33,15 @@ public class CategoriaService {
     public Categoria dtoToBusiness (CategoriaDTO dto) {
         Categoria c = new Categoria();
 
-        c.setDescricao(dto.getDESCRICAO());
+        c.setDescricao(dto.getDescricao());
         return c;
     }
 
     public CategoriaDTO businessToDTO (Categoria c){
         CategoriaDTO dto = new CategoriaDTO();
 
-        dto.setCODIGO_CATEGORIA(c.getCodigoCategoria());
-        dto.setDESCRICAO(c.getDescricao());
+        dto.setCodigoCategoria(c.getCodigoCategoria());
+        dto.setDescricao(c.getDescricao());
         return dto;
     }
 

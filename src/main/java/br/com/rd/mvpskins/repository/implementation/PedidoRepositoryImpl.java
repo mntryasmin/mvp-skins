@@ -16,9 +16,9 @@ public class PedidoRepositoryImpl implements PedidoRepositoryCustom {
     EntityManager entityManager;
 
     @Override
-    public List<Pedido> searchProdutosCliente(Long idCliente) {
+    public List<Pedido> searchPedidosCliente(Long idCliente) {
 
-        Query sql = entityManager.createNativeQuery("SELECT CODIGO_PRODUTO FROM TB_ITENS_NF TIN INNER JOIN TB_NF TN ON TN.CODIGO_CLIENTE = ?" , ItensNF.class);
+        Query sql = entityManager.createNativeQuery("SELECT * FROM TB_PEDIDO TP WHERE TP.CODIGO_CLIENTE = ?" , Pedido.class);
         sql.setParameter(1, idCliente);
 
         List<Pedido> list = sql.getResultList();

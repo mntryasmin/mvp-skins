@@ -248,6 +248,34 @@ public class NFService {
             nf.setFornecedor(fo);
         }
 
+        //        ===> EMPRESA
+        if(nfDTO.getEmpresa() != null) {
+            Long idEmpresa = nf.getEmpresa().getIdEmpresa();
+            Empresa em;
+
+            if (idEmpresa != null) {
+                em = this.empresaRepository.getById(idEmpresa);
+            } else {
+                em = this.empresaRepository.save(nf.getEmpresa());
+            }
+
+            nf.setEmpresa(em);
+        }
+
+        //        ===> CLIENTE
+        if(nfDTO.getCliente() != null) {
+            Long idCliente = nf.getCliente().getCodigoCliente();
+            Cliente cl;
+
+            if (idCliente != null) {
+                cl = this.clienteRepository.getById(idCliente);
+            } else {
+                cl = this.clienteRepository.save(nf.getCliente());
+            }
+
+            nf.setCliente(cl);
+        }
+
         nf.setDataRegistro(new Date());
         nf = nfRepository.save(nf);
 
