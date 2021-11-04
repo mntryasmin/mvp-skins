@@ -35,6 +35,34 @@ public class ItensPedidoController {
         return itensPedidoService.searchID(idProduto, idPedido);
     }
 
+    // PRODUTOS DE UM PEDIDO
+    //UM ITEM DE PEDIDO POR ID
+    @GetMapping("/{idPedido}")
+    public List<ItensPedidoDTO> searchProdutosPedido(@PathVariable("idPedido") Long idPedido) {
+        return itensPedidoService.searchProdutosPedido(idPedido);
+    }
+
+    //TOP 12 PRODUTOS MAIS VENDIDOS
+    @GetMapping("/topProdutos")
+    public List<ItensPedidoDTO> searchProdutosMaisVendidos() {
+
+        return itensPedidoService.searchProdutosMaisVendidos();
+    }
+
+    //TOP 12 FACAS MAIS VENDIDAS
+    @GetMapping("/topFacas")
+    public List<ItensPedidoDTO> searchFacasMaisVendidas() {
+
+        return itensPedidoService.searchFacasMaisVendidas();
+    }
+
+    //TOP 12 ARMAS MAIS VENDIDAS
+    @GetMapping("/topArmas")
+    public List<ItensPedidoDTO> searchArmasMaisVendidas() {
+
+        return itensPedidoService.searchArmasMaisVendidas();
+    }
+
     //  ---------------------> ATUALIZAR
     @PutMapping("/{idProduto}/{idRequest}")
     @ResponseBody

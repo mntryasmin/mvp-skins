@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/forma-pagamento/{id}",
                                                         "/itens-pedido",
                                                         "itens-pedido/{id}/{id}",
+                                                        "/itens-pedido/{idPedido}",
                                                         "/nf",
                                                         "/nf/{id}",
                                                         "/nf/historico/{idCliente}",
@@ -93,10 +94,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/produtos/rarity/{id}",
                                                         "/produtos/exterior/{id}",
                                                         "/produtos/maxValue/{v}",
-                                                        "/produtos/minValue/{v}",
-                                                        "/fav",
-                                                        "/fav/{idC}/{idP}",
-                                                        "/fav/client/{id}").permitAll().
+                                                        "/produtos/minValue/{v}").permitAll().
 // Qualquer outra requisição deve ser checada
         anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

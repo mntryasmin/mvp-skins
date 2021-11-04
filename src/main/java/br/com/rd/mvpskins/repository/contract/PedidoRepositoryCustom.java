@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PedidoRepositoryCustom {
-    List<Pedido> searchProdutosCliente(Long idCliente);
+    List<Pedido> searchPedidosCliente(Long idCliente);
 }

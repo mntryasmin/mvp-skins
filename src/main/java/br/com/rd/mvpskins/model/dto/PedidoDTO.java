@@ -6,8 +6,10 @@ import java.util.Date;
 @Data
 public class PedidoDTO {
     private Long id;
+    private ClienteDTO cliente;
     private Date dataRegistro;
     private Double descontoProduto;
     private Double valorBruto;
     private Double valorLiquido;
+    private Boolean status;
 }
