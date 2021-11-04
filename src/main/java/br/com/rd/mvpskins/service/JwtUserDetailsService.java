@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.rd.mvpskins.config.JwtTokenUtil;
+import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.dto.PedidoDTO;
 import br.com.rd.mvpskins.model.entity.Cliente;
+import br.com.rd.mvpskins.model.entity.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +27,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private PedidoService pedidoService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -53,6 +59,19 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
 
         User user = new User(email, cliente.getSenhaCliente(), new ArrayList<>());
+        String token = jwtTokenUtil.generateTokenForgotPassword(user);
+        emailService.sendEmailForgotPassword(token, user.getUsername());
+
+        return token;
+    }
+
+    public String sucessoDeCompra(Long idPedido){
+        PedidoDTO pedido = pedidoService.searchID(idPedido);
+        if(pedido==null){
+            throw new UsernameNotFoundException("pedido não encontrado: "+pedido);
+        }
+
+        User user = new User(pedido.getCliente().getEmailCliente(), pedido.getCliente().getSenhaCliente(), new ArrayList<>());
         String token = jwtTokenUtil.generateTokenForgotPassword(user);
         emailService.sendEmailForgotPassword(token, user.getUsername());
 
