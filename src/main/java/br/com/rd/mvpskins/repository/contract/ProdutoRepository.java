@@ -49,5 +49,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
             " INNER JOIN tb_preco p ON p.CODIGO_PRODUTO = tp.CODIGO_PRODUTO" +
             " WHERE p.VALOR_PRECO >= :value", nativeQuery = true)
     List<Produto> getListByMinValue(@Param("value") Double value);
+
+
 }
 

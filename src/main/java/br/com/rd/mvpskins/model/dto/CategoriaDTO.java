@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class CategoriaDTO {
 
-    private Long CODIGO_CATEGORIA;
-    private String DESCRICAO;
+    private Long codigoCategoria;
+    private String descricao;
 }

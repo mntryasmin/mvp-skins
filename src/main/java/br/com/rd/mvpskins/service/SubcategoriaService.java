@@ -51,8 +51,8 @@ public class SubcategoriaService {
         CompositeKeySubcategoriaDTO key = new CompositeKeySubcategoriaDTO();
         CategoriaDTO cDTO = new CategoriaDTO();
 
-        cDTO.setCODIGO_CATEGORIA(s.getChaveComposta().getCategoria().getCodigoCategoria());
-        cDTO.setDESCRICAO(s.getChaveComposta().getCategoria().getDescricao());
+        cDTO.setCodigoCategoria(s.getChaveComposta().getCategoria().getCodigoCategoria());
+        cDTO.setDescricao(s.getChaveComposta().getCategoria().getDescricao());
 
         key.setCodigoSubcategoria(s.getChaveComposta().getCodigoSubcategoria());
         key.setCategoria(cDTO);
@@ -67,8 +67,8 @@ public class SubcategoriaService {
         CompositeKeySubcategoria key = new CompositeKeySubcategoria();
         Categoria c = new Categoria();
 
-        c.setCodigoCategoria(dto.getChaveComposta().getCategoria().getCODIGO_CATEGORIA());
-        c.setDescricao(dto.getChaveComposta().getCategoria().getDESCRICAO());
+        c.setCodigoCategoria(dto.getChaveComposta().getCategoria().getCodigoCategoria());
+        c.setDescricao(dto.getChaveComposta().getCategoria().getDescricao());
 
         key.setCodigoSubcategoria(dto.getChaveComposta().getCodigoSubcategoria());
         key.setCategoria(c);

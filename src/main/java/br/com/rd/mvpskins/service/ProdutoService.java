@@ -99,8 +99,8 @@ public class ProdutoService {
         dto.setId(p.getId());
         dto.setDescricao(p.getDescricao());
 
-        categoryDTO.setCODIGO_CATEGORIA(p.getCategoria().getCodigoCategoria());
-        categoryDTO.setDESCRICAO(p.getCategoria().getDescricao());
+        categoryDTO.setCodigoCategoria(p.getCategoria().getCodigoCategoria());
+        categoryDTO.setDescricao(p.getCategoria().getDescricao());
         dto.setCategoria(categoryDTO);
 
         keySubcategoria.setCategoria(categoryDTO);
@@ -136,8 +136,8 @@ public class ProdutoService {
         p.setDescricao(p.getDescricao());
 
         Categoria category = new Categoria();
-        category.setCodigoCategoria(dto.getCategoria().getCODIGO_CATEGORIA());
-        category.setDescricao(dto.getCategoria().getDESCRICAO());
+        category.setCodigoCategoria(dto.getCategoria().getCodigoCategoria());
+        category.setDescricao(dto.getCategoria().getDescricao());
         p.setCategoria(category);
 
         Subcategoria subcategory = new Subcategoria();
