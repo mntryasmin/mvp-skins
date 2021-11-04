@@ -20,7 +20,12 @@ public class ClienteController {
     @PostMapping
     @ResponseBody
     public ClienteDTO createCliente (@RequestBody ClienteDTO cliente){
-        return clienteService.createCliente(cliente);
+        try{
+            return clienteService.createCliente(cliente);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping
