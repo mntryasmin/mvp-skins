@@ -15,9 +15,7 @@ public class PromocaoProduto {
    @EmbeddedId
    @Column(nullable = false, name = "CODIGO_PROMOCAO_PRODUTO")
    private PromocaoProdutoCompositeKey id;
-    @Column(name = "CODIGO_PRODUTO")
-    private Long codigoProduto;
-    @Column(name = "PORCENTAGEM_DESCONTO")
+   @Column(name = "PORCENTAGEM_DESCONTO")
     private Float porcentagemDesconto;
     @Column(name = "VALOR_DESCONTO")
     private Float valorDesconto;

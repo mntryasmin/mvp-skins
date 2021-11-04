@@ -11,7 +11,7 @@ public class Promocao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CODIGO_PROMOCAO",nullable = false)
-    private String codigoPromocao;
+    private Long  codigoPromocao;
     @Column(name = "DESCRICAO",nullable = false)
     private String descricao;
 

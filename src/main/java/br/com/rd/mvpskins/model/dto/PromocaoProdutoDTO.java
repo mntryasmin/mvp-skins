@@ -6,7 +6,6 @@ import java.util.Date;
 
 @Data
 public class PromocaoProdutoDTO {
-    private Long codigoProduto;
     private Float porcentagemDesconto;
     private Float valorDesconto;
     private Date dataFim;

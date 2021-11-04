@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class PromocaoDTO {
-    private String codigoPromocao;
+    private Long codigoPromocao;
     private String descricao;
     
 

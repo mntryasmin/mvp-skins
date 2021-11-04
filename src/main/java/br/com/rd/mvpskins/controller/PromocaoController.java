@@ -27,17 +27,17 @@ public class PromocaoController {
     }
 
     @GetMapping("/{idPromotion}")
-    public PromocaoDTO searchPromotionById(@PathVariable("idPromotion") String codigoPromocao){
+    public PromocaoDTO searchById(@PathVariable("idPromotion") Long codigoPromocao){
     return promocaoService.searchPromotionById(codigoPromocao);
 }
-    @GetMapping("/{idPromotion}")
-    public PromocaoDTO updatePromotion(@RequestBody PromocaoDTO promocaoDTO, @PathVariable("idPromotion") String codigoPromocao ){
+    @GetMapping("/{updatePromotion}")
+    public PromocaoDTO updatePromotion(@RequestBody PromocaoDTO promocaoDTO, @PathVariable("idPromotion") Long codigoPromocao ){
     return promocaoService.updatePromotion(promocaoDTO,codigoPromocao);
     }
 
-    @DeleteMapping("/{idPromotion}")
+    @DeleteMapping("/{deletePromotion}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void deletePromotion(@PathVariable("idPromotion")String codigoPromocao){
+    public void deletePromotion(@PathVariable("idPromotion")Long codigoPromocao){
     promocaoService.deletePromotion(codigoPromocao);
     }
 

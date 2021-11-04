@@ -5,6 +5,7 @@ import java.util.Date;
 
 import br.com.rd.mvpskins.model.dto.PromocaoDTO;
 import br.com.rd.mvpskins.model.dto.PromocaoProdutoDTO;
+import br.com.rd.mvpskins.model.entity.Produto;
 import br.com.rd.mvpskins.model.entity.Promocao;
 import br.com.rd.mvpskins.model.entity.PromocaoProduto;
 import lombok.Data;
@@ -20,16 +21,13 @@ public class PromocaoProdutoCompositeKey implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODIGO_PRODUTO")
-    private PromocaoProduto promocaoProduto;
+    private Produto produto;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODIGO_PROMOCAO")
     private Promocao promocao;
 
-    public Date getDataInicio() {
-        return dataInicio;
 
-    }
 
 
 

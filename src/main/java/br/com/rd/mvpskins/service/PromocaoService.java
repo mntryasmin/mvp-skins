@@ -50,7 +50,7 @@ public class PromocaoService {
         return listToDto(lista);
     }
 
-    public PromocaoDTO searchPromotionById(String codigoPromocao) {
+    public PromocaoDTO searchPromotionById(Long codigoPromocao) {
         if (promocaoRepository.existsById(codigoPromocao)) {
             return businessToDto(promocaoRepository.getById(codigoPromocao));
         }
@@ -58,7 +58,7 @@ public class PromocaoService {
     }
 
     // Update promocao
-    public PromocaoDTO updatePromotion(PromocaoDTO dto, String codigoPromocao) {
+    public PromocaoDTO updatePromotion(PromocaoDTO dto, Long codigoPromocao) {
         Optional<Promocao> opt = promocaoRepository.findById(codigoPromocao);
         Promocao promocao = dtoToBusiness(dto);
         if (opt.isPresent()) {
@@ -73,14 +73,9 @@ public class PromocaoService {
         }
         return null;
     }
-    public void deletePromotion (String id){
+    public void deletePromotion (Long id){
         if (promocaoRepository.existsById(id)){
             promocaoRepository.deleteById(id);
         }
 }
-
-
-
-
-
 }
