@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/forma-pagamento/{id}",
                                                         "/itens-pedido",
                                                         "itens-pedido/{id}/{id}",
+                                                        "/itens-pedido/{idPedido}",
                                                         "/nf",
                                                         "/nf/{id}",
                                                         "/nf/historico/{idCliente}",

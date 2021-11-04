@@ -1,5 +1,6 @@
 package br.com.rd.mvpskins.model.entity;
 
+import br.com.rd.mvpskins.model.embeddable.ItensPedidoCompositeKey;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,6 +15,10 @@ public class Pedido {
     @Column (name = "CODIGO_PEDIDO")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codigo_cliente")
+    private Cliente cliente;
+
     @Column (name = "DATA_EMISSAO")
     private Date dataRegistro;
 
@@ -25,4 +30,7 @@ public class Pedido {
 
     @Column(nullable = false, name = "VALOR_TOTAL_LIQUIDO")
     private Double valorLiquido;
+
+    @Column(nullable = false, name = "STATUS")
+    private Boolean status;
 }

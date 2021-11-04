@@ -36,10 +36,6 @@ public class NFController {
         return nfService.findByClienteCodigoCliente(idCliente);
     }
 
-    //TODOS OS PRODUTOS DENTRO DE UMA NF
-//    @GetMapping("/historico/nf/{idNF}")
-//    public List<ProdutoDTO> findByPedidoProduto
-
     //UMA NF POR ID
     @GetMapping("/{id}")
     public NFDTO searchID(@PathVariable("id") Long id) {
