@@ -4,6 +4,7 @@ package br.com.rd.mvpskins.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -19,7 +20,7 @@ public class Cliente {
     @Column(name = "NOME",nullable = false)
     private String nomeCliente;
     @Column(name = "DATA_NASCIMENTO",nullable = false)
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     @Column(name = "TRADE_LINK",nullable = false)
     private String tradeLink;
     @Column(name = "SENHA",nullable = false)

@@ -25,9 +25,9 @@ public class CategoriaService {
     }
 
     public List<CategoriaDTO> getList(){
-        List<Categoria> lista = categoriaRepository.findAll();
+        List<Categoria> list = categoriaRepository.findAll();
 
-        return this.listToDto(lista);
+        return this.listToDto(list);
     }
 
     public Categoria dtoToBusiness (CategoriaDTO dto) {
@@ -45,12 +45,12 @@ public class CategoriaService {
         return dto;
     }
 
-    public List<CategoriaDTO> listToDto(List<Categoria> lista) {
-        List<CategoriaDTO> listaDTO = new ArrayList<CategoriaDTO>();
+    public List<CategoriaDTO> listToDto(List<Categoria> list) {
+        List<CategoriaDTO> listDTO = new ArrayList<CategoriaDTO>();
 
-        for (Categoria c : lista) {
-            listaDTO.add(this.businessToDTO(c));
+        for (Categoria c : list) {
+            listDTO.add(this.businessToDTO(c));
         }
-        return listaDTO;
+        return listDTO;
     }
 }

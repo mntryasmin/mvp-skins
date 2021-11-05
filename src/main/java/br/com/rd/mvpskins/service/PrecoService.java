@@ -31,6 +31,7 @@ public class PrecoService {
 
     public List<PrecoDTO> getPriceById(Long idP, Long idC){
 
+
         if(produtoRepository.existsById(idP) && categoriaPrecoRepository.existsById(idC)){
 
             List<Preco> lista = precoRepository.filtrarValorProduto(idC, idP);

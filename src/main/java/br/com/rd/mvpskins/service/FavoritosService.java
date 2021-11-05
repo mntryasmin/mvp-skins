@@ -31,7 +31,7 @@ public class FavoritosService {
         return this.listToDTO(list);
     }
 
-    public FavoritosDTO getFavoritoById(Long idC, Long idP){
+    public FavoritosDTO getFavoriteById(Long idC, Long idP){
         CompositeKeyFavoritos key = new CompositeKeyFavoritos();
 
         if(clienteRepository.existsById(idC)){
@@ -52,19 +52,22 @@ public class FavoritosService {
         return null;
     }
 
-    public List<FavoritosDTO> getFavoritoByClientId(Long id){
+    public List<FavoritosDTO> getFavoriteByClientId(Long id){
         List<Favoritos> list = favoritosRepository.getListByClientId(id);
 
         return this.listToDTO(list);
     }
 
-    public FavoritosDTO createFavorito(FavoritosDTO dto){
-
+    public FavoritosDTO createFavorite(FavoritosDTO dto){
+        Favoritos fav = new Favoritos();
+        Long idC = dto.getChaveComposta().getCliente().getCodigoCliente();
+        Long idP = dto.getChaveComposta().getProduto().getId();
         CompositeKeyFavoritos key = new CompositeKeyFavoritos();
 
         if (dto.getChaveComposta().getCliente() != null){
-            Long idC = dto.getChaveComposta().getCliente().getCodigoCliente();
-
+            if (idC == null){
+                return null;
+            }
             if(clienteRepository.existsById(idC)){
                 Cliente c = clienteRepository.getById(idC);
                 key.setCliente(c);
@@ -73,15 +76,19 @@ public class FavoritosService {
             }
         }
         if (dto.getChaveComposta().getProduto() != null){
-            Long idP = dto.getChaveComposta().getProduto().getId();
+            if (idP == null){
+                return null;
+            }
             if(produtoRepository.existsById(idP)){
                 Produto p = produtoRepository.getById(idP);
                 key.setProduto(p);
             }else {
                 return null;
             }
+            if (favoritosRepository.existsById(key)){
+                return this.updateFavorite(idC, idP);
+            }
 
-            Favoritos fav = new Favoritos();
             fav.setChaveComposta(key);
             fav.setFavorito(true);
             fav = favoritosRepository.save(fav);
@@ -91,7 +98,7 @@ public class FavoritosService {
         return null;
     }
 
-    public FavoritosDTO updateFavorito(Long idC, Long idP){
+    public FavoritosDTO updateFavorite(Long idC, Long idP){
         CompositeKeyFavoritos key = new CompositeKeyFavoritos();
 
         if(clienteRepository.existsById(idC)){
@@ -114,7 +121,7 @@ public class FavoritosService {
                 fav.setFavorito(true);
             }
 
-            favoritosRepository.save(fav);
+            fav = favoritosRepository.save(fav);
             return this.favToDto(fav);
         }
         return null;

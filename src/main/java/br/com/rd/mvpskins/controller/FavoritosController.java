@@ -22,27 +22,27 @@ public class FavoritosController {
 
     @GetMapping("/client/{id}")
     @ResponseBody
-    public List<FavoritosDTO> getFavoritoByClientId(@PathVariable("id")Long id){
-        return favoritosService.getFavoritoByClientId(id);
+    public List<FavoritosDTO> getFavoriteByClientId(@PathVariable("id")Long id){
+        return favoritosService.getFavoriteByClientId(id);
     }
 
     @GetMapping("/{idC}/{idP}")
     @ResponseBody
-    public FavoritosDTO getFavoritoById(@PathVariable("idC")Long idC, @PathVariable("idP")Long idP){
-        return favoritosService.getFavoritoById(idC, idP);
+    public FavoritosDTO getFavoriteById(@PathVariable("idC")Long idC, @PathVariable("idP")Long idP){
+        return favoritosService.getFavoriteById(idC, idP);
     }
 
     @PostMapping
     @ResponseBody
-    public FavoritosDTO createFavorito(@RequestBody FavoritosDTO dto){
-        return favoritosService.createFavorito(dto);
+    public FavoritosDTO createFavorite(@RequestBody FavoritosDTO dto){
+        return favoritosService.createFavorite(dto);
     }
 
     @PutMapping("/{idC}/{idP}")
     @ResponseBody
     public FavoritosDTO updateFavorito(@PathVariable("idC")Long idC,
                                        @PathVariable("idP")Long idP){
-        return favoritosService.updateFavorito(idC, idP);
+        return favoritosService.updateFavorite(idC, idP);
     }
 
 

@@ -30,4 +30,5 @@ public class PrecoController {
     public PrecoDTO getLastPrice(@PathVariable("idProduto") Long idProduto, @PathVariable("idPreco") Long idPreco){
         return precoService.getLastPrice(idProduto, idPreco);
     }
+  
 }

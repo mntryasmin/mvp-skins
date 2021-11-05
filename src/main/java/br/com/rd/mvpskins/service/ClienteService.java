@@ -73,32 +73,34 @@ public class ClienteService {
         }
         return listDTO;
     }
-    public ClienteDTO createCliente (ClienteDTO clienteDTO){
-        Cliente cliente = dtoToBusiness(clienteDTO);
-        cliente.setSenhaCliente(encoder.encode(cliente.getSenhaCliente()));
-        if(generoRepository.existsById(cliente.getGenero().getCodigoGenero())){
-            Genero genero = generoRepository.getById(cliente.getGenero().getCodigoGenero());
-            cliente.setGenero(genero);
+    public ClienteDTO createClient (ClienteDTO clientDTO){
+        Cliente client = dtoToBusiness(clientDTO);
+        client.setSenhaCliente(encoder.encode(client.getSenhaCliente()));
+
+        if(generoRepository.existsById(client.getGenero().getCodigoGenero())){
+            Genero genre = generoRepository.getById(client.getGenero().getCodigoGenero());
+            client.setGenero(genre);
         }
-        cliente = clienteRepository.save(cliente);
-        return businessToDto(cliente);
+
+        client = clienteRepository.save(client);
+        return businessToDto(client);
     }
 
-    public List<ClienteDTO> searchAllCliente(){
-        List<Cliente> lista = clienteRepository.findAll();
-        return listToDto(lista);
+    public List<ClienteDTO> searchAllClients(){
+        List<Cliente> list = clienteRepository.findAll();
+        return listToDto(list);
     }
 
-    public ClienteDTO searchClienteById(Long codigoCliente){
-        if(clienteRepository.existsById(codigoCliente)){
-            return businessToDto(clienteRepository.getById(codigoCliente));
+    public ClienteDTO searchClientById(Long codeClient){
+        if(clienteRepository.existsById(codeClient)){
+            return businessToDto(clienteRepository.getById(codeClient));
         }
         return null;
     }
 
-    public Cliente searchClienteByEmail(String email){
-        List<Cliente> lista = clienteRepository.findAll();
-        for(Cliente c : lista){
+    public Cliente searchClientByEmail(String email){
+        List<Cliente> list = clienteRepository.findAll();
+        for(Cliente c : list){
             if(c.getEmailCliente().equals(email)){
                 return c;
             }
@@ -106,8 +108,8 @@ public class ClienteService {
         return null;
     }
 
-    public ClienteDTO updateCliente (ClienteDTO dto, Long codigoCliente) {
-        Optional<Cliente> opt = clienteRepository.findById(codigoCliente);
+    public ClienteDTO updateClient (ClienteDTO dto, Long codeClient) {
+        Optional<Cliente> opt = clienteRepository.findById(codeClient);
         Cliente cliente = dtoToBusiness(dto);
         if (opt.isPresent()) {
             Cliente update = opt.get();
@@ -152,12 +154,12 @@ public class ClienteService {
 
         }
 
-        public String mudarSenha(String token, String senha){
+        public String changepassword(String token, String senha){
             String email = jwtTokenUtil.getUsernameFromToken(token);
-            Cliente cliente = searchClienteByEmail(email);
+            Cliente cliente = searchClientByEmail(email);
             cliente.setSenhaCliente(encoder.encode(senha));
             clienteRepository.save(cliente);
-            return "deu bom";
+            return "Senha alterada com sucesso";
         }
     }
 
