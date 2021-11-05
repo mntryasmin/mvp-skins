@@ -9,6 +9,6 @@ import java.time.LocalDate;
 public class PrecoDTO {
 
     private CompositeKeyPrecoDTO chaveComposta;
-    private LocalDate dtVigencia;
+
     private Double vlPreco;
 }
