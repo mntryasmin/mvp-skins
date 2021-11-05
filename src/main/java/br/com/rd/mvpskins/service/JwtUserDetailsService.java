@@ -36,7 +36,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Cliente cliente = clienteService.searchClienteByEmail(email);
+        Cliente cliente = clienteService.searchClientByEmail(email);
 
         if (cliente!=null && cliente.getEmailCliente().equals(email)) {
             return new User(email, cliente.getSenhaCliente(),
@@ -53,7 +53,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public String esqueciSenha(String email){
-        Cliente cliente = clienteService.searchClienteByEmail(email);
+        Cliente cliente = clienteService.searchClientByEmail(email);
         if(cliente==null){
             throw new UsernameNotFoundException("email não encontrado: "+email);
         }
