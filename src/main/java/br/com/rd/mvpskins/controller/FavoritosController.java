@@ -40,7 +40,7 @@ public class FavoritosController {
 
     @PutMapping("/{idC}/{idP}")
     @ResponseBody
-    public FavoritosDTO updateFavorito(@PathVariable("idC")Long idC,
+    public FavoritosDTO updateFavorite(@PathVariable("idC")Long idC,
                                        @PathVariable("idP")Long idP){
         return favoritosService.updateFavorite(idC, idP);
     }

@@ -52,11 +52,11 @@ public class FornecedorService {
 
 
     //  ---------------------> CRIAR
-    public FornecedorDTO create (FornecedorDTO fornecedorDTO) {
-        Fornecedor fornecedor = dtoToBusiness(fornecedorDTO);
-        fornecedor = fornecedorRepository.save(fornecedor);
+    public FornecedorDTO create (FornecedorDTO providerDTO) {
+        Fornecedor provider = dtoToBusiness(providerDTO);
+        provider = fornecedorRepository.save(provider);
 
-        return businessToDTO(fornecedor);
+        return businessToDTO(provider);
     }
 
 
@@ -81,17 +81,17 @@ public class FornecedorService {
     public FornecedorDTO update(FornecedorDTO dto, Long id) {
 
         Optional<Fornecedor> opt = fornecedorRepository.findById(id);
-        Fornecedor fornecedor = dtoToBusiness(dto);
+        Fornecedor provider = dtoToBusiness(dto);
 
         if (opt.isPresent()) {
             Fornecedor update = opt.get();
 
-            if (fornecedor.getCnpj() != null) {
-                update.setCnpj(fornecedor.getCnpj());
+            if (provider.getCnpj() != null) {
+                update.setCnpj(provider.getCnpj());
             }
 
-            if (fornecedor.getDescricao() != null) {
-                update.setDescricao(fornecedor.getDescricao());
+            if (provider.getDescricao() != null) {
+                update.setDescricao(provider.getDescricao());
             }
 
             fornecedorRepository.save(update);

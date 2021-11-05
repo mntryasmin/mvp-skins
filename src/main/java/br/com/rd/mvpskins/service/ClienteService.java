@@ -147,7 +147,7 @@ public class ClienteService {
         }
         return null;
     }
-        public void deleteCliente (Long id){
+        public void deleteClient (Long id){
             if (clienteRepository.existsById(id)){
                 clienteRepository.deleteById(id);
             }

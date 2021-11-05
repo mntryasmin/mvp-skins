@@ -18,8 +18,8 @@ public class FormaPagamentoController {
     //  ---------------------> CRIAR
     @PostMapping
     @ResponseBody
-    public FormaPagamentoDTO create (@RequestBody FormaPagamentoDTO formaPagamentoDTO) {
-        return formaPagamentoService.create(formaPagamentoDTO);
+    public FormaPagamentoDTO create (@RequestBody FormaPagamentoDTO paymentFormDTO) {
+        return formaPagamentoService.create(paymentFormDTO);
     }
 
     //  ---------------------> BUSCAR
@@ -38,8 +38,8 @@ public class FormaPagamentoController {
     //  ---------------------> ATUALIZAR
     @PutMapping("/{id}")
     @ResponseBody
-    public FormaPagamentoDTO update(@RequestBody FormaPagamentoDTO formaPagamentoDTO, @PathVariable("id") Long id) {
-        return formaPagamentoService.update(formaPagamentoDTO, id);
+    public FormaPagamentoDTO update(@RequestBody FormaPagamentoDTO paymentFormDTO, @PathVariable("id") Long id) {
+        return formaPagamentoService.update(paymentFormDTO, id);
     }
 
     //  ---------------------> DELETAR

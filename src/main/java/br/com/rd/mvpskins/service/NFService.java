@@ -236,11 +236,11 @@ public class NFService {
 
         //        ===> FORNECEDOR
         if(nfDTO.getFornecedor() != null) {
-            Long idFornecedor = nf.getFornecedor().getId();
+            Long idProvider = nf.getFornecedor().getId();
             Fornecedor fo;
 
-            if (idFornecedor != null) {
-                fo = this.fornecedorRepository.getById(idFornecedor);
+            if (idProvider != null) {
+                fo = this.fornecedorRepository.getById(idProvider);
             } else {
                 fo = this.fornecedorRepository.save(nf.getFornecedor());
             }
@@ -250,11 +250,11 @@ public class NFService {
 
         //        ===> EMPRESA
         if(nfDTO.getEmpresa() != null) {
-            Long idEmpresa = nf.getEmpresa().getIdEmpresa();
+            Long idCompany = nf.getEmpresa().getIdEmpresa();
             Empresa em;
 
-            if (idEmpresa != null) {
-                em = this.empresaRepository.getById(idEmpresa);
+            if (idCompany != null) {
+                em = this.empresaRepository.getById(idCompany);
             } else {
                 em = this.empresaRepository.save(nf.getEmpresa());
             }
@@ -264,11 +264,11 @@ public class NFService {
 
         //        ===> CLIENTE
         if(nfDTO.getCliente() != null) {
-            Long idCliente = nf.getCliente().getCodigoCliente();
+            Long idClient = nf.getCliente().getCodigoCliente();
             Cliente cl;
 
-            if (idCliente != null) {
-                cl = this.clienteRepository.getById(idCliente);
+            if (idClient != null) {
+                cl = this.clienteRepository.getById(idClient);
             } else {
                 cl = this.clienteRepository.save(nf.getCliente());
             }
@@ -292,7 +292,7 @@ public class NFService {
     }
 
     //TODAS AS NF'S POR CLIENTE
-    public List<NFDTO> findByClienteCodigoCliente(Long id) {
+    public List<NFDTO> findByClient(Long id) {
         List<NF> list = nfRepository.findByClienteCodigoCliente(id);
 
         return listToDTO(list);

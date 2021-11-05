@@ -18,8 +18,8 @@ public class ItensNFController {
     //  ---------------------> CRIAR
     @PostMapping
     @ResponseBody
-    public ItensNFDTO create(@RequestBody ItensNFDTO itensNFDTO) {
-        return itensNFService.create(itensNFDTO);
+    public ItensNFDTO create(@RequestBody ItensNFDTO itemsNFDTO) {
+        return itensNFService.create(itemsNFDTO);
     }
 
     //  ---------------------> BUSCAR
@@ -31,21 +31,21 @@ public class ItensNFController {
 
     //UM ITEM NF POR ID
     @GetMapping("/{idProduto}/{idNF}")
-    public ItensNFDTO searchID(@PathVariable("idProduto") Long idProduto, @PathVariable("idNF") Long idNF) {
-        return itensNFService.searchID(idProduto, idNF);
+    public ItensNFDTO searchID(@PathVariable("idProduto") Long idProduct, @PathVariable("idNF") Long idNF) {
+        return itensNFService.searchID(idProduct, idNF);
     }
 
     //  ---------------------> ATUALIZAR
     @PutMapping("/{idProduto}/{idNF}")
     @ResponseBody
-    public ItensNFDTO update(@RequestBody ItensNFDTO itensNFDTO, @PathVariable("idProduto") Long idProduto, @PathVariable("idNF") Long idNF) {
-        return itensNFService.update(itensNFDTO, idProduto, idNF);
+    public ItensNFDTO update(@RequestBody ItensNFDTO itemsNFDTO, @PathVariable("idProduto") Long idProduct, @PathVariable("idNF") Long idNF) {
+        return itensNFService.update(itemsNFDTO, idProduct, idNF);
     }
 
     //  ---------------------> DELETAR
     @DeleteMapping("/{idProduto}/{idNF}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void delete(@PathVariable("idProduto") Long idProduto, @PathVariable("idNF") Long idNF) {
-        itensNFService.delete(idProduto, idNF);
+    public void delete(@PathVariable("idProduto") Long idProduct, @PathVariable("idNF") Long idNF) {
+        itensNFService.delete(idProduct, idNF);
     }
 }
