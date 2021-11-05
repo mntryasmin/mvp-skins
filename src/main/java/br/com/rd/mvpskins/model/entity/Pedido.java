@@ -19,6 +19,10 @@ public class Pedido {
     @JoinColumn(name = "codigo_cliente")
     private Cliente cliente;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CODIGO_FORMA_PAGAMENTO")
+    private FormaPagamento formaPagamento;
+
     @Column (name = "DATA_EMISSAO")
     private Date dataRegistro;
 

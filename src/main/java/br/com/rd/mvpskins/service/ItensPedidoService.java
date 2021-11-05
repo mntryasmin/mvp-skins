@@ -10,6 +10,7 @@ import br.com.rd.mvpskins.model.entity.Pedido;
 import br.com.rd.mvpskins.model.entity.Produto;
 import br.com.rd.mvpskins.repository.contract.ItensPedidoRepository;
 import br.com.rd.mvpskins.repository.contract.PedidoRepository;
+import br.com.rd.mvpskins.repository.contract.PrecoRepository;
 import br.com.rd.mvpskins.repository.contract.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,25 +37,32 @@ public class ItensPedidoService {
     @Autowired
     ProdutoRepository produtoRepository;
 
+    @Autowired
+    PrecoRepository precoRepository;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private ItensPedido dtoToBusiness (ItensPedidoDTO dto) {
 
         //        ===> REQUEST
         ItensPedidoCompositeKey id = new ItensPedidoCompositeKey();
-        if (dto.getId().getPedido() != null) {
-            Produto p = produtoRepository.getById(dto.getId().getProduto().getId());
-            Pedido r = pedidoRepository.getById(dto.getId().getPedido().getId());
+        if (dto.getId().getPedido() != null && dto.getId().getProduto() != null) {
+            try {
+                Produto p = produtoRepository.getById(dto.getId().getProduto().getId());
+                Pedido r = pedidoRepository.getById(dto.getId().getPedido().getId());
 
-            id.setProduto(p);
-            id.setPedido(r);
+                id.setProduto(p);
+                id.setPedido(r);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         ItensPedido b = new ItensPedido();
         b.setId(id);
-        b.setQuantidade(dto.getQuantidade());
         b.setDesconto(dto.getDesconto());
         b.setValorBruto(dto.getValorBruto());
-        b.setValorLiquido(dto.getValorLiquido());
+        Double vLiquido = dto.getValorBruto()-dto.getDesconto();
+        b.setValorLiquido(vLiquido);
 
         return b;
     }
@@ -66,7 +74,7 @@ public class ItensPedidoService {
         //        ===> REQUEST
         ItensPedidoCompositeKeyDTO id = new ItensPedidoCompositeKeyDTO();
         if (b.getId().getPedido() != null) {
-            ProdutoDTO p = produtoService.getProductById(b.getId().getPedido().getId());
+            ProdutoDTO p = produtoService.getProductById(b.getId().getProduto().getId());
             PedidoDTO r = pedidoService.searchID(b.getId().getPedido().getId());
 
             id.setProduto(p);
@@ -75,10 +83,10 @@ public class ItensPedidoService {
 
         ItensPedidoDTO dto = new ItensPedidoDTO();
         dto.setId(id);
-        dto.setQuantidade(b.getQuantidade());
         dto.setDesconto(b.getDesconto());
         dto.setValorBruto(b.getValorBruto());
-        dto.setValorLiquido(b.getValorLiquido());
+        Double vLiquido = b.getValorBruto()-b.getDesconto();
+        dto.setValorLiquido(vLiquido);
 
         return dto;
     }
@@ -95,12 +103,22 @@ public class ItensPedidoService {
     }
 
     //  ---------------------> CRIAR
-    public ItensPedidoDTO create (ItensPedidoDTO itensPedidoDTO) {
+    public ItensPedidoDTO create (ItensPedidoDTO itensPedidoDTO) throws Exception{
 
-            ItensPedido itensPedido = dtoToBusiness(itensPedidoDTO);
-            itensPedido = itensPedidoRepository.save(itensPedido);
+        Long idProduto = itensPedidoDTO.getId().getProduto().getId();
 
-            return businessToDTO(itensPedido);
+        //Método que retorna apenas o preço do produto
+//        Double valorProduto = precoRepository.filtrarValorVendaProduto(idProduto);
+//        itensPedidoDTO.setValorBruto(valorProduto);
+
+        if(itensPedidoDTO.getDesconto() == null){
+            itensPedidoDTO.setDesconto(0.0);
+        }
+
+        ItensPedido itensPedido = dtoToBusiness(itensPedidoDTO);
+        itensPedido = itensPedidoRepository.save(itensPedido);
+
+        return businessToDTO(itensPedido);
     }
 
 
@@ -171,10 +189,6 @@ public class ItensPedidoService {
             if (opt.isPresent()) {
                 ItensPedido update = opt.get();
 
-                if (itensPedido.getQuantidade() != null) {
-                    update.setQuantidade(itensPedido.getQuantidade());
-                }
-
                 if (itensPedido.getDesconto() != null) {
                     update.setDesconto(itensPedido.getDesconto());
                 }
@@ -183,9 +197,7 @@ public class ItensPedidoService {
                     update.setValorBruto(itensPedido.getValorBruto());
                 }
 
-                if (itensPedido.getValorLiquido() != null) {
-                    update.setValorLiquido(itensPedido.getValorLiquido());
-                }
+                update.setValorLiquido(itensPedido.getValorBruto() - itensPedido.getDesconto());
 
                 itensPedidoRepository.save(update);
                 return businessToDTO(update);

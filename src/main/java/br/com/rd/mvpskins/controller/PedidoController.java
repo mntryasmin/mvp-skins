@@ -24,7 +24,12 @@ public class PedidoController {
     @PostMapping
     @ResponseBody
     public PedidoDTO create (@RequestBody PedidoDTO pedidoDTO) {
-        return pedidoService.create(pedidoDTO);
+        try {
+            return pedidoService.create(pedidoDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //  ---------------------> BUSCAR

@@ -15,9 +15,6 @@ public class Preco {
     @EmbeddedId
     private CompositeKeyPreco chaveComposta;
 
-    @Column(name="DATA_VIGENCIA", nullable = false)
-    private LocalDate dtVigencia;
-
     @Column(name="VALOR_PRECO", nullable = false)
     private Double vlPreco;
 

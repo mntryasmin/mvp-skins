@@ -22,7 +22,13 @@ public class PrecoController {
 
     @GetMapping("/{idC}/{idP}")
     @ResponseBody
-    public PrecoDTO getPriceById(@PathVariable("idP")Long idP, @PathVariable("idC")Long idC){
+    public List<PrecoDTO> getPriceById(@PathVariable("idP")Long idP, @PathVariable("idC")Long idC){
         return precoService.getPriceById(idP, idC);
     }
+
+    @GetMapping("/recente/{idPreco}/{idProduto}")
+    public PrecoDTO getLastPrice(@PathVariable("idProduto") Long idProduto, @PathVariable("idPreco") Long idPreco){
+        return precoService.getLastPrice(idProduto, idPreco);
+    }
+  
 }

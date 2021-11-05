@@ -7,6 +7,7 @@ import java.util.Date;
 public class PedidoDTO {
     private Long id;
     private ClienteDTO cliente;
+    private FormaPagamentoDTO formaPagamento;
     private Date dataRegistro;
     private Double descontoProduto;
     private Double valorBruto;
