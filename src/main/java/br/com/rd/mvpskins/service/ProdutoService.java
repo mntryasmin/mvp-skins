@@ -75,14 +75,8 @@ public class ProdutoService {
         return this.listToDTO(list);
     }
 
-    public List<ProdutoDTO> getListByMaxValue(Double value){
-        List<Produto> list = produtoRepository.getListByMaxValue(value);
-
-        return this.listToDTO(list);
-    }
-
-    public List<ProdutoDTO> getListByMinValue(Double value){
-        List<Produto> list = produtoRepository.getListByMinValue(value);
+    public List<ProdutoDTO> getListBetweenValues(Double value1, Double value2){
+        List<Produto> list = produtoRepository.getListBetweenValues(value1, value2);
 
         return this.listToDTO(list);
     }

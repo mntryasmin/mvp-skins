@@ -42,13 +42,10 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     @Query(value = "SELECT * FROM tb_produto tp" +
             " INNER JOIN tb_preco p ON p.CODIGO_PRODUTO = tp.CODIGO_PRODUTO" +
-            " WHERE p.VALOR_PRECO <= :value", nativeQuery = true)
-    List<Produto> getListByMaxValue(@Param("value") Double value);
+            " WHERE p.VALOR_PRECO >= :value1" +
+            " AND p.VALOR_PRECO <= :value2", nativeQuery = true)
+    List<Produto> getListBetweenValues(@Param("value1")Double value1, @Param("value2") Double value2);
 
-    @Query(value = "SELECT * FROM tb_produto tp" +
-            " INNER JOIN tb_preco p ON p.CODIGO_PRODUTO = tp.CODIGO_PRODUTO" +
-            " WHERE p.VALOR_PRECO >= :value", nativeQuery = true)
-    List<Produto> getListByMinValue(@Param("value") Double value);
 
 
 }

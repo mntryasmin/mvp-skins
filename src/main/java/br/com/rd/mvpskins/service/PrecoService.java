@@ -29,7 +29,7 @@ public class PrecoService {
         return this.listToDTO(list);
     }
 
-    public PrecoDTO getPrecoById(Long idP, Long idC){
+    public PrecoDTO getPriceById(Long idP, Long idC){
         CompositeKeyPreco key = new CompositeKeyPreco();
 
         if(produtoRepository.existsById(idP) && categoriaPrecoRepository.existsById(idC)){

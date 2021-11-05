@@ -22,7 +22,7 @@ public class ColecaoController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public ColecaoDTO getConectionByList(@PathVariable("id") Long id){
+    public ColecaoDTO getConectionById(@PathVariable("id") Long id){
         return colecaoService.getColectionById(id);
     }
 }
