@@ -32,8 +32,8 @@ public class NFController {
 
     //TODAS NF'S DE UM CLIENTE
     @GetMapping("/historico/{idCliente}")
-    public List<NFDTO> findByClienteCodigoCliente(@PathVariable ("idCliente") Long idCliente) {
-        return nfService.findByClienteCodigoCliente(idCliente);
+    public List<NFDTO> findByClient(@PathVariable ("idCliente") Long idClient) {
+        return nfService.findByClient(idClient);
     }
 
     //UMA NF POR ID

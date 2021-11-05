@@ -17,7 +17,6 @@ public class CategoriaController {
     @GetMapping("/{id}")
     @ResponseBody
     public CategoriaDTO getCategoryById(@PathVariable("id") Long id){
-
         return categoriaService.getCategoryById(id);
     }
 

@@ -18,8 +18,8 @@ public class FornecedorController {
     //  ---------------------> CRIAR
     @PostMapping
     @ResponseBody
-    public FornecedorDTO create (@RequestBody FornecedorDTO fornecedorDTO) {
-        return fornecedorService.create(fornecedorDTO);
+    public FornecedorDTO create (@RequestBody FornecedorDTO providerDTO) {
+        return fornecedorService.create(providerDTO);
     }
 
     //  ---------------------> BUSCAR
@@ -38,8 +38,8 @@ public class FornecedorController {
     //  ---------------------> ATUALIZAR
     @PutMapping("/{id}")
     @ResponseBody
-    public FornecedorDTO update(@RequestBody FornecedorDTO fornecedorDTO, @PathVariable("id") Long id) {
-        return fornecedorService.update(fornecedorDTO, id);
+    public FornecedorDTO update(@RequestBody FornecedorDTO providerDTO, @PathVariable("id") Long id) {
+        return fornecedorService.update(providerDTO, id);
     }
 
     //  ---------------------> DELETAR

@@ -23,30 +23,30 @@ public class EstoqueService {
     @Autowired
     ProdutoService produtoService;
 
-    public List<ProdutoDTO> produtoEmEstoque(){
-        List<Estoque> listaEstoque = estoqueRepository.findAllByFlagQuantidadeTrue();
-        List<Produto> listaProduto = new ArrayList<>();
+    public List<ProdutoDTO> getListProductIninventory(){
+        List<Estoque> listInventory = estoqueRepository.findAllByFlagQuantidadeTrue();
+        List<Produto> listProduct = new ArrayList<>();
 
-        for(Estoque e : listaEstoque){
+        for(Estoque e : listInventory){
             Long id = e.getCompositeKeyEstoque().getProduto().getId();
-            listaProduto.add(produtoRepository.getById(id));
+            listProduct.add(produtoRepository.getById(id));
         }
 
-        List<ProdutoDTO> listaProdutoDTO = produtoService.listToDTO(listaProduto);
+        List<ProdutoDTO> listaProdutoDTO = produtoService.listToDTO(listProduct);
 
         return listaProdutoDTO;
     }
 
-    public List<ProdutoDTO> produtoForaDeEstoque(){
-        List<Estoque> listaEstoque = estoqueRepository.findAllByFlagQuantidadeFalse();
-        List<Produto> listaProduto = new ArrayList<>();
+    public List<ProdutoDTO> getListProductOutInventory(){
+        List<Estoque> listInventory = estoqueRepository.findAllByFlagQuantidadeFalse();
+        List<Produto> listProduct = new ArrayList<>();
 
-        for(Estoque e : listaEstoque){
+        for(Estoque e : listInventory){
             Long id = e.getCompositeKeyEstoque().getProduto().getId();
-            listaProduto.add(produtoRepository.getById(id));
+            listProduct.add(produtoRepository.getById(id));
         }
 
-        List<ProdutoDTO> listaProdutoDTO = produtoService.listToDTO(listaProduto);
+        List<ProdutoDTO> listaProdutoDTO = produtoService.listToDTO(listProduct);
 
         return listaProdutoDTO;
     }

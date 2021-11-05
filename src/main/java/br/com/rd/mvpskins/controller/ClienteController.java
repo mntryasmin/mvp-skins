@@ -19,9 +19,9 @@ public class ClienteController {
 
     @PostMapping
     @ResponseBody
-    public ClienteDTO createCliente (@RequestBody ClienteDTO cliente){
+    public ClienteDTO createCliente (@RequestBody ClienteDTO client){
         try{
-            return clienteService.createClient(cliente);
+            return clienteService.createClient(client);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class ClienteController {
     @DeleteMapping("/{idCliente}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void deleteClient(@PathVariable("idCliente")Long codeClient){
-        clienteService.deleteCliente(codeClient);
+        clienteService.deleteClient(codeClient);
     }
 
     @GetMapping("/email/{email}")

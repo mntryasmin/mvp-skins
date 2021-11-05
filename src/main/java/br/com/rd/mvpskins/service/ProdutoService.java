@@ -76,15 +76,18 @@ public class ProdutoService {
     }
 
     public List<ProdutoDTO> getListBetweenValues(Double value1, Double value2){
-        List<Produto> list = produtoRepository.getListBetweenValues(value1, value2);
+        if (value1 < value2){
+            List<Produto> list = produtoRepository.getListBetweenValues(value1, value2);
 
-        return this.listToDTO(list);
+            return this.listToDTO(list);
+        }
+        return null;
     }
 
     public ProdutoDTO businessToDto(Produto p){
         ProdutoDTO dto = new ProdutoDTO();
         CategoriaDTO categoryDTO = new CategoriaDTO();
-        CompositeKeySubcategoriaDTO keySubcategoria = new CompositeKeySubcategoriaDTO();
+        CompositeKeySubcategoriaDTO keySubcategory = new CompositeKeySubcategoriaDTO();
         SubcategoriaDTO subcategoryDTO = new SubcategoriaDTO();
         ColecaoDTO colectionDTO = new ColecaoDTO();
         RaridadeDTO rarityDTO = new RaridadeDTO();
@@ -97,9 +100,9 @@ public class ProdutoService {
         categoryDTO.setDescricao(p.getCategoria().getDescricao());
         dto.setCategoria(categoryDTO);
 
-        keySubcategoria.setCategoria(categoryDTO);
-        keySubcategoria.setCodigoSubcategoria(p.getSubcategoria().getChaveComposta().getCodigoSubcategoria());
-        subcategoryDTO.setChaveComposta(keySubcategoria);
+        keySubcategory.setCategoria(categoryDTO);
+        keySubcategory.setCodigoSubcategoria(p.getSubcategoria().getChaveComposta().getCodigoSubcategoria());
+        subcategoryDTO.setChaveComposta(keySubcategory);
         subcategoryDTO.setDescricao(p.getSubcategoria().getDescricao());
         dto.setSubcategoria(subcategoryDTO);
 

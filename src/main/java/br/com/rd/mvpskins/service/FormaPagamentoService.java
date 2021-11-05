@@ -49,11 +49,11 @@ public class FormaPagamentoService {
 
 
     //  ---------------------> CRIAR
-    public FormaPagamentoDTO create (FormaPagamentoDTO formaPagamentoDTO) {
-        FormaPagamento formaPagamento = dtoToBusiness(formaPagamentoDTO);
-        formaPagamento = formaPagamentoRepository.save(formaPagamento);
+    public FormaPagamentoDTO create (FormaPagamentoDTO paymentFormDTO) {
+        FormaPagamento paymentForm = dtoToBusiness(paymentFormDTO);
+        paymentForm = formaPagamentoRepository.save(paymentForm);
 
-        return businessToDTO(formaPagamento);
+        return businessToDTO(paymentForm);
     }
 
 
@@ -78,13 +78,13 @@ public class FormaPagamentoService {
     public FormaPagamentoDTO update(FormaPagamentoDTO dto, Long id) {
 
         Optional<FormaPagamento> opt = formaPagamentoRepository.findById(id);
-        FormaPagamento formaPagamento = dtoToBusiness(dto);
+        FormaPagamento paymentForm = dtoToBusiness(dto);
 
         if (opt.isPresent()) {
             FormaPagamento update = opt.get();
 
-            if (formaPagamento.getDescricao() != null) {
-                update.setDescricao(formaPagamento.getDescricao());
+            if (paymentForm.getDescricao() != null) {
+                update.setDescricao(paymentForm.getDescricao());
             }
 
             formaPagamentoRepository.save(update);

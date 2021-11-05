@@ -6,15 +6,19 @@ import br.com.rd.mvpskins.repository.contract.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EmpresaService {
 
     @Autowired
     EmpresaRepository empresaRepository;
 
-    public EmpresaDTO getEmpresa(){
-        Empresa e = empresaRepository.getById(3l);
-        return boToDto(e);
+    public List<EmpresaDTO> getListCompany(){
+        List<Empresa> list = empresaRepository.findAll();
+
+        return this.listToDto(list);
     }
 
     public EmpresaDTO searchID(Long id) {
@@ -23,6 +27,28 @@ public class EmpresaService {
         }
 
         return null;
+    }
+
+    private List<EmpresaDTO> listToDto(List<Empresa> list){
+        List<EmpresaDTO> listDto = new ArrayList<EmpresaDTO>();
+
+        for (Empresa e : list){
+            listDto.add(this.boToDto(e));
+        }
+
+        return listDto;
+    }
+
+    private Empresa dtoToBo(EmpresaDTO dto){
+        Empresa e = new Empresa();
+        e.setIdEmpresa(dto.getId());
+        e.setCnpj(dto.getCnpj());
+        e.setEndereco(dto.getEndereco());
+        e.setNome(dto.getNome());
+        e.setInscricaoEstadual(dto.getInscricaoEstadual());
+        e.setTelefone(dto.getTelefone());
+
+        return e;
     }
 
     private EmpresaDTO boToDto(Empresa e){
