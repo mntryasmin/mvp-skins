@@ -27,7 +27,7 @@ public class ClienteService {
     JwtTokenUtil jwtTokenUtil;
 
 
-    private Cliente dtoToBusiness (ClienteDTO dto){
+    public Cliente dtoToBusiness (ClienteDTO dto){
         Cliente c = new Cliente();
         c.setEmailCliente(dto.getEmailCliente());
         c.setNomeCliente(dto.getNomeCliente());

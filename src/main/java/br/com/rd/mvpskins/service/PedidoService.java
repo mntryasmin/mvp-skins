@@ -1,13 +1,16 @@
 package br.com.rd.mvpskins.service;
 
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.dto.FormaPagamentoDTO;
 import br.com.rd.mvpskins.model.dto.PedidoDTO;
 import br.com.rd.mvpskins.model.entity.*;
 import br.com.rd.mvpskins.repository.contract.ClienteRepository;
+import br.com.rd.mvpskins.repository.contract.FormaPagamentoRepository;
 import br.com.rd.mvpskins.repository.contract.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,22 +28,41 @@ public class PedidoService {
     @Autowired
     ClienteService clienteService;
 
+    @Autowired
+    FormaPagamentoRepository formaPagamentoRepository;
+
+    @Autowired
+    FormaPagamentoService formaPagamentoService;
+
     //  ---------------------> CONVERTER PARA BUSINESS
     private Pedido dtoToBusiness (PedidoDTO dto) {
         Pedido b = new Pedido();
 
         //        ===> CLIENTE
-        if (dto.getCliente() != null) {
-            Cliente c = clienteRepository.getById(dto.getCliente().getCodigoCliente());
-
-            b.setCliente(c);
+        if (dto.getCliente().getCodigoCliente() != null) {
+            try {
+                Cliente c = clienteRepository.getById(dto.getCliente().getCodigoCliente());
+                b.setCliente(c);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        b.setId(dto.getId());
+        //        ===> FORMA PAGAMENTO
+        if (dto.getFormaPagamento().getId() != null){
+            try {
+                FormaPagamento f = formaPagamentoRepository.getById(dto.getFormaPagamento().getId());
+                b.setFormaPagamento(f);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         b.setDataRegistro(dto.getDataRegistro());
         b.setDescontoProduto(dto.getDescontoProduto());
         b.setValorBruto(dto.getValorBruto());
         b.setValorLiquido(dto.getValorLiquido());
+        b.setStatus(dto.getStatus());
 
         return b;
     }
@@ -50,10 +72,18 @@ public class PedidoService {
         PedidoDTO dto = new PedidoDTO();
 
         //        ===> CLIENTE
-        if (b.getCliente() != null) {
-            ClienteDTO c = clienteService.searchClienteById(b.getCliente().getCodigoCliente());
+        if (b.getCliente().getCodigoCliente() != null) {
 
+            ClienteDTO c = clienteService.searchClienteById(b.getCliente().getCodigoCliente());
             dto.setCliente(c);
+
+        }
+        //        ===> FORMA PAGAMENTO
+        if (b.getFormaPagamento().getId() != null){
+
+            FormaPagamentoDTO f = formaPagamentoService.searchID(b.getFormaPagamento().getId());
+            dto.setFormaPagamento(f);
+
         }
 
         dto.setId(b.getId());
@@ -61,6 +91,7 @@ public class PedidoService {
         dto.setDescontoProduto(b.getDescontoProduto());
         dto.setValorBruto(b.getValorBruto());
         dto.setValorLiquido(b.getValorLiquido());
+        dto.setStatus(b.getStatus());
 
         return dto;
     }
@@ -78,27 +109,16 @@ public class PedidoService {
 
 
     //  ---------------------> CRIAR
-    public PedidoDTO create (PedidoDTO pedidoDTO) {
+    public PedidoDTO create (PedidoDTO pedidoDTO) throws Exception{
+
         Pedido pedido = this.dtoToBusiness(pedidoDTO);
 
-        //        ===> CLIENTE
-        if(pedidoDTO.getCliente() != null) {
-            Long idCliente = pedido.getCliente().getCodigoCliente();
-            Cliente cl;
-
-            if (idCliente != null) {
-                cl = this.clienteRepository.getById(idCliente);
-            } else {
-                cl = this.clienteRepository.save(pedido.getCliente());
-            }
-
-            pedido.setCliente(cl);
-        }
-
         pedido.setDataRegistro(new Date());
+        pedido.setStatus(false);
         pedido = pedidoRepository.save(pedido);
 
         return businessToDTO(pedido);
+
     }
 
 
@@ -110,7 +130,7 @@ public class PedidoService {
         return listToDTO(list);
     }
 
-    //TODAS OS PRODUTOS COMPRADOS POR UM CLIENTE
+    //TODOS OS PRODUTOS COMPRADOS POR UM CLIENTE
     public List<PedidoDTO> searchPedidosCliente (Long idCliente) {
         List<Pedido> list = pedidoRepository.searchPedidosCliente(idCliente);
 
@@ -135,8 +155,22 @@ public class PedidoService {
         if (opt.isPresent()) {
             Pedido update = opt.get();
 
-            if (pedido.getCliente() != null) {
-                update.setCliente(pedido.getCliente());
+            if (pedido.getCliente().getCodigoCliente() != null) {
+                try{
+                    Cliente c = clienteRepository.getById(pedido.getCliente().getCodigoCliente());
+                    update.setCliente(c);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            if(pedido.getFormaPagamento().getId() != null){
+                try{
+                    FormaPagamento f = formaPagamentoRepository.getById(pedido.getFormaPagamento().getId());
+                    update.setFormaPagamento(f);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             if (pedido.getDescontoProduto() != null) {
@@ -151,7 +185,10 @@ public class PedidoService {
                 update.setValorLiquido(pedido.getValorLiquido());
             }
 
-            update.setDataRegistro(new Date());
+            if (pedido.getStatus() != null) {
+                update.setStatus(pedido.getStatus());
+            }
+
             pedidoRepository.save(update);
             return businessToDTO(update);
         }

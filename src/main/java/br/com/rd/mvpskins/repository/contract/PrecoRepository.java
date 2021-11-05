@@ -11,4 +11,9 @@ import java.util.List;
 
 @Repository
 public interface PrecoRepository extends JpaRepository<Preco, CompositeKeyPreco> {
+
+    //Método para retornar apenas o preço do produto
+    @Query(value = "SELECT * FROM tb_preco WHERE codigo_categoria_preco = :categoria " +
+            "AND codigo_produto = :produto", nativeQuery = true)
+    List<Preco> filtrarValorProduto(@Param("categoria") Long idCategoria, @Param("produto") Long idProduto);
 }

@@ -15,9 +15,6 @@ public class ItensPedido {
     @Column(nullable = false, name = "CODIGO_ITEM_PEDIDO")
     private ItensPedidoCompositeKey id;
 
-    @Column(nullable = false, name = "QUANTIDADE")
-    private Integer quantidade;
-
     @Column(nullable = false, name = "DESCONTO")
     private Double desconto;
 

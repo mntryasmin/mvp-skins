@@ -94,7 +94,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/produtos/rarity/{id}",
                                                         "/produtos/exterior/{id}",
                                                         "/produtos/maxValue/{v}",
-                                                        "/produtos/minValue/{v}").permitAll().
+                                                        "/produtos/minValue/{v}",
+                                                        "/preco/recente/{idPreco}/{idProduto}").permitAll().
 // Qualquer outra requisição deve ser checada
         anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

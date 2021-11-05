@@ -13,7 +13,7 @@ public class EmpresaService {
     EmpresaRepository empresaRepository;
 
     public EmpresaDTO getEmpresa(){
-        Empresa e = empresaRepository.getById(1l);
+        Empresa e = empresaRepository.getById(3l);
         return boToDto(e);
     }
 

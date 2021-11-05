@@ -17,7 +17,7 @@ public class FormaPagamentoService {
     FormaPagamentoRepository formaPagamentoRepository;
 
     //  ---------------------> CONVERTER PARA BUSINESS
-    private FormaPagamento dtoToBusiness (FormaPagamentoDTO dto) {
+    public FormaPagamento dtoToBusiness (FormaPagamentoDTO dto) {
         FormaPagamento b = new FormaPagamento();
 
         b.setId(dto.getId());
