@@ -21,7 +21,7 @@ public class ClienteController {
     @ResponseBody
     public ClienteDTO createCliente (@RequestBody ClienteDTO cliente){
         try{
-            return clienteService.createCliente(cliente);
+            return clienteService.createClient(cliente);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -30,29 +30,29 @@ public class ClienteController {
 
     @GetMapping
     public List<ClienteDTO> searchAll(){
-        return clienteService.searchAllCliente();
+        return clienteService.searchAllClients();
     }
 
     @GetMapping("/{idCliente}")
-    public ClienteDTO searchClienteById(@PathVariable("idCliente") Long codigoCliente){
-        return clienteService.searchClienteById(codigoCliente);
+    public ClienteDTO searchClientById(@PathVariable("idCliente") Long codeClient){
+        return clienteService.searchClientById(codeClient);
     }
 
     @PutMapping("/{idCliente}")
-    public ClienteDTO updateCliente (@RequestBody ClienteDTO clienteDTO,@PathVariable("idCliente")Long idCliente){
-        return clienteService.updateCliente(clienteDTO,idCliente);
+    public ClienteDTO updateClient(@RequestBody ClienteDTO clientDTO,@PathVariable("idCliente")Long idClient){
+        return clienteService.updateClient(clientDTO,idClient);
 
     }
 
     @DeleteMapping("/{idCliente}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void deleteCliente(@PathVariable("idCliente")Long codigoCliente){
-        clienteService.deleteCliente(codigoCliente);
+    public void deleteClient(@PathVariable("idCliente")Long codeClient){
+        clienteService.deleteCliente(codeClient);
     }
 
     @GetMapping("/email/{email}")
     public Cliente searchEmail(@PathVariable("email") String email){
-        return clienteService.searchClienteByEmail(email);
+        return clienteService.searchClientByEmail(email);
     }
 
     @GetMapping("/auto")
@@ -62,7 +62,7 @@ public class ClienteController {
     }
 
     @PostMapping("/mudar-senha")
-    public String mudarSenha(@RequestParam("token")String token, @RequestBody String senha){
-        return clienteService.mudarSenha(token, senha);
+    public String changePassword(@RequestParam("token")String token, @RequestBody String password){
+        return clienteService.changepassword(token, password);
     }
 }

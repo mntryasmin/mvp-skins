@@ -52,7 +52,7 @@ public class PedidoService {
 
         //        ===> CLIENTE
         if (b.getCliente() != null) {
-            ClienteDTO c = clienteService.searchClienteById(b.getCliente().getCodigoCliente());
+            ClienteDTO c = clienteService.searchClientById(b.getCliente().getCodigoCliente());
 
             dto.setCliente(c);
         }
