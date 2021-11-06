@@ -35,44 +35,44 @@ public class PedidoController {
     //  ---------------------> BUSCAR
     //TODOS OS PEDIDOS
     @GetMapping
-    public List<PedidoDTO> searchAll() {
+    public List<PedidoDTO> searchAllOrders() {
         return pedidoService.searchAll();
     }
 
     //UM PEDIDO POR ID
     @GetMapping("/{id}")
-    public PedidoDTO searchID(@PathVariable("id") Long id) {
+    public PedidoDTO searchOrderByID(@PathVariable("id") Long id) {
         return pedidoService.searchID(id);
     }
 
     //TODAS AS NF'S DE UM CLIENTE
     @GetMapping("/historico/{idCliente}")
     public List<PedidoDTO> searchPedidosCliente(@PathVariable("idCliente") Long idCliente) {
-        return pedidoService.searchPedidosCliente(idCliente);
+        return pedidoService.searchAllClientOrders(idCliente);
     }
 
     //  ---------------------> ATUALIZAR
     @PutMapping("/{id}")
     @ResponseBody
-    public PedidoDTO update(@RequestBody PedidoDTO pedidoDTO, @PathVariable("id") Long id) {
+    public PedidoDTO updateOrderById(@RequestBody PedidoDTO pedidoDTO, @PathVariable("id") Long id) {
         return pedidoService.update(pedidoDTO, id);
     }
 
     //  ---------------------> DELETAR
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void delete(@PathVariable("id") Long id) {
+    public void deleteOrderById(@PathVariable("id") Long id) {
         pedidoService.delete(id);
     }
 
     //  ---------------------> SUCESSO DE COMPRAS
-    @PostMapping("{idPedido}")
-    public String esqueciSenha(@PathVariable("idPedido") Long idPedido){
+    @PostMapping("/{idPedido}")
+    public void purchaseSuccess(@PathVariable("idPedido") Long idPedido){
         try{
-            return jwtUserDetailsService.sucessoDeCompra(idPedido);
+            pedidoService.sendEmailPurchaseSuccess(idPedido);
         } catch(UsernameNotFoundException u){
             u.printStackTrace();
         }
-        return null;
     }
+
 }

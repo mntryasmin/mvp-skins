@@ -17,11 +17,11 @@ public class EstoqueController {
 
     @GetMapping("/em-estoque")
     public List<ProdutoDTO> produtoEmEstoque(){
-        return estoqueService.produtoEmEstoque();
+        return estoqueService.searchAllProductsInStock();
     }
 
     @GetMapping("/fora-de-estoque")
     public List<ProdutoDTO> produtoForaDeEstoque(){
-        return estoqueService.produtoForaDeEstoque();
+        return estoqueService.searchAllProductsOutOfStock();
     }
 }

@@ -50,23 +50,20 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/esqueci-minha-senha")
-    public String esqueciSenha(@RequestBody String email){
+    public void esqueciSenha(@RequestBody String email){
         try{
-            return userDetailsService.esqueciSenha(email);
+            userDetailsService.esqueciSenha(email);
         } catch(UsernameNotFoundException u){
             u.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return null;
     }
 
     @GetMapping("/logout/{token}")
     public void logout(@PathVariable("token") String token){
         userDetailsService.logout(token);
     }
-
-    @GetMapping("/data/{token}")
-    public Date dataToken(@PathVariable("token") String token ){
-        return  userDetailsService.verDataToken(token);
-    }
+    
 
 }

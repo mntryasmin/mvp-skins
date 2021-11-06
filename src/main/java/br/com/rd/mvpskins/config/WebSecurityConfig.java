@@ -93,12 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/produtos/colection/{id}",
                                                         "/produtos/rarity/{id}",
                                                         "/produtos/exterior/{id}",
-                                                        "/produtos/maxValue/{v}",
-                                                        "/produtos/minValue/{v}",
-                                                        "/produtos/betweenPrices/{v1}/{v2}"
-                                                        "/fav",
-                                                        "/fav/{idC}/{idP}",
-                                                        "/fav/client/{id}",           
+                                                        "/produtos/betweenPrices/{v1}/{v2}",
                                                         "/preco/recente/{idPreco}/{idProduto}").permitAll().
 
 // Qualquer outra requisição deve ser checada

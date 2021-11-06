@@ -38,7 +38,10 @@ public class ItensPedidoService {
     ProdutoRepository produtoRepository;
 
     @Autowired
-    PrecoRepository precoRepository;
+    PrecoService precoService;
+
+    @Autowired
+    EstoqueService estoqueService;
 
     //  ---------------------> CONVERTER PARA BUSINESS
     private ItensPedido dtoToBusiness (ItensPedidoDTO dto) {
@@ -108,8 +111,8 @@ public class ItensPedidoService {
         Long idProduto = itensPedidoDTO.getId().getProduto().getId();
 
         //Método que retorna apenas o preço do produto
-//        Double valorProduto = precoRepository.filtrarValorVendaProduto(idProduto);
-//        itensPedidoDTO.setValorBruto(valorProduto);
+        Double valorProduto = precoService.getLastPrice(idProduto, 1l).getVlPreco();
+        itensPedidoDTO.setValorBruto(valorProduto);
 
         if(itensPedidoDTO.getDesconto() == null){
             itensPedidoDTO.setDesconto(0.0);
@@ -117,6 +120,8 @@ public class ItensPedidoService {
 
         ItensPedido itensPedido = dtoToBusiness(itensPedidoDTO);
         itensPedido = itensPedidoRepository.save(itensPedido);
+
+        estoqueService.updateSelledProduct(idProduto);
 
         return businessToDTO(itensPedido);
     }
@@ -147,7 +152,7 @@ public class ItensPedidoService {
     }
 
     //PRODUTOS DE UM PEDIDO
-    public List<ItensPedidoDTO> searchProdutosPedido (Long idPedido) {
+    public List<ItensPedidoDTO> searchProdutosPedido(Long idPedido) {
         List<ItensPedido> list = itensPedidoRepository.searchProdutosPedido(idPedido);
 
         return listToDTO(list);

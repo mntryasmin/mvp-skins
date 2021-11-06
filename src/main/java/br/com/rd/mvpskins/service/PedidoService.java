@@ -2,6 +2,7 @@ package br.com.rd.mvpskins.service;
 
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
 import br.com.rd.mvpskins.model.dto.FormaPagamentoDTO;
+import br.com.rd.mvpskins.model.dto.ItensPedidoDTO;
 import br.com.rd.mvpskins.model.dto.PedidoDTO;
 import br.com.rd.mvpskins.model.entity.*;
 import br.com.rd.mvpskins.repository.contract.ClienteRepository;
@@ -33,6 +34,15 @@ public class PedidoService {
 
     @Autowired
     FormaPagamentoService formaPagamentoService;
+
+    @Autowired
+    ItensPedidoService itensPedidoService;
+
+    @Autowired
+    EstoqueService estoqueService;
+
+    @Autowired
+    EmailService emailService;
 
     //  ---------------------> CONVERTER PARA BUSINESS
     private Pedido dtoToBusiness (PedidoDTO dto) {
@@ -74,7 +84,7 @@ public class PedidoService {
         //        ===> CLIENTE
         if (b.getCliente().getCodigoCliente() != null) {
 
-            ClienteDTO c = clienteService.searchClienteById(b.getCliente().getCodigoCliente());
+            ClienteDTO c = clienteService.searchClientById(b.getCliente().getCodigoCliente());
             dto.setCliente(c);
 
         }
@@ -131,7 +141,7 @@ public class PedidoService {
     }
 
     //TODOS OS PRODUTOS COMPRADOS POR UM CLIENTE
-    public List<PedidoDTO> searchPedidosCliente (Long idCliente) {
+    public List<PedidoDTO> searchAllClientOrders(Long idCliente) {
         List<Pedido> list = pedidoRepository.searchPedidosCliente(idCliente);
 
         return listToDTO(list);
@@ -199,7 +209,27 @@ public class PedidoService {
     //  ---------------------> DELETAR
     public void delete(Long id) {
         if (pedidoRepository.existsById(id)) {
-            pedidoRepository.deleteById(id);
+            Pedido p = pedidoRepository.getById(id);
+
+            List<ItensPedidoDTO> listaProdutosPedido = itensPedidoService.searchProdutosPedido(id);
+
+            for(ItensPedidoDTO i : listaProdutosPedido){
+                estoqueService.updateCancelledProduct(i.getId().getProduto().getId());
+            }
+
+            p.setStatus(false);
         }
     }
+
+    public void sendEmailPurchaseSuccess(Long idPedido){
+        if(pedidoRepository.existsById(idPedido)){
+            Pedido p = pedidoRepository.getById(idPedido);
+            PedidoDTO pedidoDTO = businessToDTO(p);
+
+            String email = pedidoDTO.getCliente().getEmailCliente();
+            emailService.sendEmailPurchaseSuccess(pedidoDTO, email);
+        }
+    }
+
+
 }
