@@ -19,7 +19,12 @@ public class ItensPedidoController {
     @PostMapping
     @ResponseBody
     public ItensPedidoDTO create (@RequestBody ItensPedidoDTO itensPedidoDTO) {
-        return itensPedidoService.create(itensPedidoDTO);
+        try {
+            return itensPedidoService.create(itensPedidoDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //  ---------------------> BUSCAR

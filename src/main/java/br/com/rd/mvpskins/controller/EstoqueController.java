@@ -16,12 +16,12 @@ public class EstoqueController {
     EstoqueService estoqueService;
 
     @GetMapping("/em-estoque")
-    public List<ProdutoDTO> produtoEmEstoque(){
-        return estoqueService.produtoEmEstoque();
+    public List<ProdutoDTO> getListProductIninventory(){
+        return estoqueService.getListProductIninventory();
     }
 
     @GetMapping("/fora-de-estoque")
-    public List<ProdutoDTO> produtoForaDeEstoque(){
-        return estoqueService.produtoForaDeEstoque();
+    public List<ProdutoDTO> getListProductOutInventory(){
+        return estoqueService.getListProductOutInventory();
     }
 }

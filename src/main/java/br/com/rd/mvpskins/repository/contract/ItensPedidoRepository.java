@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ItensPedidoRepository extends JpaRepository<ItensPedido, ItensPedidoCompositeKey> {
+public interface ItensPedidoRepository extends JpaRepository<ItensPedido, ItensPedidoCompositeKey>, ItensPedidoRepositoryCustom {
     List<ItensPedido> searchProdutosPedido(Long idPedido);
 
     List<ItensPedido> searchProdutosMaisVendidos();

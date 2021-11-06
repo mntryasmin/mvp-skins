@@ -16,13 +16,13 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public CategoriaDTO obterCategoriaPorId(@PathVariable("id") Long id){
+    public CategoriaDTO getCategoryById(@PathVariable("id") Long id){
         return categoriaService.getCategoryById(id);
     }
 
     @GetMapping
     @ResponseBody
-    private List<CategoriaDTO> obterLista(){
+    private List<CategoriaDTO> getList(){
         return categoriaService.getList();
     }
 }

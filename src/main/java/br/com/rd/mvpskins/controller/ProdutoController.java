@@ -63,15 +63,10 @@ public class ProdutoController {
         return produtoService.getListByExterior(id);
     }
 
-    @GetMapping("/maxValue/{v}")
+    @GetMapping("/betweenPrices/{v1}/{v2}")
     @ResponseBody
-    public List<ProdutoDTO> getListByMaxValue(@PathVariable("v")Double v){
-        return produtoService.getListByMaxValue(v);
+    public List<ProdutoDTO> getListBetweenValues(@PathVariable("v1")Double v1, @PathVariable("v2")Double v2){
+        return produtoService.getListBetweenValues(v1, v2);
     }
 
-    @GetMapping("/minValue/{v}")
-    @ResponseBody
-    public List<ProdutoDTO> getListByMinValue(@PathVariable("v")Double v){
-        return produtoService.getListByMinValue(v);
-    }
 }

@@ -85,8 +85,8 @@ public class ItensNFService {
 
 
     //  ---------------------> CRIAR
-    public ItensNFDTO create (ItensNFDTO itensNFDTO) {
-        ItensNF itemsNF = businessToDTO(itensNFDTO);
+    public ItensNFDTO create (ItensNFDTO itemsNFDTO) {
+        ItensNF itemsNF = businessToDTO(itemsNFDTO);
 
         itemsNF = itensNFRepository.save(itemsNF);
 
@@ -103,10 +103,10 @@ public class ItensNFService {
     }
 
     //UM ITEM NF POR ID
-    public ItensNFDTO searchID(Long idProduto, Long idNF) {
+    public ItensNFDTO searchID(Long idProduct, Long idNF) {
 
         ItensNFCompositeKey id = new ItensNFCompositeKey();
-        id.setProduto(produtoRepository.getById(idProduto));
+        id.setProduto(produtoRepository.getById(idProduct));
         id.setNf(nfRepository.getById(idNF));
 
         if (itensNFRepository.existsById(id)) {
@@ -117,10 +117,10 @@ public class ItensNFService {
     }
 
     //  ---------------------> ATUALIZAR
-    public ItensNFDTO update(ItensNFDTO dto, Long idProduto, Long idNF) {
+    public ItensNFDTO update(ItensNFDTO dto, Long idProduct, Long idNF) {
 
             ItensNFCompositeKeyDTO id = new ItensNFCompositeKeyDTO();
-            id.setProduto(produtoService.getProductById(idProduto));
+            id.setProduto(produtoService.getProductById(idProduct));
             id.setNf(nfService.searchID(idNF));
             dto.setId(id);
 
@@ -155,9 +155,9 @@ public class ItensNFService {
     }
 
     //  ---------------------> DELETAR
-    public void delete(Long idProduto, Long idNF) {
+    public void delete(Long idProduct, Long idNF) {
         ItensNFCompositeKey id = new ItensNFCompositeKey();
-        id.setProduto(produtoRepository.getById(idProduto));
+        id.setProduto(produtoRepository.getById(idProduct));
         id.setNf(nfRepository.getById(idNF));
 
         if (itensNFRepository.existsById(id)) {

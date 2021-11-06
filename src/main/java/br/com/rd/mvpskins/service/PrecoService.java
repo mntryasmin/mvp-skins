@@ -29,24 +29,29 @@ public class PrecoService {
         return this.listToDTO(list);
     }
 
-    public PrecoDTO getPrecoById(Long idP, Long idC){
-        CompositeKeyPreco key = new CompositeKeyPreco();
+    public List<PrecoDTO> getPriceById(Long idP, Long idC){
+
 
         if(produtoRepository.existsById(idP) && categoriaPrecoRepository.existsById(idC)){
-            Produto p = produtoRepository.getById(idP);
-            key.setProduto(p);
 
-            CategoriaPreco c = categoriaPrecoRepository.getById(idC);
-            key.setCategoriaPreco(c);
+            List<Preco> lista = precoRepository.filtrarValorProduto(idC, idP);
 
-            Optional<Preco> op = precoRepository.findById(key);
-
-            if(op.isPresent()){
-                Preco preco = op.get();
-                return this.businessToDTO(preco);
+            if(lista != null){
+                return this.listToDTO(lista);
             }
         }
         return null;
+    }
+
+    public PrecoDTO getLastPrice(Long idProduto, Long idCatPreco){
+        List<PrecoDTO> lista = this.getPriceById(idProduto, idCatPreco);
+        PrecoDTO preco = lista.get(0);
+        for(PrecoDTO p : lista){
+            if(p.getChaveComposta().getDtVigencia().isAfter(preco.getChaveComposta().getDtVigencia())){
+                preco = p;
+            }
+        }
+        return preco;
     }
 
     public Preco dtoToBusiness(PrecoDTO dto){
@@ -95,9 +100,9 @@ public class PrecoService {
         produto.setTradeLock(dto.getChaveComposta().getProduto().getTradeLock());
         produto.setUrlImagem(dto.getChaveComposta().getProduto().getUrlImagem());
         key.setProduto(produto);
+        key.setDtVigencia(dto.getChaveComposta().getDtVigencia());
 
         p.setChaveComposta(key);
-        p.setDtVigencia(dto.getDtVigencia());
         p.setVlPreco(dto.getVlPreco());
 
         return p;
@@ -149,9 +154,9 @@ public class PrecoService {
         produto.setTradeLock(p.getChaveComposta().getProduto().getPattern());
         produto.setUrlImagem(p.getChaveComposta().getProduto().getUrlImagem());
         key.setProduto(produto);
+        key.setDtVigencia(p.getChaveComposta().getDtVigencia());
 
         dto.setChaveComposta(key);
-        dto.setDtVigencia(p.getDtVigencia());
         dto.setVlPreco(p.getVlPreco());
 
         return dto;

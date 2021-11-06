@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Embeddable
 @Data
@@ -22,4 +23,7 @@ public class CompositeKeyPreco implements Serializable {
             insertable = false,
             updatable = false)
     private Produto produto;
+
+    @Column(name="DATA_VIGENCIA", nullable = false)
+    private LocalDate dtVigencia;
 }

@@ -31,7 +31,7 @@ public class FavoritosService {
         return this.listToDTO(list);
     }
 
-    public FavoritosDTO getFavoritoById(Long idC, Long idP){
+    public FavoritosDTO getFavoriteById(Long idC, Long idP){
         CompositeKeyFavoritos key = new CompositeKeyFavoritos();
 
         if(clienteRepository.existsById(idC)){
@@ -52,19 +52,22 @@ public class FavoritosService {
         return null;
     }
 
-    public List<FavoritosDTO> getFavoritoByClientId(Long id){
+    public List<FavoritosDTO> getFavoriteByClientId(Long id){
         List<Favoritos> list = favoritosRepository.getListByClientId(id);
 
         return this.listToDTO(list);
     }
 
-    public FavoritosDTO createFavorito(FavoritosDTO dto){
-
+    public FavoritosDTO createFavorite(FavoritosDTO dto){
+        Favoritos fav = new Favoritos();
+        Long idC = dto.getChaveComposta().getCliente().getCodigoCliente();
+        Long idP = dto.getChaveComposta().getProduto().getId();
         CompositeKeyFavoritos key = new CompositeKeyFavoritos();
 
         if (dto.getChaveComposta().getCliente() != null){
-            Long idC = dto.getChaveComposta().getCliente().getCodigoCliente();
-
+            if (idC == null){
+                return null;
+            }
             if(clienteRepository.existsById(idC)){
                 Cliente c = clienteRepository.getById(idC);
                 key.setCliente(c);
@@ -73,15 +76,19 @@ public class FavoritosService {
             }
         }
         if (dto.getChaveComposta().getProduto() != null){
-            Long idP = dto.getChaveComposta().getProduto().getId();
+            if (idP == null){
+                return null;
+            }
             if(produtoRepository.existsById(idP)){
                 Produto p = produtoRepository.getById(idP);
                 key.setProduto(p);
             }else {
                 return null;
             }
+            if (favoritosRepository.existsById(key)){
+                return this.updateFavorite(idC, idP);
+            }
 
-            Favoritos fav = new Favoritos();
             fav.setChaveComposta(key);
             fav.setFavorito(true);
             fav = favoritosRepository.save(fav);
@@ -91,7 +98,7 @@ public class FavoritosService {
         return null;
     }
 
-    public FavoritosDTO updateFavorito(Long idC, Long idP){
+    public FavoritosDTO updateFavorite(Long idC, Long idP){
         CompositeKeyFavoritos key = new CompositeKeyFavoritos();
 
         if(clienteRepository.existsById(idC)){
@@ -114,7 +121,7 @@ public class FavoritosService {
                 fav.setFavorito(true);
             }
 
-            favoritosRepository.save(fav);
+            fav = favoritosRepository.save(fav);
             return this.favToDto(fav);
         }
         return null;
@@ -122,7 +129,7 @@ public class FavoritosService {
 
     public Favoritos dtoToFav(FavoritosDTO dto){
         Favoritos fav = new Favoritos();
-        Produto produto = new Produto();
+        Produto product = new Produto();
         CompositeKeyFavoritos key = new CompositeKeyFavoritos();
 
         Cliente c = new Cliente();
@@ -141,13 +148,13 @@ public class FavoritosService {
         c.setTradeLink(dto.getChaveComposta().getCliente().getTradeLink());
         key.setCliente(c);
 
-        produto.setId(dto.getChaveComposta().getProduto().getId());
-        produto.setDescricao(dto.getChaveComposta().getProduto().getDescricao());
+        product.setId(dto.getChaveComposta().getProduto().getId());
+        product.setDescricao(dto.getChaveComposta().getProduto().getDescricao());
 
         Categoria category = new Categoria();
         category.setCodigoCategoria(dto.getChaveComposta().getProduto().getCategoria().getCodigoCategoria());
         category.setDescricao(dto.getChaveComposta().getProduto().getCategoria().getDescricao());
-        produto.setCategoria(category);
+        product.setCategoria(category);
 
         Subcategoria subcategory = new Subcategoria();
         CompositeKeySubcategoria keySubcategory = new CompositeKeySubcategoria();
@@ -155,28 +162,28 @@ public class FavoritosService {
         keySubcategory.setCategoria(category);
         subcategory.setChaveComposta(keySubcategory);
         subcategory.setDescricao(dto.getChaveComposta().getProduto().getSubcategoria().getDescricao());
-        produto.setSubcategoria(subcategory);
+        product.setSubcategoria(subcategory);
 
         Colecao colection = new Colecao();
         colection.setId(dto.getChaveComposta().getProduto().getColecao().getId());
         colection.setDescricao(dto.getChaveComposta().getProduto().getColecao().getDescricao());
-        produto.setColecao(colection);
+        product.setColecao(colection);
 
         Raridade rarity = new Raridade();
         rarity.setId(dto.getChaveComposta().getProduto().getRaridade().getId());
         rarity.setDescricao(dto.getChaveComposta().getProduto().getRaridade().getDescricao());
-        produto.setRaridade(rarity);
+        product.setRaridade(rarity);
 
         Exterior exterior = new Exterior();
         exterior.setId(dto.getChaveComposta().getProduto().getExterior().getId());
         exterior.setDescricao(dto.getChaveComposta().getProduto().getExterior().getDescricao());
-        produto.setExterior(exterior);
+        product.setExterior(exterior);
 
-        produto.setDesgaste(dto.getChaveComposta().getProduto().getDesgaste());
-        produto.setPattern(dto.getChaveComposta().getProduto().getPattern());
-        produto.setTradeLock(dto.getChaveComposta().getProduto().getPattern());
-        produto.setUrlImagem(dto.getChaveComposta().getProduto().getUrlImagem());
-        key.setProduto(produto);
+        product.setDesgaste(dto.getChaveComposta().getProduto().getDesgaste());
+        product.setPattern(dto.getChaveComposta().getProduto().getPattern());
+        product.setTradeLock(dto.getChaveComposta().getProduto().getPattern());
+        product.setUrlImagem(dto.getChaveComposta().getProduto().getUrlImagem());
+        key.setProduto(product);
 
         fav.setChaveComposta(key);
         fav.setFavorito(dto.getFavorito());
