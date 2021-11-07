@@ -16,7 +16,7 @@ public class EstoqueController {
     EstoqueService estoqueService;
 
     @GetMapping("/em-estoque")
-    public List<ProdutoDTO> getListProductIninventory(){
+    public List<ProdutoDTO> getListProductInventory(){
         return estoqueService.getListProductIninventory();
     }
 

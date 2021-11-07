@@ -47,8 +47,8 @@ public class JwtUserDetailsService implements UserDetailsService {
         return passwordEncoder.matches(senha, user.getPassword());
     }
 
-    //Método para registrar nova senha
-    public void esqueciSenha(String email) throws Exception{
+    //Método para enviar email com token para atualizar senha
+    public void generateForgotPasswordToken(String email) throws Exception{
         Cliente cliente = clienteService.searchClientByEmail(email);
         if(cliente==null){
             throw new UsernameNotFoundException("email não encontrado: "+email);

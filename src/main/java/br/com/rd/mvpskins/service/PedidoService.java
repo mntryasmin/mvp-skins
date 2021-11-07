@@ -119,7 +119,7 @@ public class PedidoService {
 
 
     //  ---------------------> CRIAR
-    public PedidoDTO create (PedidoDTO pedidoDTO) throws Exception{
+    public PedidoDTO createOrder(PedidoDTO pedidoDTO) throws Exception{
 
         Pedido pedido = this.dtoToBusiness(pedidoDTO);
 
@@ -148,7 +148,7 @@ public class PedidoService {
     }
 
     //UM PEDIDO POR ID
-    public PedidoDTO searchID(Long id) {
+    public PedidoDTO searchOrderById(Long id) {
         if (pedidoRepository.existsById(id)) {
             return businessToDTO(pedidoRepository.getById(id));
         }
@@ -157,7 +157,7 @@ public class PedidoService {
     }
 
     //  ---------------------> ATUALIZAR
-    public PedidoDTO update(PedidoDTO dto, Long id) {
+    public PedidoDTO updateOrderById(PedidoDTO dto, Long id) {
 
         Optional<Pedido> opt = pedidoRepository.findById(id);
         Pedido pedido = dtoToBusiness(dto);
@@ -207,11 +207,11 @@ public class PedidoService {
     }
 
     //  ---------------------> DELETAR
-    public void delete(Long id) {
+    public void deleteOrderById(Long id) {
         if (pedidoRepository.existsById(id)) {
             Pedido p = pedidoRepository.getById(id);
 
-            List<ItensPedidoDTO> listaProdutosPedido = itensPedidoService.searchProdutosPedido(id);
+            List<ItensPedidoDTO> listaProdutosPedido = itensPedidoService.searchItemsByOrder(id);
 
             for(ItensPedidoDTO i : listaProdutosPedido){
                 estoqueService.updateCancelledProduct(i.getId().getProduto().getId());
