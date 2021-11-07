@@ -78,7 +78,7 @@ public class ItensPedidoService {
         ItensPedidoCompositeKeyDTO id = new ItensPedidoCompositeKeyDTO();
         if (b.getId().getPedido() != null) {
             ProdutoDTO p = produtoService.getProductById(b.getId().getProduto().getId());
-            PedidoDTO r = pedidoService.searchID(b.getId().getPedido().getId());
+            PedidoDTO r = pedidoService.searchOrderById(b.getId().getPedido().getId());
 
             id.setProduto(p);
             id.setPedido(r);
@@ -136,7 +136,7 @@ public class ItensPedidoService {
     }
 
     //UM ITEM DE PEDIDO POR ID
-    public ItensPedidoDTO searchID(Long idProduto, Long idPedido) {
+    public ItensPedidoDTO searchOrderItemById(Long idProduto, Long idPedido) {
 
         if (pedidoRepository.existsById(idPedido) && produtoRepository.existsById(idProduto)) {
             ItensPedidoCompositeKey id = new ItensPedidoCompositeKey();
@@ -152,28 +152,28 @@ public class ItensPedidoService {
     }
 
     //PRODUTOS DE UM PEDIDO
-    public List<ItensPedidoDTO> searchProdutosPedido(Long idPedido) {
+    public List<ItensPedidoDTO> searchItemsByOrder(Long idPedido) {
         List<ItensPedido> list = itensPedidoRepository.searchProdutosPedido(idPedido);
 
         return listToDTO(list);
     }
 
     //TOP 12 PRODUTOS MAIS VENDIDOS
-    public List<ItensPedidoDTO> searchProdutosMaisVendidos() {
+    public List<ItensPedidoDTO> searchTopSellers() {
         List<ItensPedido> list = itensPedidoRepository.searchProdutosMaisVendidos();
 
         return listToDTO(list);
     }
 
     //TOP 12 FACAS MAIS VENDIDAS
-    public List<ItensPedidoDTO> searchFacasMaisVendidas() {
+    public List<ItensPedidoDTO> searchTopKnife() {
         List<ItensPedido> list = itensPedidoRepository.searchFacasMaisVendidas();
 
         return listToDTO(list);
     }
 
     //TOP 12 ARMAS MAIS VENDIDAS
-    public List<ItensPedidoDTO> searchArmasMaisVendidas() {
+    public List<ItensPedidoDTO> searchTopGuns() {
         List<ItensPedido> list = itensPedidoRepository.searchArmasMaisVendidas();
 
         return listToDTO(list);
@@ -185,7 +185,7 @@ public class ItensPedidoService {
         if (pedidoRepository.existsById(idPedido)) {
             ItensPedidoCompositeKeyDTO id = new ItensPedidoCompositeKeyDTO();
             id.setProduto(produtoService.getProductById(idProduto));
-            id.setPedido(pedidoService.searchID(idPedido));
+            id.setPedido(pedidoService.searchOrderById(idPedido));
             dto.setId(id);
 
             ItensPedido itensPedido = dtoToBusiness(dto);

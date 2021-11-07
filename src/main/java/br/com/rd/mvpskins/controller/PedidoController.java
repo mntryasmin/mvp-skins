@@ -17,15 +17,13 @@ public class PedidoController {
     @Autowired
     PedidoService pedidoService;
 
-    @Autowired
-    JwtUserDetailsService jwtUserDetailsService;
 
     //  ---------------------> CRIAR
     @PostMapping
     @ResponseBody
-    public PedidoDTO create (@RequestBody PedidoDTO pedidoDTO) {
+    public PedidoDTO createOrder(@RequestBody PedidoDTO pedidoDTO) {
         try {
-            return pedidoService.create(pedidoDTO);
+            return pedidoService.createOrder(pedidoDTO);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,13 +34,14 @@ public class PedidoController {
     //TODOS OS PEDIDOS
     @GetMapping
     public List<PedidoDTO> searchAllOrders() {
+
         return pedidoService.searchAll();
     }
 
     //UM PEDIDO POR ID
     @GetMapping("/{id}")
     public PedidoDTO searchOrderByID(@PathVariable("id") Long id) {
-        return pedidoService.searchID(id);
+        return pedidoService.searchOrderById(id);
     }
 
     //TODAS AS NF'S DE UM CLIENTE
@@ -55,14 +54,14 @@ public class PedidoController {
     @PutMapping("/{id}")
     @ResponseBody
     public PedidoDTO updateOrderById(@RequestBody PedidoDTO pedidoDTO, @PathVariable("id") Long id) {
-        return pedidoService.update(pedidoDTO, id);
+        return pedidoService.updateOrderById(pedidoDTO, id);
     }
 
     //  ---------------------> DELETAR
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void deleteOrderById(@PathVariable("id") Long id) {
-        pedidoService.delete(id);
+        pedidoService.deleteOrderById(id);
     }
 
     //  ---------------------> SUCESSO DE COMPRAS
