@@ -2,6 +2,7 @@ package br.com.rd.mvpskins.service;
 
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
 import br.com.rd.mvpskins.model.dto.FormaPagamentoDTO;
+import br.com.rd.mvpskins.model.dto.ItensPedidoDTO;
 import br.com.rd.mvpskins.model.dto.PedidoDTO;
 import br.com.rd.mvpskins.model.entity.*;
 import br.com.rd.mvpskins.repository.contract.ClienteRepository;
@@ -33,6 +34,15 @@ public class PedidoService {
 
     @Autowired
     FormaPagamentoService formaPagamentoService;
+
+    @Autowired
+    ItensPedidoService itensPedidoService;
+
+    @Autowired
+    EstoqueService estoqueService;
+
+    @Autowired
+    EmailService emailService;
 
     //  ---------------------> CONVERTER PARA BUSINESS
     private Pedido dtoToBusiness (PedidoDTO dto) {
@@ -109,7 +119,7 @@ public class PedidoService {
 
 
     //  ---------------------> CRIAR
-    public PedidoDTO create (PedidoDTO pedidoDTO) throws Exception{
+    public PedidoDTO createOrder(PedidoDTO pedidoDTO) throws Exception{
 
         Pedido pedido = this.dtoToBusiness(pedidoDTO);
 
@@ -131,14 +141,14 @@ public class PedidoService {
     }
 
     //TODOS OS PRODUTOS COMPRADOS POR UM CLIENTE
-    public List<PedidoDTO> searchPedidosCliente (Long idCliente) {
+    public List<PedidoDTO> searchAllClientOrders(Long idCliente) {
         List<Pedido> list = pedidoRepository.searchPedidosCliente(idCliente);
 
         return listToDTO(list);
     }
 
     //UM PEDIDO POR ID
-    public PedidoDTO searchID(Long id) {
+    public PedidoDTO searchOrderById(Long id) {
         if (pedidoRepository.existsById(id)) {
             return businessToDTO(pedidoRepository.getById(id));
         }
@@ -147,7 +157,7 @@ public class PedidoService {
     }
 
     //  ---------------------> ATUALIZAR
-    public PedidoDTO update(PedidoDTO dto, Long id) {
+    public PedidoDTO updateOrderById(PedidoDTO dto, Long id) {
 
         Optional<Pedido> opt = pedidoRepository.findById(id);
         Pedido pedido = dtoToBusiness(dto);
@@ -197,9 +207,29 @@ public class PedidoService {
     }
 
     //  ---------------------> DELETAR
-    public void delete(Long id) {
+    public void deleteOrderById(Long id) {
         if (pedidoRepository.existsById(id)) {
-            pedidoRepository.deleteById(id);
+            Pedido p = pedidoRepository.getById(id);
+
+            List<ItensPedidoDTO> listaProdutosPedido = itensPedidoService.searchItemsByOrder(id);
+
+            for(ItensPedidoDTO i : listaProdutosPedido){
+                estoqueService.updateCancelledProduct(i.getId().getProduto().getId());
+            }
+
+            p.setStatus(false);
         }
     }
+
+    public void sendEmailPurchaseSuccess(Long idPedido){
+        if(pedidoRepository.existsById(idPedido)){
+            Pedido p = pedidoRepository.getById(idPedido);
+            PedidoDTO pedidoDTO = businessToDTO(p);
+
+            String email = pedidoDTO.getCliente().getEmailCliente();
+            emailService.sendEmailPurchaseSuccess(pedidoDTO, email);
+        }
+    }
+
+
 }

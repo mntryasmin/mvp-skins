@@ -1,13 +1,9 @@
 package br.com.rd.mvpskins.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import br.com.rd.mvpskins.config.JwtTokenUtil;
-import br.com.rd.mvpskins.model.dto.ClienteDTO;
-import br.com.rd.mvpskins.model.dto.PedidoDTO;
 import br.com.rd.mvpskins.model.entity.Cliente;
-import br.com.rd.mvpskins.model.entity.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,12 +25,11 @@ public class JwtUserDetailsService implements UserDetailsService {
     private EmailService emailService;
 
     @Autowired
-    private PedidoService pedidoService;
-
-    @Autowired
     PasswordEncoder passwordEncoder;
 
+
     @Override
+    //Método para criar um novo usuário para o token
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Cliente cliente = clienteService.searchClientByEmail(email);
 
@@ -46,13 +41,14 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
     }
 
-
+    //Método que verifica se a senha passada é igual a salva no banco
     public Boolean authenticate(String senha, UserDetails user) throws Exception {
 
         return passwordEncoder.matches(senha, user.getPassword());
     }
 
-    public String esqueciSenha(String email){
+    //Método para enviar email com token para atualizar senha
+    public void generateForgotPasswordToken(String email) throws Exception{
         Cliente cliente = clienteService.searchClientByEmail(email);
         if(cliente==null){
             throw new UsernameNotFoundException("email não encontrado: "+email);
@@ -62,27 +58,10 @@ public class JwtUserDetailsService implements UserDetailsService {
         String token = jwtTokenUtil.generateTokenForgotPassword(user);
         emailService.sendEmailForgotPassword(token, user.getUsername());
 
-        return token;
     }
 
-    public String sucessoDeCompra(Long idPedido){
-        PedidoDTO pedido = pedidoService.searchID(idPedido);
-        if(pedido==null){
-            throw new UsernameNotFoundException("pedido não encontrado: "+pedido);
-        }
-
-        User user = new User(pedido.getCliente().getEmailCliente(), pedido.getCliente().getSenhaCliente(), new ArrayList<>());
-        String token = jwtTokenUtil.generateTokenForgotPassword(user);
-        emailService.sendEmailForgotPassword(token, user.getUsername());
-
-        return token;
-    }
 
     public void logout(String token){
         jwtTokenUtil.setExpirationDateFromToken(token);
-    }
-
-    public Date verDataToken(String token){
-        return jwtTokenUtil.getExpirationDateFromToken(token);
     }
 }

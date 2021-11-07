@@ -37,35 +37,34 @@ public class ItensPedidoController {
     //UM ITEM DE PEDIDO POR ID
     @GetMapping("/{idProduto}/{idPedido}")
     public ItensPedidoDTO searchID(@PathVariable("idProduto") Long idProduto, @PathVariable("idPedido") Long idPedido) {
-        return itensPedidoService.searchID(idProduto, idPedido);
+        return itensPedidoService.searchOrderItemById(idProduto, idPedido);
     }
 
     // PRODUTOS DE UM PEDIDO
-    //UM ITEM DE PEDIDO POR ID
     @GetMapping("/{idPedido}")
-    public List<ItensPedidoDTO> searchProdutosPedido(@PathVariable("idPedido") Long idPedido) {
-        return itensPedidoService.searchProdutosPedido(idPedido);
+    public List<ItensPedidoDTO> searchOrderProduct(@PathVariable("idPedido") Long idPedido) {
+        return itensPedidoService.searchItemsByOrder(idPedido);
     }
 
     //TOP 12 PRODUTOS MAIS VENDIDOS
     @GetMapping("/topProdutos")
-    public List<ItensPedidoDTO> searchProdutosMaisVendidos() {
+    public List<ItensPedidoDTO> searchTopSellers() {
 
-        return itensPedidoService.searchProdutosMaisVendidos();
+        return itensPedidoService.searchTopSellers();
     }
 
     //TOP 12 FACAS MAIS VENDIDAS
     @GetMapping("/topFacas")
-    public List<ItensPedidoDTO> searchFacasMaisVendidas() {
+    public List<ItensPedidoDTO> searchTopKnifes() {
 
-        return itensPedidoService.searchFacasMaisVendidas();
+        return itensPedidoService.searchTopKnife();
     }
 
     //TOP 12 ARMAS MAIS VENDIDAS
     @GetMapping("/topArmas")
     public List<ItensPedidoDTO> searchArmasMaisVendidas() {
 
-        return itensPedidoService.searchArmasMaisVendidas();
+        return itensPedidoService.searchTopGuns();
     }
 
     //  ---------------------> ATUALIZAR

@@ -17,7 +17,7 @@ public class ItensPedidoRepositoryImpl implements ItensPedidoRepositoryCustom {
 
     @Override
     public List<ItensPedido> searchProdutosPedido (Long idPedido) {
-        Query sql = entityManager.createNativeQuery("SELECT CODIGO_PRODUTO FROM TB_ITENS_PEDIDO TIP WHERE TIP.CODIGO_PEDIDO = ?", ItensPedido.class);
+        Query sql = entityManager.createNativeQuery("SELECT * FROM TB_ITENS_PEDIDO TIP WHERE CODIGO_PEDIDO = ?", ItensPedido.class);
         sql.setParameter(1, idPedido);
 
         List<ItensPedido> list = sql.getResultList();
@@ -26,7 +26,7 @@ public class ItensPedidoRepositoryImpl implements ItensPedidoRepositoryCustom {
 
     @Override
     public List<ItensPedido> searchProdutosMaisVendidos() {
-        Query sql = entityManager.createNativeQuery("SELECT TIP.CODIGO_PRODUTO FROM TB_ITENS_PEDIDO TIP INNER JOIN TB_PRODUTO TP ON (TIP.CODIGO_PRODUTO = TP.CODIGO_PRODUTO) GROUP BY TP.DESCRICAO LIMIT 12", ItensPedido.class);
+        Query sql = entityManager.createNativeQuery("SELECT * FROM TB_ITENS_PEDIDO TIP INNER JOIN TB_PRODUTO TP ON (TIP.CODIGO_PRODUTO = TP.CODIGO_PRODUTO) GROUP BY TP.DESCRICAO LIMIT 12", ItensPedido.class);
 
         List<ItensPedido> list = sql.getResultList();
         return list;
@@ -34,7 +34,7 @@ public class ItensPedidoRepositoryImpl implements ItensPedidoRepositoryCustom {
 
     @Override
     public List<ItensPedido> searchFacasMaisVendidas() {
-        Query sql = entityManager.createNativeQuery("SELECT TIP.CODIGO_PRODUTO FROM TB_ITENS_PEDIDO TIP INNER JOIN TB_PRODUTO TP ON (TIP.CODIGO_PRODUTO = TP.CODIGO_PRODUTO) WHERE TP.CODIGO_CATEGORIA = 6 GROUP BY TP.DESCRICAO LIMIT 12", ItensPedido.class);
+        Query sql = entityManager.createNativeQuery("SELECT * FROM TB_ITENS_PEDIDO TIP INNER JOIN TB_PRODUTO TP ON (TIP.CODIGO_PRODUTO = TP.CODIGO_PRODUTO) WHERE TP.CODIGO_CATEGORIA = 6 GROUP BY TP.DESCRICAO LIMIT 12", ItensPedido.class);
 
         List<ItensPedido> list = sql.getResultList();
         return list;
@@ -42,7 +42,7 @@ public class ItensPedidoRepositoryImpl implements ItensPedidoRepositoryCustom {
 
     @Override
     public List<ItensPedido> searchArmasMaisVendidas() {
-        Query sql = entityManager.createNativeQuery("SELECT TIP.CODIGO_PRODUTO FROM TB_ITENS_PEDIDO TIP INNER JOIN TB_PRODUTO TP ON (TIP.CODIGO_PRODUTO = TP.CODIGO_PRODUTO) WHERE TP.CODIGO_CATEGORIA = 6 GROUP BY TP.DESCRICAO LIMIT 12", ItensPedido.class);
+        Query sql = entityManager.createNativeQuery("SELECT * FROM TB_ITENS_PEDIDO TIP INNER JOIN TB_PRODUTO TP ON (TIP.CODIGO_PRODUTO = TP.CODIGO_PRODUTO) WHERE TP.CODIGO_CATEGORIA = 6 GROUP BY TP.DESCRICAO LIMIT 12", ItensPedido.class);
 
         List<ItensPedido> list = sql.getResultList();
         return list;

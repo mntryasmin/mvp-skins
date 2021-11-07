@@ -7,24 +7,16 @@ import br.com.rd.mvpskins.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 
 
 @RestController
 @CrossOrigin
 @RequestMapping("/authenticate")
 public class JwtAuthenticationController {
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -51,23 +43,20 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/esqueci-minha-senha")
-    public String esqueciSenha(@RequestBody String email){
+    public void generateForgotPasswordToken(@RequestBody String email){
         try{
-            return userDetailsService.esqueciSenha(email);
+            userDetailsService.generateForgotPasswordToken(email);
         } catch(UsernameNotFoundException u){
             u.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return null;
     }
 
     @GetMapping("/logout/{token}")
     public void logout(@PathVariable("token") String token){
         userDetailsService.logout(token);
     }
-
-    @GetMapping("/data/{token}")
-    public Date dataToken(@PathVariable("token") String token ){
-        return  userDetailsService.verDataToken(token);
-    }
+    
 
 }

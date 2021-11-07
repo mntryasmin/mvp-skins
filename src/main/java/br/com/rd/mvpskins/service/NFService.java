@@ -120,7 +120,7 @@ public class NFService {
 
         //        ===> PEDIDO
         if (b.getPedido() != null) {
-            PedidoDTO r = pedidoService.searchID(b.getPedido().getId());
+            PedidoDTO r = pedidoService.searchOrderById(b.getPedido().getId());
 
             dto.setPedido(r);
         }
