@@ -17,15 +17,13 @@ public class PedidoController {
     @Autowired
     PedidoService pedidoService;
 
-    @Autowired
-    JwtUserDetailsService jwtUserDetailsService;
 
     //  ---------------------> CRIAR
     @PostMapping
     @ResponseBody
-    public PedidoDTO create (@RequestBody PedidoDTO pedidoDTO) {
+    public PedidoDTO createOrder(@RequestBody PedidoDTO pedidoDTO) {
         try {
-            return pedidoService.create(pedidoDTO);
+            return pedidoService.createOrder(pedidoDTO);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -35,44 +33,45 @@ public class PedidoController {
     //  ---------------------> BUSCAR
     //TODOS OS PEDIDOS
     @GetMapping
-    public List<PedidoDTO> searchAll() {
+    public List<PedidoDTO> searchAllOrders() {
+
         return pedidoService.searchAll();
     }
 
     //UM PEDIDO POR ID
     @GetMapping("/{id}")
-    public PedidoDTO searchID(@PathVariable("id") Long id) {
-        return pedidoService.searchID(id);
+    public PedidoDTO searchOrderByID(@PathVariable("id") Long id) {
+        return pedidoService.searchOrderById(id);
     }
 
     //TODAS AS NF'S DE UM CLIENTE
     @GetMapping("/historico/{idCliente}")
     public List<PedidoDTO> searchPedidosCliente(@PathVariable("idCliente") Long idCliente) {
-        return pedidoService.searchPedidosCliente(idCliente);
+        return pedidoService.searchAllClientOrders(idCliente);
     }
 
     //  ---------------------> ATUALIZAR
     @PutMapping("/{id}")
     @ResponseBody
-    public PedidoDTO update(@RequestBody PedidoDTO pedidoDTO, @PathVariable("id") Long id) {
-        return pedidoService.update(pedidoDTO, id);
+    public PedidoDTO updateOrderById(@RequestBody PedidoDTO pedidoDTO, @PathVariable("id") Long id) {
+        return pedidoService.updateOrderById(pedidoDTO, id);
     }
 
     //  ---------------------> DELETAR
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void delete(@PathVariable("id") Long id) {
-        pedidoService.delete(id);
+    public void deleteOrderById(@PathVariable("id") Long id) {
+        pedidoService.deleteOrderById(id);
     }
 
     //  ---------------------> SUCESSO DE COMPRAS
-    @PostMapping("{idPedido}")
-    public String esqueciSenha(@PathVariable("idPedido") Long idPedido){
+    @PostMapping("/{idPedido}")
+    public void purchaseSuccess(@PathVariable("idPedido") Long idPedido){
         try{
-            return jwtUserDetailsService.sucessoDeCompra(idPedido);
+            pedidoService.sendEmailPurchaseSuccess(idPedido);
         } catch(UsernameNotFoundException u){
             u.printStackTrace();
         }
-        return null;
     }
+
 }
