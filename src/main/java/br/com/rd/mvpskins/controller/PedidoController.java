@@ -44,7 +44,7 @@ public class PedidoController {
         return pedidoService.searchOrderById(id);
     }
 
-    //TODAS AS NF'S DE UM CLIENTE
+    //TODAS OS PEDIDOS DE UM CLIENTE
     @GetMapping("/historico/{idCliente}")
     public List<PedidoDTO> searchPedidosCliente(@PathVariable("idCliente") Long idCliente) {
         return pedidoService.searchAllClientOrders(idCliente);

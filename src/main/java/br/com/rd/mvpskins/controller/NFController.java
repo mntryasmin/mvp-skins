@@ -20,39 +20,39 @@ public class NFController {
     @PostMapping
     @ResponseBody
     public NFDTO create (@RequestBody NFDTO nfDTO) {
-        return nfService.create(nfDTO);
+        return nfService.createInvoice(nfDTO);
     }
 
     //  ---------------------> BUSCAR
     //TODAS AS NF'S
     @GetMapping
     public List<NFDTO> searchAll() {
-        return nfService.searchAll();
+        return nfService.searchAllInvoices();
     }
 
     //TODAS NF'S DE UM CLIENTE
     @GetMapping("/historico/{idCliente}")
     public List<NFDTO> findByClient(@PathVariable ("idCliente") Long idClient) {
-        return nfService.findByClient(idClient);
+        return nfService.findInvoicesByClient(idClient);
     }
 
     //UMA NF POR ID
     @GetMapping("/{id}")
     public NFDTO searchID(@PathVariable("id") Long id) {
-        return nfService.searchID(id);
+        return nfService.searchInvoiceByID(id);
     }
 
     //  ---------------------> ATUALIZAR
     @PutMapping("/{id}")
     @ResponseBody
     public NFDTO update(@RequestBody NFDTO nfDTO, @PathVariable("id") Long id) {
-        return nfService.update(nfDTO, id);
+        return nfService.updateInvoice(nfDTO, id);
     }
 
     //  ---------------------> DELETAR
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
     public void delete(@PathVariable("id") Long id) {
-        nfService.delete(id);
+        nfService.deleteInvoice(id);
     }
 }
