@@ -125,6 +125,11 @@ public class PedidoService {
 
         pedido.setDataRegistro(new Date());
         pedido.setStatus(false);
+
+        if(pedido.getDescontoProduto()==null){
+            pedido.setDescontoProduto(0.0);
+        }
+        pedido.setValorLiquido(pedido.getValorBruto()-pedido.getDescontoProduto());
         pedido = pedidoRepository.save(pedido);
 
         return businessToDTO(pedido);
@@ -191,14 +196,12 @@ public class PedidoService {
                 update.setValorBruto(pedido.getValorBruto());
             }
 
-            if (pedido.getValorLiquido() != null) {
-                update.setValorLiquido(pedido.getValorLiquido());
-            }
 
             if (pedido.getStatus() != null) {
                 update.setStatus(pedido.getStatus());
             }
 
+            update.setValorLiquido(update.getValorBruto()-update.getDescontoProduto());
             pedidoRepository.save(update);
             return businessToDTO(update);
         }

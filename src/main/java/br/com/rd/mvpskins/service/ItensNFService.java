@@ -4,6 +4,7 @@ import br.com.rd.mvpskins.model.dto.ItensNFCompositeKeyDTO;
 import br.com.rd.mvpskins.model.dto.ItensNFDTO;
 import br.com.rd.mvpskins.model.embeddable.ItensNFCompositeKey;
 import br.com.rd.mvpskins.model.entity.ItensNF;
+import br.com.rd.mvpskins.model.entity.Produto;
 import br.com.rd.mvpskins.repository.contract.ItensNFRepository;
 import br.com.rd.mvpskins.repository.contract.NFRepository;
 import br.com.rd.mvpskins.repository.contract.ProdutoRepository;
@@ -32,8 +33,11 @@ public class ItensNFService {
     @Autowired
     ProdutoRepository produtoRepository;
 
+    @Autowired
+    PrecoService precoService;
+
     //  ---------------------> CONVERTER PARA BUSINESS
-    private ItensNF businessToDTO(ItensNFDTO dto) {
+    private ItensNF dtoToBusiness(ItensNFDTO dto) {
         ItensNFCompositeKey id = new ItensNFCompositeKey();
         id.setProduto(produtoRepository.getById(dto.getId().getProduto().getId()));
         id.setNf(nfRepository.getById(dto.getId().getNf().getId()));
@@ -53,7 +57,7 @@ public class ItensNFService {
     }
 
     //  ---------------------> CONVERTER PARA DTO
-    private ItensNFDTO dtoToBusiness(ItensNF b) {
+    private ItensNFDTO businessToDTO(ItensNF b) {
         ItensNFCompositeKeyDTO id = new ItensNFCompositeKeyDTO();
         id.setProduto(produtoService.getProductById(b.getId().getProduto().getId()));
         id.setNf(nfService.searchInvoiceByID(b.getId().getNf().getId()));
@@ -77,7 +81,7 @@ public class ItensNFService {
         List<ItensNFDTO> listDTO = new ArrayList<>();
 
         for (ItensNF b : listB) {
-            listDTO.add(this.dtoToBusiness(b));
+            listDTO.add(this.businessToDTO(b));
         }
 
         return listDTO;
@@ -86,11 +90,38 @@ public class ItensNFService {
 
     //  ---------------------> CRIAR
     public ItensNFDTO create (ItensNFDTO itemsNFDTO) {
-        ItensNF itemsNF = businessToDTO(itemsNFDTO);
+        ItensNF itemsNF = dtoToBusiness(itemsNFDTO);
 
+        //Método que retorna apenas o preço do produto
+        Long idProduto = itemsNF.getId().getProduto().getId();
+        Double valorProduto = precoService.getLastPrice(idProduto, 1l).getVlPreco();
+        itemsNF.setValorBruto(valorProduto);
+
+        if(itemsNF.getDesconto() == null){
+            itemsNF.setDesconto(0.0);
+        }
+
+        Double valorBruto = itemsNF.getValorBruto();
+        //Cálculo dos impostos
+        Double icms = valorBruto*0.18;
+        Double pis = valorBruto*0.065;
+        Double cofins = valorBruto*0.03;
+        Double ipi = valorBruto*0.1;
+        Double desconto = itemsNF.getDesconto();
+
+        //Impostos não são descontados do valor bruto ao consumidor final
+        Double valorLiquido = valorBruto-desconto;
+
+        itemsNF.setIcms(icms);
+        itemsNF.setIpi(ipi);
+        itemsNF.setPis(pis);
+        itemsNF.setCofins(cofins);
+        itemsNF.setValorBruto(valorBruto);
+        itemsNF.setValorLiquido(valorLiquido);
+        itemsNF.setQuantidade(1);
         itemsNF = itensNFRepository.save(itemsNF);
 
-        return dtoToBusiness(itemsNF);
+        return businessToDTO(itemsNF);
     }
 
 
@@ -110,7 +141,7 @@ public class ItensNFService {
         id.setNf(nfRepository.getById(idNF));
 
         if (itensNFRepository.existsById(id)) {
-            return dtoToBusiness(itensNFRepository.getById(id));
+            return businessToDTO(itensNFRepository.getById(id));
         }
 
         return null;
@@ -119,36 +150,36 @@ public class ItensNFService {
     //  ---------------------> ATUALIZAR
     public ItensNFDTO update(ItensNFDTO dto, Long idProduct, Long idNF) {
 
-            ItensNFCompositeKeyDTO id = new ItensNFCompositeKeyDTO();
-            id.setProduto(produtoService.getProductById(idProduct));
-            id.setNf(nfService.searchInvoiceByID(idNF));
-            dto.setId(id);
+        ItensNFCompositeKeyDTO id = new ItensNFCompositeKeyDTO();
+        id.setProduto(produtoService.getProductById(idProduct));
+        id.setNf(nfService.searchInvoiceByID(idNF));
+        dto.setId(id);
 
-            ItensNF itemsNF = businessToDTO(dto);
-            Optional<ItensNF> opt = itensNFRepository.findById(itemsNF.getId());
+        ItensNF itemsNF = dtoToBusiness(dto);
+        Optional<ItensNF> opt = itensNFRepository.findById(itemsNF.getId());
 
-            if (opt.isPresent()) {
-                ItensNF update = opt.get();
+        if (opt.isPresent()) {
+            ItensNF update = opt.get();
 
-                if (itemsNF.getQuantidade() != null) {
-                    update.setQuantidade(itemsNF.getQuantidade());
-                }
-
-                if (itemsNF.getDesconto() != null) {
-                    update.setDesconto(itemsNF.getDesconto());
-                }
-
-                if (itemsNF.getValorBruto() != null) {
-                    update.setValorBruto(itemsNF.getValorBruto());
-                }
-
-                if (itemsNF.getValorLiquido() != null) {
-                    update.setValorLiquido(itemsNF.getValorLiquido());
-                }
-
-                itensNFRepository.save(update);
-                return dtoToBusiness(update);
+            if (itemsNF.getQuantidade() != null) {
+                update.setQuantidade(itemsNF.getQuantidade());
             }
+
+            if (itemsNF.getDesconto() != null) {
+                update.setDesconto(itemsNF.getDesconto());
+            }
+
+            if (itemsNF.getValorBruto() != null) {
+                update.setValorBruto(itemsNF.getValorBruto());
+            }
+
+            if (itemsNF.getValorLiquido() != null) {
+                update.setValorLiquido(itemsNF.getValorLiquido());
+            }
+
+            itensNFRepository.save(update);
+            return businessToDTO(update);
+        }
 //        }
 
         return null;
