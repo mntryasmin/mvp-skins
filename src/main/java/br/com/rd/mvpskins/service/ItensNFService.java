@@ -56,7 +56,7 @@ public class ItensNFService {
     private ItensNFDTO dtoToBusiness(ItensNF b) {
         ItensNFCompositeKeyDTO id = new ItensNFCompositeKeyDTO();
         id.setProduto(produtoService.getProductById(b.getId().getProduto().getId()));
-        id.setNf(nfService.searchID(b.getId().getNf().getId()));
+        id.setNf(nfService.searchInvoiceByID(b.getId().getNf().getId()));
 
         ItensNFDTO dto = new ItensNFDTO();
         dto.setId(id);
@@ -121,7 +121,7 @@ public class ItensNFService {
 
             ItensNFCompositeKeyDTO id = new ItensNFCompositeKeyDTO();
             id.setProduto(produtoService.getProductById(idProduct));
-            id.setNf(nfService.searchID(idNF));
+            id.setNf(nfService.searchInvoiceByID(idNF));
             dto.setId(id);
 
             ItensNF itemsNF = businessToDTO(dto);
