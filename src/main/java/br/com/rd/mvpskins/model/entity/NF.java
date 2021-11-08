@@ -27,10 +27,6 @@ public class NF {
     private Empresa empresa;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "codigo_fornecedor")
-    private Fornecedor fornecedor;
-
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODIGO_CLIENTE")
     private Cliente cliente;
 
