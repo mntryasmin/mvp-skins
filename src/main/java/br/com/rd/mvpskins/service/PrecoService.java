@@ -43,7 +43,7 @@ public class PrecoService {
         return null;
     }
 
-    public PrecoDTO getLastPrice(Long idProduto, Long idCatPreco){
+    public Double getLastPrice(Long idProduto, Long idCatPreco){
         List<PrecoDTO> lista = this.getPriceById(idProduto, idCatPreco);
         PrecoDTO preco = lista.get(0);
         for(PrecoDTO p : lista){
@@ -51,7 +51,7 @@ public class PrecoService {
                 preco = p;
             }
         }
-        return preco;
+        return preco.getVlPreco();
     }
 
     public Preco dtoToBusiness(PrecoDTO dto){
