@@ -94,7 +94,7 @@ public class ItensNFService {
 
         //Método que retorna apenas o preço do produto
         Long idProduto = itemsNF.getId().getProduto().getId();
-        Double valorProduto = precoService.getLastPrice(idProduto, 1l).getVlPreco();
+        Double valorProduto = precoService.getLastPrice(idProduto, 1l);
         itemsNF.setValorBruto(valorProduto);
 
         if(itemsNF.getDesconto() == null){
