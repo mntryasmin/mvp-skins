@@ -111,7 +111,7 @@ public class ItensPedidoService {
         Long idProduto = itensPedidoDTO.getId().getProduto().getId();
 
         //Método que retorna apenas o preço do produto
-        Double valorProduto = precoService.getLastPrice(idProduto, 1l).getVlPreco();
+        Double valorProduto = precoService.getLastPrice(idProduto, 1l);
         itensPedidoDTO.setValorBruto(valorProduto);
 
         if(itensPedidoDTO.getDesconto() == null){

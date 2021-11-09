@@ -28,7 +28,7 @@ public class PrecoController {
 
 
     @GetMapping("/recente/{idPreco}/{idProduto}")
-    public PrecoDTO getLastPrice(@PathVariable("idProduto") Long idProduto, @PathVariable("idPreco") Long idPreco){
+    public Double getLastPrice(@PathVariable("idProduto") Long idProduto, @PathVariable("idPreco") Long idPreco){
         return precoService.getLastPrice(idProduto, idPreco);
     }
   
