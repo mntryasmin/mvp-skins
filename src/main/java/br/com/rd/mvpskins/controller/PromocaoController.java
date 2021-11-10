@@ -30,7 +30,8 @@ public class PromocaoController {
     public PromocaoDTO searchById(@PathVariable("idPromotion") Long codigoPromocao){
     return promocaoService.searchPromotionById(codigoPromocao);
 }
-    @GetMapping("/{updatePromotion}")
+    @PutMapping("/{updatePromotion}")
+    @ResponseBody
     public PromocaoDTO updatePromotion(@RequestBody PromocaoDTO promocaoDTO, @PathVariable("idPromotion") Long codigoPromocao ){
     return promocaoService.updatePromotion(promocaoDTO,codigoPromocao);
     }
