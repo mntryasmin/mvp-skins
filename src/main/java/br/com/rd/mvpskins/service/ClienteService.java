@@ -161,6 +161,12 @@ public class ClienteService {
             clienteRepository.save(cliente);
             return "Senha alterada com sucesso";
         }
+
+        public ClienteDTO getClientByToken(String token){
+            String email = jwtTokenUtil.getUsernameFromToken(token);
+            Cliente c = searchClientByEmail(email);
+            return this.businessToDto(c);
+        }
     }
 
 

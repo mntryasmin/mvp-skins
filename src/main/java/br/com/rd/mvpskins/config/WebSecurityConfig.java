@@ -97,7 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/preco/recente/{idPreco}/{idProduto}",
                                                         "/empresa/{id}",
                                                         "/preco/recente/{idPreco}/{idProduto}",
-                                                        "/itens-nf").permitAll().
+                                                        "/itens-nf",
+                                                        "/cliente/token/{token}").permitAll().
 
 // Qualquer outra requisição deve ser checada
         anyRequest().authenticated().and().
