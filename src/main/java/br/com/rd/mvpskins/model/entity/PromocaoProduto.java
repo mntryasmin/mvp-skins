@@ -12,16 +12,7 @@ import java.util.Date;
 @Entity(name = "tb_promocao_produto")
 
 public class PromocaoProduto {
-   @EmbeddedId
-   @Column(nullable = false, name = "CODIGO_PROMOCAO_PRODUTO")
-   private PromocaoProdutoCompositeKey id;
-   @Column(name = "PORCENTAGEM_DESCONTO")
-    private Float porcentagemDesconto;
-    @Column(name = "VALOR_DESCONTO")
-    private Float valorDesconto;
-    @Column (name = "DATA_FIM")
-    private Date dataFim;
-
-
-
+    @EmbeddedId
+    @Column(nullable = false, name = "CODIGO_PROMOCAO_PRODUTO")
+    private PromocaoProdutoCompositeKey id;
 }
