@@ -45,7 +45,7 @@ public class PedidoController {
     }
 
     //TODAS OS PEDIDOS DE UM CLIENTE
-    @GetMapping("/historico/{idCliente}")
+    @GetMapping("/order-history/{idCliente}")
     public List<PedidoDTO> searchPedidosCliente(@PathVariable("idCliente") Long idCliente) {
         return pedidoService.searchAllClientOrders(idCliente);
     }

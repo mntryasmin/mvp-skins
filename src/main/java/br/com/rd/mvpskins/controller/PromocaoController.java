@@ -1,6 +1,7 @@
 package br.com.rd.mvpskins.controller;
 
 import br.com.rd.mvpskins.model.dto.PromocaoDTO;
+import br.com.rd.mvpskins.model.entity.Promocao;
 import br.com.rd.mvpskins.service.PromocaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +28,20 @@ public class PromocaoController {
     }
 
     @GetMapping("/{idPromotion}")
-    public PromocaoDTO searchById(@PathVariable("idPromotion") Long codigoPromocao){
-    return promocaoService.searchPromotionById(codigoPromocao);
-}
+    public PromocaoDTO searchById(@PathVariable("idPromotion") Long codigoPromocao) {
+        return promocaoService.searchPromotionById(codigoPromocao);
+    }
+
+    @GetMapping("/coupon-validate/{cod}")
+    public Boolean validateCouponByCod(@PathVariable("cod") String cod) {
+    return promocaoService.validateCouponByCod(cod);
+    }
+
+    @GetMapping("/coupon-discount/{cod}")
+    public Float searchDiscount(@PathVariable("cod") String cod) {
+        return promocaoService.searchDiscount(cod);
+    }
+
     @GetMapping("/{updatePromotion}")
     public PromocaoDTO updatePromotion(@RequestBody PromocaoDTO promocaoDTO, @PathVariable("idPromotion") Long codigoPromocao ){
     return promocaoService.updatePromotion(promocaoDTO,codigoPromocao);

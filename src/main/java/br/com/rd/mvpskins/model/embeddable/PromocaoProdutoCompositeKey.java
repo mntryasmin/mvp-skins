@@ -16,15 +16,15 @@ import javax.persistence.*;
 @Data
 public class PromocaoProdutoCompositeKey implements Serializable {
 
-    @Column(name = "DATA_INICIO")
+    @Column(name = "DATA_INICIO", nullable = false)
     private Date dataInicio;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CODIGO_PRODUTO")
+    @JoinColumn(name = "CODIGO_PRODUTO", nullable = false)
     private Produto produto;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CODIGO_PROMOCAO")
+    @JoinColumn(name = "CODIGO_PROMOCAO", nullable = false)
     private Promocao promocao;
 
 
