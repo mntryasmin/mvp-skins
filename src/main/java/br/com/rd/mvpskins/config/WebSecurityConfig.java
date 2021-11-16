@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/nf/historico/{idCliente}",
                                                         "/pedidos",
                                                         "/pedidos/{id}",
-                                                        "/pedidos/historico/{idCliente}",
+                                                        "/pedidos/order-history/{idCliente}",
                                                         "/tipo-nf",
                                                         "/tipo-nf/{id}",
                                                         "/produtos",
@@ -98,7 +98,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/empresa/{id}",
                                                         "/preco/recente/{idPreco}/{idProduto}",
                                                         "/itens-nf",
-                                                        "/cliente/token/{token}").permitAll().
+                                                        "/cliente/token/{token}",
+                                                        "/itens-nf,",
+                                                        "/promotion/coupon-validate/{cod}",
+                                                        "/promotion/coupon-discount/{cod}").permitAll().
 
 // Qualquer outra requisição deve ser checada
         anyRequest().authenticated().and().
