@@ -33,17 +33,13 @@ public class PromocaoProdutoService {
 
     private PromocaoProduto dtoToBusiness(PromocaoProdutoDTO dto) {
         PromocaoProdutoCompositeKey id = new PromocaoProdutoCompositeKey();
-        Produto a = produtoRepository.getById(dto.getId().getProdutoDTO().getId());
-        Promocao b = promocaoRepository.getById(dto.getId().getProdutoDTO().getId());
+        Produto a = produtoRepository.getById(dto.getId().getProduto().getId());
+        Promocao b = promocaoRepository.getById(dto.getId().getProduto().getId());
         id.setProduto(a);
         id.setPromocao(b);
 
         PromocaoProduto p = new PromocaoProduto();
         p.setId(id);
-        p.setDataFim(dto.getDataFim());
-        p.setPorcentagemDesconto(dto.getPorcentagemDesconto());
-        p.setValorDesconto(dto.getValorDesconto());
-
 
         return p;
     }
@@ -53,18 +49,13 @@ public class PromocaoProdutoService {
     PromocaoProdutoCompositeKeyDTO id = new PromocaoProdutoCompositeKeyDTO();
     ProdutoDTO a = produtoService.getProductById(p.getId().getProduto().getId());
     PromocaoDTO b = promocaoService.searchPromotionById(p.getId().getPromocao().getCodigoPromocao());
-    id.setProdutoDTO(a);
-    id.setPromocaoDTO(b);
+    id.setProduto(a);
+    id.setPromocao(b);
 
         PromocaoProdutoDTO dto = new PromocaoProdutoDTO();
         dto.setId(id);
-        dto.setDataFim(p.getDataFim());
-        dto.setPorcentagemDesconto(p.getPorcentagemDesconto());
-        dto.setValorDesconto(p.getValorDesconto());
-
 
         return dto;
-
     }
 
     private List<PromocaoProdutoDTO> listToDTO(List<PromocaoProduto> listP) {
@@ -103,8 +94,8 @@ public class PromocaoProdutoService {
     public PromocaoProdutoDTO updatePromotion(PromocaoProdutoDTO dto, Long idProduto, Long idPromocao) {
         if (produtoRepository.existsById(idProduto)) {
             PromocaoProdutoCompositeKeyDTO id = new PromocaoProdutoCompositeKeyDTO();
-            id.setProdutoDTO(produtoService.getProductById(idProduto));
-            id.setPromocaoDTO(promocaoService.searchPromotionById(idPromocao));
+            id.setProduto(produtoService.getProductById(idProduto));
+            id.setPromocao(promocaoService.searchPromotionById(idPromocao));
             dto.setId(id);
 
             PromocaoProduto promocaoProduto = dtoToBusiness(dto);
@@ -112,17 +103,6 @@ public class PromocaoProdutoService {
 
             if (opt.isPresent()) {
                 PromocaoProduto update = opt.get();
-
-
-                if (promocaoProduto.getDataFim() != null) {
-                    update.setDataFim(promocaoProduto.getDataFim());
-                }
-                if (promocaoProduto.getPorcentagemDesconto() != null) {
-                    update.setPorcentagemDesconto(promocaoProduto.getPorcentagemDesconto());
-                }
-                if (promocaoProduto.getValorDesconto() != null) {
-                    update.setValorDesconto(promocaoProduto.getValorDesconto());
-                }
 
                 promocaoProdutoRepository.save(update);
                 return businessToDto(update);
