@@ -29,16 +29,12 @@ public class JwtAuthenticationController {
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-        try{
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-            String senha = authenticationRequest.getPassword();
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        String senha = authenticationRequest.getPassword();
 
-            if(userDetailsService.authenticate(senha, userDetails)) {
-                final String token = jwtTokenUtil.generateToken(userDetails);
-                return ResponseEntity.ok(new JwtResponse(token));
-            }
-        } catch(UsernameNotFoundException u) {
-            u.printStackTrace();
+        if(userDetailsService.authenticate(senha, userDetails)) {
+            final String token = jwtTokenUtil.generateToken(userDetails);
+            return ResponseEntity.ok(new JwtResponse(token));
         }
         return null;
     }
