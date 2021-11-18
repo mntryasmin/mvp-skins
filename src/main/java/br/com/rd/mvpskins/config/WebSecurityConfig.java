@@ -100,6 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/itens-nf",
                                                         "/cliente/token/{token}",
                                                         "/itens-nf,",
+                                                        "/cliente/email/{email}",
                                                         "/promotion/coupon-validate/{cod}",
                                                         "/promotion/coupon-discount/{cod}").permitAll().
 

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import br.com.rd.mvpskins.model.dto.EmailDTO;
 
 
 
@@ -43,14 +44,8 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/esqueci-minha-senha")
-    public void generateForgotPasswordToken(@RequestBody String email){
-        try{
-            userDetailsService.generateForgotPasswordToken(email);
-        } catch(UsernameNotFoundException u){
-            u.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void  generateForgotPasswordToken(@RequestBody EmailDTO email) throws Exception{
+        userDetailsService.generateForgotPasswordToken(email.getEmail());
     }
 
     @GetMapping("/logout/{token}")
