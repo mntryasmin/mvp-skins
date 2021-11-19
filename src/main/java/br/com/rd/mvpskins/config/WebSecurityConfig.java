@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests().antMatchers("/cliente",
                                                         "/cliente/{id}",
                                                         "/cliente/auto",
-                                                        "/cliente/valid-password-client/{senha}/{idCliente}",
+                                                        "/cliente/valid-password-client/{senha}",
                                                         "/cliente/token/{token}",
                                                         "/empresa",
                                                         "/fornecedor",
