@@ -51,7 +51,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     public void generateForgotPasswordToken(String email) throws Exception{
         Cliente cliente = clienteService.searchClientByEmail(email);
         if(cliente==null){
-            throw new UsernameNotFoundException("email não encontrado: "+email);
+            throw new UsernameNotFoundException("email não encontrado: " + email);
         }
 
         User user = new User(email, cliente.getSenhaCliente(), new ArrayList<>());

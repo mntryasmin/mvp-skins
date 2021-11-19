@@ -69,4 +69,9 @@ public class ClienteController {
     public String changePassword(@RequestParam("token")String token, @RequestBody String password){
         return clienteService.changepassword(token, password);
     }
+
+    @GetMapping("/token/{token}")
+    public ClienteDTO getClientByToken(@PathVariable("token")String token){
+        return clienteService.getClientByToken(token);
+    }
 }

@@ -99,7 +99,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/preco/recente/{idPreco}/{idProduto}",
                                                         "/empresa/{id}",
                                                         "/preco/recente/{idPreco}/{idProduto}",
+                                                        "/itens-nf",
+                                                        "/cliente/token/{token}",
                                                         "/itens-nf,",
+                                                        "/cliente/email/{email}",
                                                         "/promotion/coupon-validate/{cod}",
                                                         "/promotion/coupon-discount/{cod}").permitAll().
 
