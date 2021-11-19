@@ -19,12 +19,18 @@ import java.util.Optional;
 public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
+
     @Autowired
     GeneroRepository generoRepository;
+
     @Autowired
     PasswordEncoder encoder;
+
     @Autowired
     JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     public Cliente dtoToBusiness (ClienteDTO dto){
@@ -106,6 +112,11 @@ public class ClienteService {
             }
         }
         return null;
+    }
+
+    public Boolean validPasswordClient(String senha, Long idCliente) {
+        Cliente c = dtoToBusiness(searchClientById(idCliente));
+        return passwordEncoder.matches(senha, c.getSenhaCliente());
     }
 
     public ClienteDTO updateClient (ClienteDTO dto, Long codeClient) {
