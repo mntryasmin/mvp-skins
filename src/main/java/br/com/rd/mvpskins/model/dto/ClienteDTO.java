@@ -15,5 +15,4 @@ public class ClienteDTO {
     private String senhaCliente;
     private String numeroTelefone;
     private GeneroDTO genero;
-
 }

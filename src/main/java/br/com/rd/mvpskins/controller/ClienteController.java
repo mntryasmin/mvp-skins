@@ -41,7 +41,11 @@ public class ClienteController {
     @PutMapping("/{idCliente}")
     public ClienteDTO updateClient(@RequestBody ClienteDTO clientDTO,@PathVariable("idCliente")Long idClient){
         return clienteService.updateClient(clientDTO,idClient);
+    }
 
+    @GetMapping("/valid-password-client/{senha}/{idCliente}")
+    public Boolean validPasswordClient(@PathVariable("senha") String senha, @PathVariable("idCliente") Long idCliente) {
+        return clienteService.validPasswordClient(senha, idCliente);
     }
 
     @DeleteMapping("/{idCliente}")
