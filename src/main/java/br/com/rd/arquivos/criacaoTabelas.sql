@@ -1,4 +1,4 @@
--- 1º CAMADA - SEM ATRIBUTO (FK)
+-- 1ï¿½ CAMADA - SEM ATRIBUTO (FK)
 
 -- >>>>>>>>>>>>>>>>> PRODUTO
 CREATE TABLE TB_CATEGORIA_PRODUTO (
@@ -67,7 +67,7 @@ CREATE TABLE TB_TIPO_NF(
 
 
 
--- 2º CAMADA - APENAS UM ATRIBUTO (FK)
+-- 2ï¿½ CAMADA - APENAS UM ATRIBUTO (FK)
 
 -- >>>>>>>>>>>>>>>>> PRODUTOS
 CREATE TABLE TB_SUBCATEGORIA_PRODUTO(
@@ -80,7 +80,7 @@ CREATE TABLE TB_SUBCATEGORIA_PRODUTO(
 
 
 
--- 3º CAMADA - TABELAS CENTRAIS
+-- 3ï¿½ CAMADA - TABELAS CENTRAIS
 
 -- >>>>>>>>>>>>>>>>> PRODUTOS
 CREATE TABLE TB_PRODUTO (
@@ -199,7 +199,7 @@ CREATE TABLE TB_NF (
 );
 
 
--- 4º CAMADA - TABELAS COMPOSTAS
+-- 4ï¿½ CAMADA - TABELAS COMPOSTAS
 
 -- >>>>>>>>>>>>>>>>> PRODUTO
 CREATE TABLE TB_FAVORITOS (
@@ -258,3 +258,397 @@ CREATE TABLE TB_ITENS_PEDIDO (
 	FOREIGN KEY (CODIGO_PRODUTO) REFERENCES TB_PRODUTO(CODIGO_PRODUTO),
 	FOREIGN KEY (CODIGO_PEDIDO) REFERENCES TB_PEDIDO(CODIGO_PEDIDO),
 );
+
+INSERT INTO mvpskins.tb_promocao
+(cupom_desconto, data_fim, descricao, porcentagem_desconto, valor_desconto)
+VALUES('VOUSERDEV6', '2021-12-25', 'Desconto exclusivo para participantes da 6Âº turma do quero ser dev', 15, 0);
+
+INSERT INTO mvpskins.tb_promocao
+(cupom_desconto, data_fim, descricao, porcentagem_desconto, valor_desconto)
+VALUES('TESTE38', '2021-11-30', 'Desconto de teste para produtos', 0, 50);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 1);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 2);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 3);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 4);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 5);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 6);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 7);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 8);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 9);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 10);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 11);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 12);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 13);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 14);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 15);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 16);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio,codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 17);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 18);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 19);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 20);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 21);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 22);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 23);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 24);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 25);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 26);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 27);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 28);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 29);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 30);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 31);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 32);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 33);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 34);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 35);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 36);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 37);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 38);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 39);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 40);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 41);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 42);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 43);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 44);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 45);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 46);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 47);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 1, 48);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 1);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 2);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 3);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 4);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 5);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 6);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 7);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 8);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 9);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 10);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 11);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 12);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 13);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 14);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 15);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 16);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 17);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 18);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 19);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 20);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 21);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 22);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 23);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 24);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 25);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 26);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 27);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 28);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 29);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 30);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 31);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 32);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 33);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 34);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 35);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 36);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 37);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 38);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 39);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 40);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 41);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 42);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 43);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 44);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 45);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 46);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 47);
+
+INSERT INTO mvpskins.tb_promocao_produto
+(data_inicio, codigo_promocao, codigo_produto)
+VALUES('2021-11-25', 2, 48);
+
+

@@ -35,8 +35,10 @@ public class JwtAuthenticationController {
         if(userDetailsService.authenticate(senha, userDetails)) {
             final String token = jwtTokenUtil.generateToken(userDetails);
             return ResponseEntity.ok(new JwtResponse(token));
+        }else{
+            return null;
         }
-        return null;
+
     }
 
     @PostMapping("/esqueci-minha-senha")

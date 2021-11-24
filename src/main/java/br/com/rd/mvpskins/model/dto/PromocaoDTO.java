@@ -2,7 +2,7 @@ package br.com.rd.mvpskins.model.dto;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class PromocaoDTO {
@@ -11,7 +11,7 @@ public class PromocaoDTO {
     private String cupomDesconto;
     private Float porcentagemDesconto;
     private Float valorDesconto;
-    private Date dataFim;
+    private LocalDate dataFim;
     
 
 }

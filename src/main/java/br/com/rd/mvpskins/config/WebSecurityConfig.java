@@ -103,7 +103,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/cliente/email/{email}",
                                                         "/promotion/coupon-validate/{cod}",
                                                         "/promotion/coupon-discount/{cod}",
-                                                        "/estoque/verificar-estoque/{id}").permitAll().
+                                                        "/estoque/verificar-estoque/{id}",
+                                                        "/productpromotion",
+                                                        "/promotion/coupon-discount/{cod}",
+                                                        "/promotion/coupon-validate/{cod}").permitAll().
 
 // Qualquer outra requisição deve ser checada
         anyRequest().authenticated().and().

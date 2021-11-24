@@ -3,7 +3,8 @@ package br.com.rd.mvpskins.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Data
 @Entity(name = "tb_promocao")
@@ -17,8 +18,8 @@ public class Promocao {
     @Column(name = "DESCRICAO",nullable = false)
     private String descricao;
 
-    @Column (name = "DATA_FIM")
-    private Date dataFim;
+    @Column (name = "DATA_FIM", nullable = false)
+    private LocalDate dataFim;
 
     @Column(name = "CUPOM_DESCONTO", nullable = false)
     private String cupomDesconto;
