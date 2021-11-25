@@ -2,6 +2,8 @@ package br.com.rd.mvpskins.controller;
 
 import br.com.rd.mvpskins.config.JwtTokenUtil;
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.dto.EmailDTO;
+import br.com.rd.mvpskins.model.dto.SenhaDTO;
 import br.com.rd.mvpskins.model.entity.Cliente;
 import br.com.rd.mvpskins.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +68,8 @@ public class ClienteController {
     }
 
     @PostMapping("/mudar-senha")
-    public String changePassword(@RequestParam("token")String token, @RequestBody String password){
-        return clienteService.changepassword(token, password);
+    public String changePassword(@RequestParam("token")String token, @RequestBody SenhaDTO password){
+        return clienteService.changepassword(token, password.getSenha());
     }
 
     @GetMapping("/token/{token}")
