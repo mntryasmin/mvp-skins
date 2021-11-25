@@ -39,7 +39,7 @@ public class PromocaoController {
     }
 
     @GetMapping("/coupon-discount/{cod}")
-    public Float searchDiscount(@PathVariable("cod") String cod) {
+    public PromocaoDTO searchDiscount(@PathVariable("cod") String cod) {
         return promocaoService.searchDiscount(cod);
     }
 

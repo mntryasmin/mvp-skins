@@ -1,7 +1,7 @@
 package br.com.rd.mvpskins.model.embeddable;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import br.com.rd.mvpskins.model.dto.PromocaoDTO;
 import br.com.rd.mvpskins.model.dto.PromocaoProdutoDTO;
@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class PromocaoProdutoCompositeKey implements Serializable {
 
     @Column(name = "DATA_INICIO", nullable = false)
-    private Date dataInicio;
+    private LocalDate dataInicio;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CODIGO_PRODUTO", nullable = false)
