@@ -64,7 +64,7 @@ public class PedidoController {
     }
 
     //  ---------------------> SUCESSO DE COMPRAS
-    @PostMapping("/{idPedido}")
+    @PostMapping("/email/{idPedido}")
     public void purchaseSuccess(@PathVariable("idPedido") Long idPedido){
         try{
             pedidoService.sendEmailPurchaseSuccess(idPedido);

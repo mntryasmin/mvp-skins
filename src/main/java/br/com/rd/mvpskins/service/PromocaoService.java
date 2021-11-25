@@ -7,10 +7,8 @@ import br.com.rd.mvpskins.repository.contract.PromocaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class PromocaoService {
@@ -69,7 +67,7 @@ public class PromocaoService {
 
     // Validação de promoção por cupom
     public Boolean validateCouponByCod(String cod) {
-        Date today = new Date();
+        LocalDate today = LocalDate.now();
 
         try {
             Promocao codExists = promocaoRepository.validateCodCoupon(cod);
@@ -102,20 +100,18 @@ public class PromocaoService {
     }
 
     // Busca de desconto por cupom
-    public Float searchDiscount(String cod) {
+    public PromocaoDTO searchDiscount(String cod) {
         List<Promocao> promo = promocaoRepository.findBycupomDescontoOrderByDataFimDesc(cod);
-        Float discount;
 
         try {
-            if (promo.get(0).getValorDesconto() != null) {
-                discount = promo.get(0).getValorDesconto();
-                return discount;
-            } else if (promo.get(0).getPorcentagemDesconto() != null) {
-                discount = promo.get(0).getPorcentagemDesconto();
-                return discount;
+            if (promo != null){
+                Promocao p = promo.get(0);
+                return this.businessToDto(p);
+            }else {
+                return null;
             }
         } catch (Exception e) {
-            System.out.print("Ocorreu um erro na busca pelo valor do desconto: " + e);
+            System.out.print("Ocorreu um erro na busca pelo desconto: " + e);
         }
 
         return null;

@@ -14,6 +14,7 @@ import br.com.rd.mvpskins.repository.contract.PromocaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +36,11 @@ public class PromocaoProdutoService {
         PromocaoProdutoCompositeKey id = new PromocaoProdutoCompositeKey();
         Produto a = produtoRepository.getById(dto.getId().getProduto().getId());
         Promocao b = promocaoRepository.getById(dto.getId().getProduto().getId());
+        LocalDate d = dto.getId().getDataInicio();
+
         id.setProduto(a);
         id.setPromocao(b);
+        id.setDataInicio(d);
 
         PromocaoProduto p = new PromocaoProduto();
         p.setId(id);
@@ -49,8 +53,11 @@ public class PromocaoProdutoService {
     PromocaoProdutoCompositeKeyDTO id = new PromocaoProdutoCompositeKeyDTO();
     ProdutoDTO a = produtoService.getProductById(p.getId().getProduto().getId());
     PromocaoDTO b = promocaoService.searchPromotionById(p.getId().getPromocao().getCodigoPromocao());
+    LocalDate d = p.getId().getDataInicio();
+
     id.setProduto(a);
     id.setPromocao(b);
+    id.setDataInicio(d);
 
         PromocaoProdutoDTO dto = new PromocaoProdutoDTO();
         dto.setId(id);

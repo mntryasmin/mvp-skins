@@ -61,6 +61,11 @@ public class EstoqueService {
         return listaProdutoDTO;
     }
 
+    //Verifica se o produto esta em Estoque
+    public Boolean checkProductInventory(Long idProduto){
+        return estoqueRepository.checkProductInventory(idProduto);
+    }
+
     //Atualiza a quantidade de produto para 0(false)
     public void updateSelledProduct(Long idProduto){
         if(estoqueRepository.checkProductInventory(idProduto)){
@@ -80,6 +85,7 @@ public class EstoqueService {
         }
     }
 
+    //Atualiza a quantidade de produto para 1(true)
     public void updateCancelledProduct(Long idProduto){
         if(!estoqueRepository.checkProductInventory(idProduto)){
             CompositeKeyEstoque keyEstoque = new CompositeKeyEstoque();
