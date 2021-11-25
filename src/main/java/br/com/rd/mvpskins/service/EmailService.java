@@ -15,7 +15,7 @@ public class EmailService {
     public String sendEmailForgotPassword(String token, String email){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setText("Para redefinir sua senha, por favor acesse o link abaixo\n\n"+
-                "localhost:8080/cliente/mudar-senha?token="+token);
+                "http://localhost:3000/resetpassword/"+token);
         message.setSubject("Redefinição de senha MVPSkins");
         message.setTo(email);
         message.setFrom(email);
