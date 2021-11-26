@@ -35,8 +35,8 @@ public class EmailService {
         message.setText("Olá "+pedido.getCliente().getNomeCliente()+" recebemos seu pedido em nosso site!\n"+
                 "\nDetalhes do pedido:\n"+
                 pedido.email()+
-                "\n\n\n Para mais informações acesse a Página Dashboard de Cliente em nosso site");
-        message.setSubject("Agradecemos seu pedido na MVPSkins!");
+                "\n\n\n Para mais informações acesse a Area de Cliente em nosso site");
+        message.setSubject("Obrigado por escolher a MVPSkins!");
         message.setTo(email);
         message.setFrom(email);
 
