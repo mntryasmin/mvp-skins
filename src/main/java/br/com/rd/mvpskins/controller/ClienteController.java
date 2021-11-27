@@ -21,13 +21,10 @@ public class ClienteController {
 
     @PostMapping
     @ResponseBody
-    public ClienteDTO createCliente (@RequestBody ClienteDTO client){
-        try{
+    public ClienteDTO createCliente (@RequestBody ClienteDTO client) throws Exception{
+
             return clienteService.createClient(client);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+
     }
 
     @GetMapping
