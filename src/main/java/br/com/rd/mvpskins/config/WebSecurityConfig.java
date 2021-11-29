@@ -53,7 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests().antMatchers("/cliente",
                                                         "/cliente/{id}",
                                                         "/cliente/auto",
-//                                                        "/cliente/valid-password-client/",
                                                         "/cliente/valid-password-client/{senha}/{idCliente}",
                                                         "/cliente/token/{token}",
                                                         "/empresa",
@@ -106,7 +105,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/cliente/email/{email}",
                                                         "/promotion/coupon-validate/{cod}",
                                                         "/promotion/coupon-discount/{cod}",
-                                                        "/estoque/verificar-estoque/{id}",
+                                                        "/estoque/verificar-estoque/{idProduct}",
                                                         "/productpromotion",
                                                         "/promotion/coupon-discount/{cod}",
                                                         "/promotion/coupon-validate/{cod}").permitAll().
