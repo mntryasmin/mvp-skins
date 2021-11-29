@@ -73,4 +73,9 @@ public class ClienteController {
     public ClienteDTO getClientByToken(@PathVariable("token")String token){
         return clienteService.getClientByToken(token);
     }
+
+    @PostMapping("/email/cadastro")
+    public void sendEmailRegisterSuccess(@RequestBody ClienteDTO cliente){
+        clienteService.sendEmailRegisterSuccess(cliente);
+    }
 }
