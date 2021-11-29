@@ -1,6 +1,7 @@
 package br.com.rd.mvpskins.model.dto;
 import lombok.Data;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,19 +18,21 @@ public class PedidoDTO {
 
     public String email(){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
         String numeroPedido = this.id.toString();
         String dataCompra = format.format(this.dataRegistro);
         String formaPagamento = this.formaPagamento.getDescricao();
-        String desconto = this.descontoProduto.toString();
-        String valorBruto = this.valorBruto.toString();
-        String valorLiquido = this.valorLiquido.toString();
+        String desconto = numberFormat.format(this.descontoProduto);
+        String valorBruto = numberFormat.format(this.valorBruto);
+        String valorLiquido = numberFormat.format(this.valorLiquido);
         String status = this.status.toString();
 
-        String textoEmail = "Pedido numero: "+numeroPedido+"\nrealizado em "+dataCompra+
+        String textoEmail = "Pedido número: "+numeroPedido+"\nrealizado em "+dataCompra+
                 "\n\nStatus do Pedido: em andamento"+
-                "\n\nForma de Pagamento: "+formaPagamento+"\nDesconto: "+desconto+
-                "\nValor da Compra: "+valorBruto+"\nValor Total: "+valorLiquido;
+                "\n\nForma de Pagamento: "+formaPagamento+
+                "\nValor da Compra: "+valorBruto+
+                "\nDesconto: "+desconto+
+                "\nValor Total: "+valorLiquido;
 
         return textoEmail;
     }
