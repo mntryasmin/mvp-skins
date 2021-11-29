@@ -21,13 +21,10 @@ public class ClienteController {
 
     @PostMapping
     @ResponseBody
-    public ClienteDTO createCliente (@RequestBody ClienteDTO client){
-        try{
+    public ClienteDTO createCliente (@RequestBody ClienteDTO client) throws Exception{
+
             return clienteService.createClient(client);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+
     }
 
     @GetMapping
@@ -75,5 +72,10 @@ public class ClienteController {
     @GetMapping("/token/{token}")
     public ClienteDTO getClientByToken(@PathVariable("token")String token){
         return clienteService.getClientByToken(token);
+    }
+
+    @PostMapping("/email/cadastro")
+    public void sendEmailRegisterSuccess(@RequestBody ClienteDTO cliente){
+        clienteService.sendEmailRegisterSuccess(cliente);
     }
 }

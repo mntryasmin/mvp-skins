@@ -32,6 +32,9 @@ public class ClienteService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    EmailService emailService;
+
 
     public Cliente dtoToBusiness (ClienteDTO dto){
         Cliente c = new Cliente();
@@ -177,6 +180,10 @@ public class ClienteService {
             String email = jwtTokenUtil.getUsernameFromToken(token);
             Cliente c = searchClientByEmail(email);
             return this.businessToDto(c);
+        }
+
+        public void sendEmailRegisterSuccess(ClienteDTO cliente){
+            emailService.sendEmailRegisterSuccess(cliente);
         }
     }
 
