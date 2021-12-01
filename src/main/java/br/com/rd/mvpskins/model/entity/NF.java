@@ -37,7 +37,7 @@ public class NF {
     @Column(nullable = false, name = "CHAVE_DE_ACESSO")
     private String chaveAcesso;
 
-    @Column(nullable = false, name = "NUMERO_NOTA")
+    @Column(name = "NUMERO_NOTA")
     private String numeroNF;
 
     @Column(nullable = false)

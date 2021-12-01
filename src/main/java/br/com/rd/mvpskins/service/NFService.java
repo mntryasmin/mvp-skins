@@ -92,7 +92,6 @@ public class NFService {
         }
 
         b.setChaveAcesso(dto.getChaveAcesso());
-        b.setNumeroNF(dto.getNumeroNF());
         b.setIcms(dto.getIcms());
         b.setIpi(dto.getIpi());
         b.setPis(dto.getPis());
@@ -236,6 +235,8 @@ public class NFService {
         nf.setValorLiquido(valorLiquido);
 
         nf.setDataRegistro(new Date());
+        nf = nfRepository.save(nf);
+        nf.setNumeroNF(nf.getId().toString());
         nf = nfRepository.save(nf);
 
         return businessToDTO(nf);
