@@ -1,6 +1,7 @@
 package br.com.rd.mvpskins.service;
 
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.dto.NFDTO;
 import br.com.rd.mvpskins.model.dto.PedidoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -63,6 +64,47 @@ public class EmailService {
         message.setSubject("Bem-vindo(a) a MVPSkins!");
         message.setTo(cliente.getEmailCliente());
         message.setFrom(cliente.getEmailCliente());
+
+        try {
+            mailSender.send(message);
+            return "Email enviado com sucesso!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Erro ao enviar email.";
+        }
+    }
+
+    //Método para enviar email de NF
+    public String sendEmailPaymentApproved(PedidoDTO pedido) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setText("Olá " + pedido.getCliente().getNomeCliente() + ",\n\n" +
+                "O pagamento do pedido " + pedido.getId() + " foi aprovado!\n" +
+                "Em breve você receberá sua nota fiscal." +
+                "\n\nEquipe MVPSkins");
+        message.setSubject("MVPSkins - Pagamento aprovado!");
+        message.setTo(pedido.getCliente().getEmailCliente());
+        message.setFrom(pedido.getCliente().getEmailCliente());
+
+        try {
+            mailSender.send(message);
+            return "Email enviado com sucesso!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Erro ao enviar email.";
+        }
+    }
+
+    //Método para enviar email de NF
+    public String sendEmailInvoice(NFDTO nf){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setText("Olá "+nf.getPedido().getCliente().getNomeCliente()+",\n\n"+
+                "Sua nota fiscal foi emitida! Veja os detalhes da nota:\n\n"+
+                nf.email()+
+                "\n\nObrigado por comprar conosco!"+
+                "\nEquipe MVPSkins");
+        message.setSubject("MVPSkins - Sua nota fiscal foi emitida");
+        message.setTo(nf.getPedido().getCliente().getEmailCliente());
+        message.setFrom(nf.getPedido().getCliente().getEmailCliente());
 
         try {
             mailSender.send(message);

@@ -73,6 +73,7 @@ public class PedidoService {
         b.setValorBruto(dto.getValorBruto());
         b.setValorLiquido(dto.getValorLiquido());
         b.setStatus(dto.getStatus());
+        b.setParcelas(dto.getParcelas());
 
         return b;
     }
@@ -102,6 +103,7 @@ public class PedidoService {
         dto.setValorBruto(b.getValorBruto());
         dto.setValorLiquido(b.getValorLiquido());
         dto.setStatus(b.getStatus());
+        dto.setParcelas(b.getParcelas());
 
         return dto;
     }

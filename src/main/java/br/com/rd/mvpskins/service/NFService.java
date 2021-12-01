@@ -48,10 +48,7 @@ public class NFService {
     ClienteService clienteService;
 
     @Autowired
-    FornecedorRepository fornecedorRepository;
-
-    @Autowired
-    FornecedorService fornecedorService;
+    EmailService emailService;
 
     //  ---------------------> CONVERTER PARA BUSINESS
     private NF dtoToBusiness(NFDTO dto) {
@@ -367,6 +364,15 @@ public class NFService {
     public void deleteInvoice(Long id) {
         if (nfRepository.existsById(id)) {
             nfRepository.deleteById(id);
+        }
+    }
+
+    //Atualiza status do pedido e envia dados da NF por email
+    public void paymentApproved(Long id){
+        if(nfRepository.existsById(id)){
+            NFDTO nf = businessToDTO(nfRepository.getById(id));
+            emailService.sendEmailPaymentApproved(nf.getPedido());
+            emailService.sendEmailInvoice(nf);
         }
     }
 }
