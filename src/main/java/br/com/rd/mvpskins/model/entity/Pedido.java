@@ -37,4 +37,7 @@ public class Pedido {
 
     @Column(nullable = false, name = "STATUS")
     private Boolean status;
+
+    @Column(nullable = false, name = "PARCELAS")
+    private Byte parcelas;
 }
