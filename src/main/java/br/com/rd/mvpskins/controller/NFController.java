@@ -56,7 +56,7 @@ public class NFController {
         nfService.deleteInvoice(id);
     }
 
-    //Atualizar status do pedido e enviar dados da NF por email
+    //Envia email de pagamento aprovado e email dos dados da NF
     @PostMapping("/email/{id}")
     public void paymentApproved(@PathVariable("id")Long id){
         nfService.paymentApproved(id);

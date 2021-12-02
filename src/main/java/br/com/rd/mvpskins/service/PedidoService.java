@@ -232,7 +232,12 @@ public class PedidoService {
             PedidoDTO pedidoDTO = businessToDTO(p);
 
             String email = pedidoDTO.getCliente().getEmailCliente();
-            emailService.sendEmailPurchaseSuccess(pedidoDTO, email);
+            if(pedidoDTO.getFormaPagamento().getId()==3){
+                emailService.sendEmailPurchaseSuccess(pedidoDTO, email);
+                emailService.sendEmailTicket(pedidoDTO);
+            } else {
+                emailService.sendEmailPurchaseSuccess(pedidoDTO, email);
+            }
         }
     }
 
