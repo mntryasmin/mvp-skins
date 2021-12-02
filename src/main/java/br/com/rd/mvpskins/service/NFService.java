@@ -178,6 +178,7 @@ public class NFService {
         if (nfDTO.getPedido().getId() != null) {
             Long idRequest = nfDTO.getPedido().getId();
             Pedido pedido = this.pedidoRepository.getById(idRequest);
+            //Atualiza status do pedido
             pedido.setStatus(true);
             pedido = pedidoRepository.save(pedido);
 
