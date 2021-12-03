@@ -218,7 +218,7 @@ public class NFService {
         Double valorBruto = nf.getPedido().getValorBruto();
         //Cálculo dos impostos
         Double icms = valorBruto*0.18;
-        Double pis = valorBruto*0.065;
+        Double pis = valorBruto*0.0065;
         Double cofins = valorBruto*0.03;
         Double ipi = valorBruto*0.1;
         Double desconto = nf.getPedido().getDescontoProduto();
