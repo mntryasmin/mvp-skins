@@ -44,7 +44,7 @@ public class EnderecoCobrancaService {
             }
         }
 
-        b.setId(dto.getId());
+//        b.setId(dto.getId());
         b.setCep(dto.getCep());
         b.setLogradouro(dto.getLogradouro());
         b.setNumero(dto.getNumero());
@@ -125,7 +125,7 @@ public class EnderecoCobrancaService {
     //UM ENDEREÇO POR PEDIDO
     public EnderecoCobrancaDTO searchAdressByRequest(Long idPedido) {
         if (pedidoRepository.existsById(idPedido)) {
-            return businessToDTO(enderecoCobrancaRepository.getById(idPedido));
+            return businessToDTO(enderecoCobrancaRepository.findByPedidoId(idPedido));
         }
 
         return null;
