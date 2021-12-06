@@ -58,6 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         "/billing-address/",
                                                         "/billing-address/{id}",
                                                         "/billing-address/request/{id}",
+                                                        "/billing-address/request",
                                                         "/empresa",
                                                         "/fornecedor",
                                                         "/fornecedor/{id}",

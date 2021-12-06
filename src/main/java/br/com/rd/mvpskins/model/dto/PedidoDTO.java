@@ -1,6 +1,5 @@
 package br.com.rd.mvpskins.model.dto;
 import lombok.Data;
-
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +15,7 @@ public class PedidoDTO {
     private Double valorLiquido;
     private Boolean status;
     private Byte parcelas;
+    private EnderecoCobrancaDTO enderecoCobrancaDTO;
 
     public String email(){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -28,6 +28,7 @@ public class PedidoDTO {
         String valorLiquido = numberFormat.format(this.valorLiquido);
         String valorParcela = numberFormat.format(this.valorLiquido/this.parcelas);
         String textoParcela;
+
         if(parcelas==1){
             textoParcela = "\n\nPagamento à vista";
         } else {
@@ -35,15 +36,13 @@ public class PedidoDTO {
             "\nValor de cada parcela: "+valorParcela;
         }
 
-
         String textoEmail = "Pedido número: "+numeroPedido+"\nrealizado em "+dataCompra+
                 "\n\nStatus do Pedido: em andamento"+
                 "\n\nForma de Pagamento: "+formaPagamento+
                 "\nValor da Compra: "+valorBruto+
                 "\nDesconto: "+desconto+
                 "\nValor Total: "+valorLiquido+
-                textoParcela;
-
+                textoParcela+"\n";
         return textoEmail;
     }
 }
