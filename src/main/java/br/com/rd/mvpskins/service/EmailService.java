@@ -115,7 +115,8 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setText("Olá "+nf.getPedido().getCliente().getNomeCliente()+",\n\n"+
-                "Sua nota fiscal foi emitida! Veja os detalhes da nota:\n\n"+
+                "A nota fiscal referente ao pedido " + nf.getPedido().getId()+
+                " foi emitida! Veja os detalhes da nota:\n\n"+
                 nf.email()+
                 "\n\nObrigado por comprar conosco!"+
                 "\nEquipe MVPSkins");
