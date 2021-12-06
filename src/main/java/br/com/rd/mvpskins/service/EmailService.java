@@ -1,6 +1,7 @@
 package br.com.rd.mvpskins.service;
 
 import br.com.rd.mvpskins.model.dto.ClienteDTO;
+import br.com.rd.mvpskins.model.dto.EnderecoCobrancaDTO;
 import br.com.rd.mvpskins.model.dto.NFDTO;
 import br.com.rd.mvpskins.model.dto.PedidoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private EnderecoCobrancaService enderecoCobrancaService;
 
     //Método para enviar email de esqueci minha senha
     public String sendEmailForgotPassword(String token, String email){
@@ -97,9 +101,15 @@ public class EmailService {
     //Método para enviar email de NF
     public String sendEmailInvoice(NFDTO nf){
         SimpleMailMessage message = new SimpleMailMessage();
+        EnderecoCobrancaDTO endereco = enderecoCobrancaService.searchAdressByRequest(nf.getPedido().getId());
         message.setText("Olá "+nf.getPedido().getCliente().getNomeCliente()+",\n\n"+
                 "Sua nota fiscal foi emitida! Veja os detalhes da nota:\n\n"+
                 nf.email()+
+                "\n\nEndereço de faturamento: \n" +
+                "CEP: " + endereco.getCep() + "\n" +
+                "Rua: " + endereco.getLogradouro() + ", nº " + endereco.getNumero() + ", " + endereco.getComplemento() + "\n" +
+                "Bairro: " + endereco.getBairro() + "\n" +
+                "Cidade: " + endereco.getCidade() + " - " + endereco.getEstado() + "\n"+
                 "\n\nObrigado por comprar conosco!"+
                 "\nEquipe MVPSkins");
         message.setSubject("MVPSkins - Sua nota fiscal foi emitida");
